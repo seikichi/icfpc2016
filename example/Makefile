@@ -84,10 +84,13 @@ $(GTEST_OBJ_DIR)/gtest_main.a: $(GTEST_OBJ_DIR)/gtest-all.o $(GTEST_OBJ_DIR)/gte
 # Misc
 #==============================================================================
 
+format:
+	clang-format -i $(SOURCES) $(TEST_SOURCES)
+
 clean:
 	rm -rf obj/ $(TARGET)
 
-.PHONY: clean test
+.PHONY: format clean test
 
 # do not delete intermediate files
 .SECONDARY:
