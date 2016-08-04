@@ -1,6 +1,6 @@
 TARGET = example
 
-CXX = g++
+CXX = clang++
 
 OVERALL_OPTIONS = -pipe
 LANGUAGE_OPTIONS = -std=c++14
