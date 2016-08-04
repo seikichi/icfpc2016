@@ -1,5 +1,6 @@
 node {
   stage 'Build and Test'
   checkout scm
+  dir 'example'
   sh 'make test'
 }
