@@ -2,5 +2,5 @@
 #include "gtest/gtest.h"
 
 TEST(AnswerTest, UltimateQuestion) {
-    EXPECT_EQ(42, Answer().ultimate_question());
+  EXPECT_EQ(42, Answer().UltimateQuestion());
 }

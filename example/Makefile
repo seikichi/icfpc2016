@@ -15,14 +15,14 @@ CXXFLAGS = $(OVERALL_OPTIONS) $(LANGUAGE_OPTIONS) $(WARNING_OPTIONS) $(OPTIMIZAT
 LDFLAGS = -fsanitize=address
 LIBS = -lm
 
-SOURCES = $(wildcard src/*.cpp)
-OBJECTS = $(patsubst src/%.cpp, obj/main/%.o, $(SOURCES))
+SOURCES = $(wildcard src/*.cc)
+OBJECTS = $(patsubst src/%.cc, obj/main/%.o, $(SOURCES))
 DEPENDS = $(patsubst %.o, %.d, $(OBJECTS))
 
-TEST_SOURCES = $(wildcard test/*.cpp)
-TEST_OBJECTS = $(patsubst test/%.cpp, obj/test/%.o, $(TEST_SOURCES))
+TEST_SOURCES = $(wildcard test/*.cc)
+TEST_OBJECTS = $(patsubst test/%.cc, obj/test/%.o, $(TEST_SOURCES))
 TEST_DEPENDS = $(patsubst %.o, %.d, $(TEST_OBJECTS))
-TESTS = $(patsubst test/%.cpp, obj/test/%.exe, $(TEST_SOURCES))
+TESTS = $(patsubst test/%.cc, obj/test/%.exe, $(TEST_SOURCES))
 
 GTEST_DIR = vendor/gtest
 GTEST_OBJ_DIR = obj/gtest
@@ -37,7 +37,7 @@ GTEST_SOURCES = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 $(TARGET): $(OBJECTS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-obj/main/%.o: src/%.cpp
+obj/main/%.o: src/%.cc
 	@mkdir -p obj/main
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
@@ -54,7 +54,7 @@ obj/test/%.exe: obj/test/%.o $(filter-out obj/main/main.o, $(OBJECTS)) $(GTEST_O
 	$(CXX) $(LDFLAGS) -pthread $^ -o $@ $(LIBS)
 	$@
 
-obj/test/%.o: test/%.cpp
+obj/test/%.o: test/%.cc
 	@mkdir -p obj/test
 	$(CXX) -isystem $(GTEST_DIR)/include -Isrc $(CXXFLAGS) -pthread -o $@ -c $<
 
