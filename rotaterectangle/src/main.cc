@@ -153,7 +153,6 @@ pair<double, Output> CreateSolutionAndEvaluate(
   }
 
   double score = ScoringMonte(input, output, 1000);
-  cerr << "score = " << score << endl;
   return make_pair(score, move(output));
 }
 
