@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
 <path d="M-0.504000 -0.272000 L0.496000 -0.272000 L0.736000 0.048000 L-0.064000 0.648000 L-0.664000 -0.152000 z " fill="rgb(245,195,195)" />
 <path d="M-0.504000 -0.272000 L0.496000 -0.272000 L0.496000 0.728000 L-0.504000 0.728000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
 <line x1="0.496" y1="-0.272" x2="0.736" y2="0.048" style="stroke:rgb(246,147,147);stroke-width:0.01" />
@@ -8,4 +9,5 @@
 <line x1="-0.664" y1="-0.152" x2="-0.064" y2="0.648" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 <line x1="0.496" y1="-0.272" x2="0.136" y2="0.208" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 <line x1="0.736" y1="0.048" x2="-0.064" y2="0.648" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
 </svg>

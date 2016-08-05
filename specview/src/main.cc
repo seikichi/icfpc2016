@@ -45,6 +45,7 @@ int main() {
   const string header =
       R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">)";
   cout << header << "\n";
+  cout << "<g transform=\"scale(1, -1)\">\n";
 
   string path;
   for (auto& polygon : silhouette) {
@@ -85,6 +86,7 @@ int main() {
          << "\" style=\"stroke:rgb(246,147,147);stroke-width:0.01\" />\n";
   }
 
+  cout << "</g>\n";
   cout << "</svg>\n";
   return 0;
 }
