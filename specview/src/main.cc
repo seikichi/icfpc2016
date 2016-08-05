@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-using Point = complex<double>;
+using Point = complex<long double>;
 using Polygon = vector<Point>;
 using Silhouette = vector<Polygon>;
 using Segment = pair<Point, Point>;
@@ -19,13 +19,13 @@ int ReadIntegerLine() {
   return stoi(line);
 }
 
-double ReadFraction(string s) {
+long double ReadFraction(string s) {
   size_t slash = s.find('/');
   if (slash == string::npos) {
     return stoi(s);
   } else {
-    double numer = stoi(s.substr(0, slash));
-    double denom = stoi(s.substr(slash + 1));
+    long double numer = stoll(s.substr(0, slash));
+    long double denom = stoll(s.substr(slash + 1));
     return numer / denom;
   }
 }
@@ -36,8 +36,8 @@ Point ReadPoint(string line) {
     cerr << "No comma in the line: " << line << "\n";
     exit(1);
   }
-  double x = ReadFraction(line.substr(0, comma));
-  double y = ReadFraction(line.substr(comma + 1));
+  long double x = ReadFraction(line.substr(0, comma));
+  long double y = ReadFraction(line.substr(comma + 1));
   return Point(x, y);
 }
 
@@ -86,7 +86,7 @@ int main() {
   Skeleton skeleton = ReadSkeleton();
 
   const string header =
-      R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.03 -0.03 1.03 1.03">)";
+      R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 2 2">)";
   cout << header << "\n";
 
   string path;
