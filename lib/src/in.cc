@@ -39,7 +39,7 @@ bool Input::ReadInput(FILE *file) {
   }
   return true;
 }
-void Input::MakeSilhouettesD(const Point &offset) {
+void Input::MakeSilhouettesD(const Point &offset) const {
   int n = silhouettes.size();
   silhouettes_d.resize(n);
   flip_flags.resize(n);

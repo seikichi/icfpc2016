@@ -1,7 +1,5 @@
 #include "score.h"
 
-#include "in.h"
-#include "out.h"
 #include <gmpxx.h>
 
 mpf_class mpq2mpf(const mpq_class &q) {
@@ -21,11 +19,15 @@ double ScoringMonte(const char *input_filename, const char *solution_filename, i
   Output output;
   input.ReadInput(input_filename);
   output.ReadOutput(solution_filename);
+  return ScoringMonte(input, output, cnt);
+}
+
+double ScoringMonte(const Input &input, const Output &output, int cnt) {
   std::vector<mpf_class> min_max_xy;
   {
     std::vector<mpq_class> min_max_xy1 = input.MinMaxXY();
     std::vector<mpq_class> min_max_xy2 = output.MinMaxXY();
-    if (abs(min_max_xy1[0] - min_max_xy2[0]) > 10 || abs(min_max_xy1[1] - min_max_xy2[1]) > 10) { return 0.0; }
+    if (abs(min_max_xy1[0] - min_max_xy2[0]) > 5 || abs(min_max_xy1[1] - min_max_xy2[1]) > 5) { return 0.0; }
     min_max_xy1[0] = std::min(min_max_xy1[0], min_max_xy2[0]);
     min_max_xy1[1] = std::min(min_max_xy1[1], min_max_xy2[1]);
     min_max_xy1[2] = std::max(min_max_xy1[2], min_max_xy2[2]);
