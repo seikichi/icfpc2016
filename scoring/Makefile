@@ -12,7 +12,7 @@ DEBUGGING_OPTIONS = -gdwarf-3 -fsanitize=address
 CXXFLAGS = $(OVERALL_OPTIONS) $(LANGUAGE_OPTIONS) $(WARNING_OPTIONS) $(OPTIMIZATION_OPTIONS) \
            $(CODE_GENERATION_OPTIONS) $(PREPROCESSOR_OPTIONS) $(DEBUGGING_OPTIONS)
 
-LDFLAGS = -fsanitize=address
+LDFLAGS = -fsanitize=address -lgmpxx -lgmp
 LIBS = -lm
 
 SOURCES = $(wildcard src/*.cc)

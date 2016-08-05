@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <gmpxx.h>
 
 #include <algorithm>
 #include <complex>
@@ -8,7 +9,7 @@
 
 static int MONTE_COUNT = 10000;
 
-typedef std::complex<double> Point;
+typedef std::complex<mpf_class> Point;
 typedef std::vector<Point> Polygon;
 
 // static const double INF = 1e+10;
@@ -27,11 +28,11 @@ namespace std {
   }
 }
 
-inline double cross(const Point &a, const Point &b) {
+inline mpf_class cross(const Point &a, const Point &b) {
   return imag(conj(a) * b);
 }
 
-inline double dot(const Point &a, const Point &b) {
+inline mpf_class dot(const Point &a, const Point &b) {
   return real(conj(a) * b);
 }
 
@@ -45,8 +46,8 @@ inline int ccw(Point a, Point b, Point c) {
   return 0;
 }
 
-double Area(const Polygon &p) {
-  double ret = 0;
+mpz_class Area(const Polygon &p) {
+  mpz_class ret = 0;
   for (int i = 0; i < (int)p.size(); i++) {
     ret += cross(CURR(p, i), NEXT(p, i));
   }
@@ -66,25 +67,41 @@ int Contains(const Polygon& P, const Point& p) {
   return in ? IN : OUT;
 }
 
-double ReadFrac(FILE *file) {
+std::string GetDigits(FILE *file) {
+  std::string ret;
   fscanf(file, " ");
-  long long a;
-  long long b = 1;
-  int v = fscanf(file, "%lld", &a);
+  while (true) {
+    int c = getc(file);
+    assert(c >= 0);
+    if (!isdigit(c) && c != '-') {
+      ungetc(c, file);
+      break;
+    }
+    ret += c;
+  }
+  return ret;
+}
+mpf_class ReadFrac(FILE *file) {
+  std::string a = GetDigits(file);
+  std::string b = "1";
+  assert(a.size() > 0);
   int c = getc(file);
   assert(c >= 0);
   if (c != '/') {
     ungetc(c, file);
   } else {
-    v = fscanf(file, "%lld", &b);
+    b = GetDigits(file);
+    assert(b.size() > 0);
   }
-  return (double)a / b;
+  mpf_class f1(a, 256);
+  mpf_class f2(b, 256);
+  return f1 / f2;
 }
 Point ReadPoint(FILE *file) {
-  double x = ReadFrac(file);
+  mpf_class x = ReadFrac(file);
   int v = fscanf(file, " ,");
   assert(v == 0);
-  double y = ReadFrac(file);
+  mpf_class y = ReadFrac(file);
   return Point(x, y);
 }
 
@@ -140,8 +157,8 @@ struct Input {
     }
     return ret;
   }
-  std::vector<double> MinMaxXY() const {
-    std::vector<double> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
+  std::vector<mpf_class> MinMaxXY() const {
+    std::vector<mpf_class> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
     for (const Polygon &silhouette : silhouettes) {
       for (const Point &p : silhouette) {
         ret[0] = std::min(ret[0], p.real());
@@ -218,8 +235,8 @@ struct Output {
     }
     return false;
   }
-  std::vector<double> MinMaxXY() const {
-    std::vector<double> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
+  std::vector<mpf_class> MinMaxXY() const {
+    std::vector<mpf_class> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
     for (const Polygon &facet : facet_polygons) {
       for (const Point &p : facet) {
         ret[0] = std::min(ret[0], p.real());
@@ -232,36 +249,18 @@ struct Output {
   }
 };
 
-struct Random {
-  unsigned int x;
-  unsigned int y;
-  unsigned int z;
-  unsigned int w; 
-  Random() : x(0x34fb2383), y(0x327328fa), z(0xabd4b54a), w(0xa9dba8d1) {;}
-  Random(int s) : x(0x34fb2383), y(0x327328fa), z(0xabd4b54a), w(s) {
-    for (int i = 0; i < 100; i++) { Xor128(); }
-  }
-  void Seed(int s) {
-    *this = Random(s);
-  }
-  unsigned int Xor128() {
-    unsigned int t;
-    t = x ^ (x << 11);
-    x = y; y = z; z = w;
-    return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8)); 
-  }
-  int next(int r) { return Xor128() % r; }
-  int next(int l, int r) { return next(r - l + 1) + l; }
-  long long next(long long r) { return (long long)((((unsigned long long)Xor128() << 32) + (unsigned long long)Xor128()) % r); }
-  long long next(long long l, long long r) { return next(r - l + 1) + l; }
-  double next(double r) { return (double)Xor128() / 0xffffffff * r; }
-  double next(double l, double r) { return next(r - l) + l; }
-};
+mpf_class rnd_next(gmp_randclass *rnd, const mpf_class &r) {
+  return rnd->get_f(256) * r;
+}
+mpf_class rnd_next(gmp_randclass *rnd, const mpf_class &l, const mpf_class &r) {
+  return rnd_next(rnd, r - l) + l;
+}
 
 void Usage() {
   fprintf(stderr, "input_filename solution_filename\n");
   exit(1);
 }
+
 
 int main(int argc, char* argv[]) {
   if (argc != 3) { Usage(); }
@@ -271,22 +270,23 @@ int main(int argc, char* argv[]) {
   Output output;
   input.ReadInput(input_filename);
   output.ReadOutput(output_filename);
-  std::vector<double> min_max_xy;
+  std::vector<mpf_class> min_max_xy;
   {
-    std::vector<double> min_max_xy1 = input.MinMaxXY();
-    std::vector<double> min_max_xy2 = output.MinMaxXY();
+    std::vector<mpf_class> min_max_xy1 = input.MinMaxXY();
+    std::vector<mpf_class> min_max_xy2 = output.MinMaxXY();
     min_max_xy.push_back(std::min(min_max_xy1[0], min_max_xy2[0]));
     min_max_xy.push_back(std::min(min_max_xy1[1], min_max_xy2[1]));
     min_max_xy.push_back(std::max(min_max_xy1[2], min_max_xy2[2]));
     min_max_xy.push_back(std::max(min_max_xy1[3], min_max_xy2[3]));
   }
 
-  Random rnd(123354);
+
+  gmp_randclass rnd(gmp_randinit_default);
   int area_and = 0;
   int area_or = 0;
   for (int i = 0; i < MONTE_COUNT; i++) {
-    double x = rnd.next(min_max_xy[0], min_max_xy[2]);
-    double y = rnd.next(min_max_xy[1], min_max_xy[3]);
+    mpf_class x = rnd_next(&rnd, min_max_xy[0], min_max_xy[2]);
+    mpf_class y = rnd_next(&rnd, min_max_xy[1], min_max_xy[3]);
     Point p(x, y);
     bool contain_input = input.ConatainSilhouette(p);
     bool contain_output = output.ConatainFacet(p);
