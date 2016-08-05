@@ -1,4 +1,4 @@
-#include "monte.h"
+#include "score.h"
 
 #include "in.h"
 #include "out.h"
@@ -16,7 +16,7 @@ mpf_class rnd_next(gmp_randclass *rnd, const mpf_class &l, const mpf_class &r) {
   return rnd_next(rnd, r - l) + l;
 }
 
-double Montecarlo(const char *input_filename, const char *solution_filename, int cnt) {
+double ScoringMonte(const char *input_filename, const char *solution_filename, int cnt) {
   Input input;
   Output output;
   input.ReadInput(input_filename);
