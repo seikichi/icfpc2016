@@ -2,6 +2,27 @@
 
 import sys
 import json
+import gzip
+from urllib import request
+
+api_headers = {
+  'Expect': '',
+  'Accept-Encoding': 'gzip',
+  'X-API-Key': '78-2c034ce372dffce9cf3297143c1f8e70',
+}
+
+def download_snapshot_list():
+    url = 'http://2016sv.icfpcontest.org/api/snapshot/list'
+    req = request.Request(url, None, api_headers)
+
+    with request.urlopen(req) as response:
+        return json.loads(gzip.decompress(response.read()).decode('utf8'))
+
+def download_blob(hash):
+    blob_url = 'http://2016sv.icfpcontest.org/api/blob/{}'.format(hash)
+    req = request.Request(blob_url, None, api_headers)
+    with request.urlopen(req) as response:
+        return gzip.decompress(response.read())
 
 def load_best_solutions(*path_list):
     results = []
