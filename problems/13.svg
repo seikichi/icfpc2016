@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 3 3">
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.240000 0.320000 L0.440000 0.920000 L-0.160000 0.120000 z " fill="rgb(245,195,195)" />
-<path d="M0 0 L0 1 L1 1 L1 0 z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
-<line x1="1" y1="0" x2="1.24" y2="0.32" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0" x2="1" y2="0" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0" x2="0.64" y2="0.48" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0" x2="-0.16" y2="0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-0.16" y1="0.12" x2="0.44" y2="0.92" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="1" y1="0" x2="0.64" y2="0.48" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="1.24" y1="0.32" x2="0.44" y2="0.92" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<path d="M-0.504000 -0.272000 L0.496000 -0.272000 L0.736000 0.048000 L-0.064000 0.648000 L-0.664000 -0.152000 z " fill="rgb(245,195,195)" />
+<path d="M-0.504000 -0.272000 L0.496000 -0.272000 L0.496000 0.728000 L-0.504000 0.728000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="0.496" y1="-0.272" x2="0.736" y2="0.048" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.504" y1="-0.272" x2="0.496" y2="-0.272" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.504" y1="-0.272" x2="0.136" y2="0.208" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.504" y1="-0.272" x2="-0.664" y2="-0.152" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.664" y1="-0.152" x2="-0.064" y2="0.648" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.496" y1="-0.272" x2="0.136" y2="0.208" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.736" y1="0.048" x2="-0.064" y2="0.648" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 </svg>
