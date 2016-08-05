@@ -140,6 +140,18 @@ struct Input {
     }
     return ret;
   }
+  std::vector<double> MinMaxXY() const {
+    std::vector<double> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
+    for (const Polygon &silhouette : silhouettes) {
+      for (const Point &p : silhouette) {
+        ret[0] = std::min(ret[0], p.real());
+        ret[1] = std::min(ret[1], p.imag());
+        ret[2] = std::max(ret[2], p.real());
+        ret[3] = std::max(ret[3], p.imag());
+      }
+    }
+    return ret;
+  }
 };
 
 struct Output {
@@ -206,6 +218,18 @@ struct Output {
     }
     return false;
   }
+  std::vector<double> MinMaxXY() const {
+    std::vector<double> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
+    for (const Polygon &facet : facet_polygons) {
+      for (const Point &p : facet) {
+        ret[0] = std::min(ret[0], p.real());
+        ret[1] = std::min(ret[1], p.imag());
+        ret[2] = std::max(ret[2], p.real());
+        ret[3] = std::max(ret[3], p.imag());
+      }
+    }
+    return ret;
+  }
 };
 
 struct Random {
@@ -247,13 +271,22 @@ int main(int argc, char* argv[]) {
   Output output;
   input.ReadInput(input_filename);
   output.ReadOutput(output_filename);
+  std::vector<double> min_max_xy;
+  {
+    std::vector<double> min_max_xy1 = input.MinMaxXY();
+    std::vector<double> min_max_xy2 = output.MinMaxXY();
+    min_max_xy.push_back(std::min(min_max_xy1[0], min_max_xy2[0]));
+    min_max_xy.push_back(std::min(min_max_xy1[1], min_max_xy2[1]));
+    min_max_xy.push_back(std::max(min_max_xy1[2], min_max_xy2[2]));
+    min_max_xy.push_back(std::max(min_max_xy1[3], min_max_xy2[3]));
+  }
 
   Random rnd(123354);
   int area_and = 0;
   int area_or = 0;
   for (int i = 0; i < MONTE_COUNT; i++) {
-    double x = rnd.next(0.0, 1.0);
-    double y = rnd.next(0.0, 1.0);
+    double x = rnd.next(min_max_xy[0], min_max_xy[2]);
+    double y = rnd.next(min_max_xy[1], min_max_xy[3]);
     Point p(x, y);
     bool contain_input = input.ConatainSilhouette(p);
     bool contain_output = output.ConatainFacet(p);
