@@ -59,7 +59,7 @@ obj/main/%.o: src/%.cc
 
 test: $(TESTS)
 
-obj/test/%.exe: obj/test/%.o $(filter-out obj/main/main.o, $(OBJECTS)) $(GTEST_OBJ_DIR)/gtest_main.a
+obj/test/%.exe: obj/test/%.o $(filter-out obj/main/main.o, $(OBJECTS)) $(LIB_OBJECTS) $(GTEST_OBJ_DIR)/gtest_main.a
 	$(CXX) $(LDFLAGS) -pthread $^ -o $@ $(LIBS)
 	$@
 
