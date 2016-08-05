@@ -66,7 +66,13 @@ problem 101: 0.437443 0.308181 0.308181 0.308181 0.305258 ...
 
 - ICFPC の API を実行して各問題のランキングと自分のスコアを比較します
 - 引数に複数の JSON を指定した場合，最高スコアを利用します
+- 大敗してる問題が見たい場合は `sort` とかして下さい (以下参照)
 
 ```
-% TODO
+% ./tools/compare_to_rankings.py tmp/centering.json | sort -r -k4 -g | head -5
+problem 92: top_resemblance-our_resemblance= 0.83314 (top = 1.0, our = 0.16686)
+problem 94: top_resemblance-our_resemblance= 0.640104 (top = 1.0, our = 0.359896)
+problem 98: top_resemblance-our_resemblance= 0.6264000000000001 (top = 1.0, our = 0.3736)
+problem 54: top_resemblance-our_resemblance= 0.580389 (top = 1.0, our = 0.419611)
+problem 93: top_resemblance-our_resemblance= 0.572562 (top = 1.0, our = 0.427438)
 ```
