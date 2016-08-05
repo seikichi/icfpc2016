@@ -6,8 +6,7 @@
 #include <memory>
 #include <vector>
 
-static int MONTE_COUNT = 10000000;
-
+static int MONTE_COUNT = 10000;
 
 typedef std::complex<double> Point;
 typedef std::vector<Point> Polygon;
@@ -179,7 +178,7 @@ struct Output {
       for (int j = 0; j < n; j++) {
         int index;
         fscanf(file, "%d", &index);
-        facet_indecies[i][j];
+        facet_indecies[i][j] = index;
       }
     }
     for (int i = 0; i < point_num; i++) {
@@ -191,7 +190,7 @@ struct Output {
     facet_polygons.clear();
     for (auto indices : facet_indecies) {
       Polygon poly;
-      for (auto index : indices) {
+      for (int index : indices) {
         poly.push_back(dest_points[index]);
       }
       facet_polygons.push_back(poly);
@@ -236,7 +235,7 @@ struct Random {
 };
 
 void Usage() {
-  fprintf(stderr, "input_filename solution_filename");
+  fprintf(stderr, "input_filename solution_filename\n");
   exit(1);
 }
 
@@ -265,6 +264,7 @@ int main(int argc, char* argv[]) {
       area_or++;
     }
   }
+  // std::cout << area_and << " " << area_or << " " << std::endl;
   fprintf(stdout, "%.6f\n", (double)area_and / area_or);
   return 0;
 }
