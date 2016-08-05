@@ -39,6 +39,27 @@ int ccw(const std::complex<T> &a, std::complex<T> b, std::complex<T> c) {
   return 0;
 }
 
+inline bool intersectLS(const Line &l, const Line &s) {
+  return cross(l[1] - l[0], s[0] - l[0]) *
+         cross(l[1] - l[0], s[1] - l[0]) <= 0;
+}
+
+inline Point projection(const Line &l, const Point &p) {
+  mpq_class t = dot(p - l[0], l[0] - l[1]) / norm(l[0] - l[1]);
+  return l[0] + t * (l[0] - l[1]);
+}
+
+inline Point reflection(const Line &l, const Point &p) {
+  return p + mpq_class(2,1) * (projection(l, p) - p);
+}
+
+inline Point crosspointSS(const Line &l, const Line &m) {
+  mpq_class A = cross(l[1] - l[0], m[1] - m[0]);
+  mpq_class B = cross(l[1] - l[0], l[1] - m[0]);
+  mpq_class C = B / A;
+  return m[0] + C * (m[1] - m[0]);
+}
+
 // mpf_class Area(const Polygon &p);
 double Area(const PolygonD &p);
 
