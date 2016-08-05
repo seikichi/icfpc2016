@@ -25,8 +25,8 @@ double Montecarlo(const char *input_filename, const char *solution_filename, int
     if (abs(min_max_xy1[0] - min_max_xy2[0]) > 10 || abs(min_max_xy1[1] - min_max_xy2[1]) > 10) { return 0.0; }
     min_max_xy1[0] = std::min(min_max_xy1[0], min_max_xy2[0]);
     min_max_xy1[1] = std::min(min_max_xy1[1], min_max_xy2[1]);
-    min_max_xy1[2] = std::min(min_max_xy1[2], min_max_xy2[2]);
-    min_max_xy1[3] = std::min(min_max_xy1[3], min_max_xy2[3]);
+    min_max_xy1[2] = std::max(min_max_xy1[2], min_max_xy2[2]);
+    min_max_xy1[3] = std::max(min_max_xy1[3], min_max_xy2[3]);
     input.MakeSilhouettesD(Point(min_max_xy1[0], min_max_xy1[1]));
     output.MakeFacetD(Point(min_max_xy1[0], min_max_xy1[1]));
 
