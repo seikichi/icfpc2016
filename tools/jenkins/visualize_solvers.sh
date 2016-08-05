@@ -2,7 +2,7 @@
 
 set -eu
 
-echo 'centering,rectangle,multirectangle,all' > total_resemblances.csv
+echo 'centering,rectangle,multirectangle,rotaterectangle,all' > total_resemblances.csv
 
 for solver in centering rectangle multirectangle rotaterectangle; do
     total=$(./tools/show_resemblances.py ${solver}.json | cut -d' ' -f3 | awk '{total = total + $1} END{print total}')
@@ -14,7 +14,7 @@ done
     awk '{total = total + $1} END{print total}' >> total_resemblances.csv
 
 # count cleared (= resemblance = 1.0) problems 
-echo 'centering,rectangle,multirectangle,all' > completed_problems.csv
+echo 'centering,rectangle,multirectangle,rotaterectangle,all' > completed_problems.csv
 
 for solver in centering rectangle multirectangle rotaterectangle; do
     total=$(./tools/show_resemblances.py ${solver}.json | grep -E ' 1(\.0*)?$' | wc -l)
