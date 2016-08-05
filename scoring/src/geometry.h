@@ -49,7 +49,7 @@ template<class T>
 ContainResult Contains(const std::vector<std::complex<T>>& P, const std::complex<T>& p) {
   bool in = false;
   for (int i = 0; i < (int)P.size(); ++i) {
-    Point a = CURR(P,i) - p, b = NEXT(P,i) - p;
+    std::complex<T> a = CURR(P,i) - p, b = NEXT(P,i) - p;
     if (imag(a) > imag(b)) swap(a, b);
     if (imag(a) <= 0 && 0 < imag(b))
       if (cross(a, b) < 0) in = !in;
