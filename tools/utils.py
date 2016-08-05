@@ -32,25 +32,26 @@ def download_blob(hash):
     with request.urlopen(req) as response:
         return gzip.decompress(response.read())
 
-def load_best_solutions(*path_list):
-    results = []
+def load_solutions(*path_list):
+    solutions = []
     for path in sys.argv[1:]:
         with open(path) as f:
-            results.append(json.load(f))
+            solutions.append(json.load(f))
 
     problem_ids = set()
-    for r in results:
-        for pid in r['problems'].keys():
+    for s in solutions:
+        for pid in s['problems'].keys():
             problem_ids.add(pid)
 
-    merged = {}
+    merged_solution = {}
     for pid in problem_ids:
         solution = None
-        for r in results:
-            if pid not in r['problems']:
+        for s in solutions:
+            if pid not in s['problems']:
                 continue
-            resemblance = r['problems'][pid]['resemblance']
+            resemblance = s['problems'][pid]['resemblance']
             if solution is None or solution['resemblance'] < resemblance:
-                solution = r['problems'][pid]
-        merged[pid] = solution
-    return merged
+                solution = s['problems'][pid]
+                solution['solver_path'] = s['solver_path']
+        merged_solution[pid] = solution
+    return merged_solution

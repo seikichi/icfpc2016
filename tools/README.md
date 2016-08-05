@@ -6,8 +6,24 @@
 - 第一引数に実行するスクリプトを指定して下さい
 
 ```
-> ./tools/calc_all_resemblances.py rectangle/rectangle > rectangle.json
-> ./tools/calc_all_resemblances.py multirectangle/multirectangle > multirectangle.json
+% ./tools/calc_all_resemblances.py rectangle/rectangle > rectangle.json
+% ./tools/calc_all_resemblances.py multirectangle/multirectangle > multirectangle.json
+```
+
+## show_resemblances.py
+
+- `calc_all_resemblances.py` で作成した JSON を出力します
+- 複数の JSON を指定すると最高スコアを出します
+- `sort` でいい感じに使ってください
+
+```
+% ./tools/show_resemblances.py rectangle.json centering.json
+...
+% leticia:seikichi% ./tools/show_resemblances.py tmp/centering.json | sort -k 3 -g | head -4
+problem 36: 0.0156
+problem 35: 0.0185
+problem 37: 0.0282
+problem 86: 0.0428
 ```
 
 ## compare_resemblances.py
