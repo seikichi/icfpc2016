@@ -5,9 +5,5 @@ require 'rubygems'
 require 'sinatra'
 
 get '/' do
-  "Hello, world\n"
-end
-
-get '/test' do
-  "this is a test action.\n"
+  erb :index
 end
