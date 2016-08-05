@@ -44,6 +44,8 @@ vector<tuple<int, int, int>> angles = {
   make_tuple(141, 9940, 9941),  // 89.1873
 };
 
+vector<mpq_class> scales = {mpq_class(1, 1), mpq_class(3, 4), mpq_class(1, 2), mpq_class(1, 4)};
+
 Point RotatePointByAngle(Point p, tuple<int, int, int> angle) {
   mpq_class c(get<0>(angle), get<2>(angle));
   mpq_class s(get<1>(angle), get<2>(angle));
@@ -72,7 +74,7 @@ string PointToString(Point p) {
 
 pair<double, Output> CreateSolutionAndEvaluate(
     const Silhouette& silhouette, const Skeleton&,
-    tuple<int, int, int> angle) {
+    tuple<int, int, int> angle, mpq_class scale_x, mpq_class scale_y) {
 
   Silhouette rotated_silhouette;
   for (auto& polygon : silhouette) {
@@ -110,9 +112,9 @@ pair<double, Output> CreateSolutionAndEvaluate(
     }
   }
 
-  mpq_class width = max_x - min_x;
+  mpq_class width = (max_x - min_x) * scale_x;
   width.canonicalize();
-  mpq_class height = max_y - min_y;
+  mpq_class height = (max_y - min_y) * scale_y;
   height.canonicalize();
 
   vector<pair<mpq_class, mpq_class>> x_creases = CalculateCreases(1, width);
@@ -163,10 +165,14 @@ int main() {
   double max_score = -1;
   Output output;
   for (auto& angle : angles) {
-    auto p = CreateSolutionAndEvaluate(silhouette, skeleton, angle);
-    if (p.first > max_score) {
-      max_score = p.first;
-      output = move(p.second);
+    for (auto& scale_x : scales) {
+      for (auto& scale_y : scales) {
+        auto p = CreateSolutionAndEvaluate(silhouette, skeleton, angle, scale_x, scale_y);
+        if (p.first > max_score) {
+          max_score = p.first;
+          output = move(p.second);
+        }
+      }
     }
   }
 
