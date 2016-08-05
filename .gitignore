@@ -10,3 +10,6 @@ obj/
 
 # tmp
 tmp
+
+# for python
+__pycache__
