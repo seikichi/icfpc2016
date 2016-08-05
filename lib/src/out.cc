@@ -43,7 +43,7 @@ bool Output::ReadOutput(FILE *file) {
   }
   return true;
 }
-void Output::MakeFacetD(const Point &offset) {
+void Output::MakeFacetD(const Point &offset) const {
   // make facet polygons
   facet_polygons_d.clear();
   for (auto indices : facet_indecies) {
