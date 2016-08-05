@@ -90,7 +90,7 @@ int main() {
   Skeleton skeleton = ReadSkeleton();
 
   const string header =
-      R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 2 2">)";
+      R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 3 3">)";
   cout << header << "\n";
 
   string path;
