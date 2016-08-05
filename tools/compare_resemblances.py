@@ -21,9 +21,15 @@ wins = 0
 lose_problem_ids = []
 total = len(target['problems'].keys())
 
+total_target_resemblance = 0.0
+total_baseline_resemblance = 0.0
+
 for problem_id in target['problems'].keys():
     target_resemblance = target['problems'][problem_id]['resemblance']
     baseline_resemblance = baseline['problems'][problem_id]['resemblance']
+
+    total_target_resemblance += target_resemblance
+    total_baseline_resemblance += baseline_resemblance
 
     if baseline_resemblance <= target_resemblance:
         wins += 1
@@ -35,6 +41,10 @@ lose_problem_ids.sort(key=lambda s: int(s))
 
 print('{} wins {} / {} problems to {}'.
       format(target_path, wins, total, baseline_path))
+
+print('sum of resemblances: {} -> {} ({} -> {})'.
+      format(target_path, total_target_resemblance,
+             baseline_path, total_baseline_resemblance))
 
 if len(lose_problem_ids) > 0:
     print()
