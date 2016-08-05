@@ -7,7 +7,7 @@ LANGUAGE_OPTIONS = -std=c++14
 WARNING_OPTIONS = -Wall -Wextra -Weffc++ -Woverloaded-virtual -Werror
 OPTIMIZATION_OPTIONS = -O3 -fno-omit-frame-pointer -march=native -mtune=native
 CODE_GENERATION_OPTIONS = -fPIC -pthread
-PREPROCESSOR_OPTIONS = -MMD -MP
+PREPROCESSOR_OPTIONS = -MMD -MP -I../lib/src
 DEBUGGING_OPTIONS = -gdwarf-3 -fsanitize=address
 CXXFLAGS = $(OVERALL_OPTIONS) $(LANGUAGE_OPTIONS) $(WARNING_OPTIONS) $(OPTIMIZATION_OPTIONS) \
            $(CODE_GENERATION_OPTIONS) $(PREPROCESSOR_OPTIONS) $(DEBUGGING_OPTIONS)
@@ -18,6 +18,10 @@ LIBS = -lm
 SOURCES = $(wildcard src/*.cc)
 OBJECTS = $(patsubst src/%.cc, obj/main/%.o, $(SOURCES))
 DEPENDS = $(patsubst %.o, %.d, $(OBJECTS))
+
+LIB_SOURCES = $(wildcard ../lib/src/*.cc)
+LIB_OBJECTS = $(patsubst ../lib/src/%.cc, ../lib/obj/main/%.o, $(LIB_SOURCES))
+LIB_DEPENDS = $(patsubst %.o, %.d, $(LIB_OBJECTS))
 
 TEST_SOURCES = $(wildcard test/*.cc)
 TEST_OBJECTS = $(patsubst test/%.cc, obj/test/%.o, $(TEST_SOURCES))
@@ -34,14 +38,19 @@ GTEST_SOURCES = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # Build rules for TARGET
 #==============================================================================
 
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJECTS) $(LIB_OBJECTS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 obj/main/%.o: src/%.cc
 	@mkdir -p obj/main
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
+../lib/obj/main/%.o: ../lib/src/%.cc
+	@mkdir -p ../lib/obj/main
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
 -include $(DEPENDS)
+-include $(LIB_DEPENDS)
 
 
 #==============================================================================
@@ -50,7 +59,7 @@ obj/main/%.o: src/%.cc
 
 test: $(TESTS)
 
-obj/test/%.exe: obj/test/%.o $(filter-out obj/main/main.o, $(OBJECTS)) $(GTEST_OBJ_DIR)/gtest_main.a
+obj/test/%.exe: obj/test/%.o $(filter-out obj/main/main.o, $(OBJECTS)) $(LIB_OBJECTS) $(GTEST_OBJ_DIR)/gtest_main.a
 	$(CXX) $(LDFLAGS) -pthread $^ -o $@ $(LIBS)
 	$@
 
@@ -88,7 +97,7 @@ format:
 	clang-format -i $(SOURCES) $(TEST_SOURCES)
 
 clean:
-	rm -rf obj/ $(TARGET)
+	rm -rf obj/ ../lib/obj/ $(TARGET)
 
 .PHONY: format clean test
 

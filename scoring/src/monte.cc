@@ -1,4 +1,7 @@
 #include "monte.h"
+
+#include "in.h"
+#include "out.h"
 #include <gmpxx.h>
 
 mpf_class mpq2mpf(const mpq_class &q) {
