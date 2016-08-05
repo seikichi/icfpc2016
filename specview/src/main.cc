@@ -1,7 +1,7 @@
-#include <iostream>
 #include <complex>
-#include <vector>
 #include <cstdlib>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 using Point = complex<double>;
@@ -25,7 +25,7 @@ double ReadFraction(string s) {
     return stoi(s);
   } else {
     double numer = stoi(s.substr(0, slash));
-    double denom = stoi(s.substr(slash+1));
+    double denom = stoi(s.substr(slash + 1));
     return numer / denom;
   }
 }
@@ -37,7 +37,7 @@ Point ReadPoint(string line) {
     exit(1);
   }
   double x = ReadFraction(line.substr(0, comma));
-  double y = ReadFraction(line.substr(comma+1));
+  double y = ReadFraction(line.substr(comma + 1));
   return Point(x, y);
 }
 
@@ -75,7 +75,7 @@ Skeleton ReadSkeleton() {
     }
     size_t space = line.find(' ');
     Point first = ReadPoint(line.substr(0, space));
-    Point second = ReadPoint(line.substr(space+1));
+    Point second = ReadPoint(line.substr(space + 1));
     skeleton.push_back(Segment(first, second));
   }
   return skeleton;
@@ -85,7 +85,8 @@ int main() {
   Silhouette silhoutte = ReadSilhouette();
   Skeleton skeleton = ReadSkeleton();
 
-  const string header = R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.03 -0.03 1.03 1.03">)";
+  const string header =
+      R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.03 -0.03 1.03 1.03">)";
   cout << header << "\n";
 
   string path;
@@ -104,12 +105,12 @@ int main() {
   }
   cout << "<path d=\"" << path << "\" fill=\"rgb(245,195,195)\" />\n";
 
-  cout << "<path d=\"M0 0 L0 1 L1 1 L1 0 z\" fill=\"none\" stroke=\"rgb(128,128,128)\" stroke-width=\"0.01\" />\n";
+  cout << "<path d=\"M0 0 L0 1 L1 1 L1 0 z\" fill=\"none\" "
+          "stroke=\"rgb(128,128,128)\" stroke-width=\"0.01\" />\n";
 
   for (auto& segment : skeleton) {
-    cout << "<line x1=\"" << segment.first.real()
-         << "\" y1=\"" << segment.first.imag()
-         << "\" x2=\"" << segment.second.real()
+    cout << "<line x1=\"" << segment.first.real() << "\" y1=\""
+         << segment.first.imag() << "\" x2=\"" << segment.second.real()
          << "\" y2=\"" << segment.second.imag()
          << "\" style=\"stroke:rgb(246,147,147);stroke-width:0.01\" />\n";
   }
