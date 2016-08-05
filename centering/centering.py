@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+import sys
+from collections import namedtuple
+from fractions import Fraction
+
+Point = namedtuple('Point', ('x', 'y'))
+Line = namedtuple('Line', ('start', 'end'))
+
+def to_fraction(s):
+    if '/' in s:
+        numer, denom = map(int, s.strip().split('/'))
+        return Fraction(numer, denom)
+    else:
+        return Fraction(int(s))
+
+def to_point(s):
+    x, y = map(to_fraction, s.strip().split(','))
+    return Point(x, y)
+
+def to_line(s):
+    start, end = map(to_point, s.strip().split(' '))
+    return Line(start, end)
+
+def read_polygon(input):
+    num_vertices = int(input.readline())
+    return [to_point(input.readline()) for _ in range(num_vertices)]
+
+def read_silhuette(input):
+    num_polygons = int(input.readline())
+    return [read_polygon(input) for _ in range(num_polygons)]
+
+def read_skeleton(input):
+    num_lines = int(input.readline())
+    return [to_line(input.readline()) for _ in range(num_lines)]
+
+def print_result(output, center_x, center_y):
+    half = Fraction(1, 2)
+    print('4', file=output)
+    print('0,0', file=output)
+    print('1,0', file=output)
+    print('1,1', file=output)
+    print('0,1', file=output)
+    print('1', file=output)
+    print('4 0 1 2 3', file=output)
+    print('{},{}'.format(center_x - half, center_y - half), file=output)
+    print('{},{}'.format(center_x + half, center_y - half), file=output)
+    print('{},{}'.format(center_x + half, center_y + half), file=output)
+    print('{},{}'.format(center_x - half, center_y + half), file=output)
+
+def main():
+    silhuette = read_silhuette(sys.stdin)
+    skelton = read_skeleton(sys.stdin)
+
+    sum_x, sum_y = Fraction(), Fraction()
+    points = 0
+    for polygon in silhuette:
+        for point in polygon:
+            points += 1
+            sum_x += point.x
+            sum_y += point.y
+    center_x, center_y = sum_x / points, sum_y / points
+    print_result(sys.stdout, center_x, center_y)
+
+if __name__ == '__main__':
+    main()
