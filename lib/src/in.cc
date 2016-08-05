@@ -39,6 +39,33 @@ bool Input::ReadInput(FILE *file) {
   }
   return true;
 }
+bool Input::WriteInput(const char *filename) const {
+  FILE *file = fopen(filename, "w");
+  if (file == nullptr) {
+    fprintf(stderr, "%s can't open!\n", filename);
+    exit(1);
+  }
+  WriteInput(file);
+  fclose(file);
+  return true;
+}
+bool Input::WriteInput(FILE *file) const {
+  fprintf(file, "%d\n", (int)silhouettes.size());
+  for (const Polygon &silhouette : silhouettes) {
+    fprintf(file, "%d\n", (int)silhouette.size());
+    for (const Point &p : silhouette) {
+      fprintf(file, "%s,%s\n", p.real().get_str().c_str(), p.imag().get_str().c_str());
+    }
+  }
+  fprintf(file, "%d\n", (int)skeltons.size());
+  for (const Line &l : skeltons) {
+    const Point &p1 = l[0];
+    const Point &p2 = l[1];
+    fprintf(file, "%s,%s", p1.real().get_str().c_str(), p1.imag().get_str().c_str());
+    fprintf(file, " %s,%s\n", p2.real().get_str().c_str(), p2.imag().get_str().c_str());
+  }
+  return true;
+}
 void Input::MakeSilhouettesD(const Point &offset) const {
   int n = silhouettes.size();
   silhouettes_d.resize(n);

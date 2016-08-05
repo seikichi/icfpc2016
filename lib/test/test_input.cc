@@ -11,6 +11,6 @@ TEST(ReadFraction, WithoutSlash) {
 
 TEST(ReadPoint, Normal) {
   Point p = ReadPoint("3/14,5/11");
-  EXPECT_EQ(mpq_class(3, 14), p.x);
-  EXPECT_EQ(mpq_class(5, 11), p.y);
+  EXPECT_EQ(mpq_class(3, 14), p.real());
+  EXPECT_EQ(mpq_class(5, 11), p.imag());
 }
