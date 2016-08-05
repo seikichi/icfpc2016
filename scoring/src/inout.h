@@ -1,24 +1,29 @@
 #pragma once
 
 #include "geometry.h"
+#include <gmpxx.h>
 #include <vector>
 
 struct Input {
   std::vector<Polygon> silhouettes;
   std::vector<Line> skeltons;
+  std::vector<PolygonD> silhouettes_d; // 向きを正規化して入れる
+  std::vector<char> flip_flags;
   bool ReadInput(const char *filename);
   bool ReadInput(FILE *file);
-  bool ConatainSilhouette(const Point &p) const;
-  std::vector<mpf_class> MinMaxXY() const;
+  void MakeSilhouettesD(const Point &offset);
+  bool ContainSilhouette(const PointD &p) const;
+  std::vector<mpq_class> MinMaxXY() const;
 };
 
 struct Output {
   std::vector<Point> source_points;
   std::vector<std::vector<int>> facet_indecies;
   std::vector<Point> dest_points;
-  std::vector<Polygon> facet_polygons;
+  std::vector<PolygonD> facet_polygons_d; // 向きを正規化して入れる
   bool ReadOutput(const char *filename);
   bool ReadOutput(FILE *file);
-  bool ConatainFacet(const Point &p) const;
-  std::vector<mpf_class> MinMaxXY() const;
+  void MakeFacetD(const Point &offset);
+  bool ContainFacet(const PointD &p) const;
+  std::vector<mpq_class> MinMaxXY() const;
 };

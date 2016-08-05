@@ -17,7 +17,7 @@ std::string GetDigits(FILE *file) {
   }
   return ret;
 }
-mpf_class ReadFrac(FILE *file) {
+mpq_class ReadFrac(FILE *file) {
   std::string a = GetDigits(file);
   std::string b = "1";
   assert(a.size() > 0);
@@ -29,15 +29,16 @@ mpf_class ReadFrac(FILE *file) {
     b = GetDigits(file);
     assert(b.size() > 0);
   }
-  mpf_class f1(a, 256);
-  mpf_class f2(b, 256);
-  return f1 / f2;
+  mpz_class num(a);
+  mpz_class den(b);
+  mpq_class q(num, den);
+  return q;
 }
 Point ReadPoint(FILE *file) {
-  mpf_class x = ReadFrac(file);
+  mpq_class x = ReadFrac(file);
   int v = fscanf(file, " ,");
   assert(v == 0);
-  mpf_class y = ReadFrac(file);
+  mpq_class y = ReadFrac(file);
   return Point(x, y);
 }
 
@@ -77,21 +78,35 @@ bool Input::ReadInput(FILE *file) {
   }
   return true;
 }
-bool Input::ConatainSilhouette(const Point &p) const {
-  bool ret = false;
-  for (Polygon silhouette : silhouettes) {
-    if (Area(silhouette) < 0) {
-      // 反転している箇所に含まれる場合は常に穴なので即返す
-      reverse(silhouette.begin(), silhouette.end());
-      if (Contains(silhouette, p) == ContainResult::IN) { return false; }
-    } else {
-      if (Contains(silhouette, p) == ContainResult::IN) { ret = true; }
+void Input::MakeSilhouettesD(const Point &offset) {
+  int n = silhouettes.size();
+  silhouettes_d.resize(n);
+  flip_flags.resize(n);
+  for (int i = 0; i < n; i++) {
+    int m = silhouettes[i].size();
+    silhouettes_d[i].resize(m);
+    for (int j = 0; j < m; j++) {
+      silhouettes_d[i][j] = mpq2d(silhouettes[i][j] - offset);
     }
+    flip_flags[i] = Area(silhouettes_d[i]) < 0;
+    if (flip_flags[i]) {
+      reverse(silhouettes_d[i].begin(), silhouettes_d[i].end());
+    }
+  }
+}
+bool Input::ContainSilhouette(const PointD &p) const {
+  bool ret = false;
+  for (int i = 0; i < (int)silhouettes_d.size(); i++) {
+    const auto &silhouette_d = silhouettes_d[i];
+    bool contain = Contains(silhouette_d, p) == ContainResult::IN;
+    if (flip_flags[i] && contain) { return false; }
+    if (contain) { ret = true; }
   }
   return ret;
 }
-std::vector<mpf_class> Input::MinMaxXY() const {
-  std::vector<mpf_class> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
+std::vector<mpq_class> Input::MinMaxXY() const {
+  Point s = silhouettes[0][0];
+  std::vector<mpq_class> ret = { s.real(), s.imag(), s.real(), s.imag() };
   for (const Polygon &silhouette : silhouettes) {
     for (const Point &p : silhouette) {
       ret[0] = std::min(ret[0], p.real());
@@ -141,36 +156,36 @@ bool Output::ReadOutput(FILE *file) {
     Point p = ReadPoint(file);
     dest_points[i] = p;
   }
-
-  // make facet polygons
-  facet_polygons.clear();
-  for (auto indices : facet_indecies) {
-    Polygon poly;
-    for (int index : indices) {
-      poly.push_back(dest_points[index]);
-    }
-    facet_polygons.push_back(poly);
-  }
   return true;
 }
-bool Output::ConatainFacet(const Point &p) const {
-  for (Polygon facet : facet_polygons) {
+void Output::MakeFacetD(const Point &offset) {
+  // make facet polygons
+  facet_polygons_d.clear();
+  for (auto indices : facet_indecies) {
+    PolygonD facet;
+    for (int index : indices) {
+      facet.push_back(mpq2d(dest_points[index] - offset));
+    }
     if (Area(facet) < 0) {
       reverse(facet.begin(), facet.end());
     }
+    facet_polygons_d.push_back(facet);
+  }
+}
+bool Output::ContainFacet(const PointD &p) const {
+  for (const auto &facet : facet_polygons_d) {
     if (Contains(facet, p) == ContainResult::IN) { return true; }
   }
   return false;
 }
-std::vector<mpf_class> Output::MinMaxXY() const {
-  std::vector<mpf_class> ret = { 1e+10, 1e+10, -1e+10, -1e+10 };
-  for (const Polygon &facet : facet_polygons) {
-    for (const Point &p : facet) {
-      ret[0] = std::min(ret[0], p.real());
-      ret[1] = std::min(ret[1], p.imag());
-      ret[2] = std::max(ret[2], p.real());
-      ret[3] = std::max(ret[3], p.imag());
-    }
+std::vector<mpq_class> Output::MinMaxXY() const {
+  Point s = dest_points[0];
+  std::vector<mpq_class> ret = { s.real(), s.imag(), s.real(), s.imag() };
+  for (const Point &p : dest_points) {
+    ret[0] = std::min(ret[0], p.real());
+    ret[1] = std::min(ret[1], p.imag());
+    ret[2] = std::max(ret[2], p.real());
+    ret[3] = std::max(ret[3], p.imag());
   }
   return ret;
 }
