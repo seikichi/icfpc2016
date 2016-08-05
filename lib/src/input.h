@@ -3,12 +3,10 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <complex>
 #include <gmpxx.h>
 
-struct Point {
-  mpq_class x, y;
-  Point(const mpq_class& x, const mpq_class& y) : x(x), y(y) {}
-};
+using Point = std::complex<mpq_class>;
 using Polygon = std::vector<Point>;
 using Silhouette = std::vector<Polygon>;
 using Segment = std::pair<Point, Point>;

@@ -11,8 +11,8 @@ void Canonicalize(Silhouette& silhouette, Skeleton& skeleton, Polygon& square) {
   int count = 0;
   for (auto& polygon : silhouette) {
     for (auto& point : polygon) {
-      xg += point.x;
-      yg += point.y;
+      xg += point.real();
+      yg += point.imag();
       count++;
     }
   }
@@ -20,19 +20,19 @@ void Canonicalize(Silhouette& silhouette, Skeleton& skeleton, Polygon& square) {
   yg /= count;
   for (auto& polygon : silhouette) {
     for (auto& point : polygon) {
-      point.x -= xg;
-      point.y -= yg;
+      point.real() -= xg;
+      point.imag() -= yg;
     }
   }
   for (auto& segment : skeleton) {
-    segment.first.x -= xg;
-    segment.first.y -= yg;
-    segment.second.x -= xg;
-    segment.second.y -= yg;
+    segment.first.real() -= xg;
+    segment.first.imag() -= yg;
+    segment.second.real() -= xg;
+    segment.second.imag() -= yg;
   }
   for (auto& point : square) {
-    point.x -= xg;
-    point.y -= yg;
+    point.real() -= xg;
+    point.imag() -= yg;
   }
 }
 
@@ -57,8 +57,8 @@ int main() {
       } else {
         path += "L";
       }
-      path +=
-          to_string(point.x.get_d()) + " " + to_string(point.y.get_d()) + " ";
+      path += to_string(point.real().get_d()) + " ";
+      path += to_string(point.imag().get_d()) + " ";
     }
     path += "z ";
   }
@@ -73,16 +73,18 @@ int main() {
     } else {
       path += "L";
     }
-    path += to_string(point.x.get_d()) + " " + to_string(point.y.get_d()) + " ";
+    path += to_string(point.real().get_d()) + " ";
+    path += to_string(point.imag().get_d()) + " ";
   }
   cout << "<path d=\"" << path
        << " z\" fill=\"none\" "
           "stroke=\"rgb(128,128,128)\" stroke-width=\"0.01\" />\n";
 
   for (auto& segment : skeleton) {
-    cout << "<line x1=\"" << segment.first.x.get_d() << "\" y1=\""
-         << segment.first.y.get_d() << "\" x2=\"" << segment.second.x.get_d()
-         << "\" y2=\"" << segment.second.y.get_d()
+    cout << "<line x1=\"" << segment.first.real().get_d() << "\" y1=\""
+         << segment.first.imag().get_d() << "\" x2=\""
+         << segment.second.real().get_d() << "\" y2=\""
+         << segment.second.imag().get_d()
          << "\" style=\"stroke:rgb(246,147,147);stroke-width:0.01\" />\n";
   }
 
