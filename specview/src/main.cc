@@ -1,8 +1,8 @@
+#include <gmpxx.h>
 #include <complex>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include <gmpxx.h>
 using namespace std;
 
 using Point = complex<double>;
