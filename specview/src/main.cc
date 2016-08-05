@@ -2,9 +2,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <gmpxx.h>
 using namespace std;
 
-using Point = complex<long double>;
+using Point = complex<double>;
 using Polygon = vector<Point>;
 using Silhouette = vector<Polygon>;
 using Segment = pair<Point, Point>;
@@ -19,14 +20,17 @@ int ReadIntegerLine() {
   return stoi(line);
 }
 
-long double ReadFraction(string s) {
+double ReadFraction(string s) {
   size_t slash = s.find('/');
   if (slash == string::npos) {
-    return stoi(s);
+    mpz_class i(s, 10);
+    mpq_class q(i, 1);
+    return q.get_d();
   } else {
-    long double numer = stoll(s.substr(0, slash));
-    long double denom = stoll(s.substr(slash + 1));
-    return numer / denom;
+    mpz_class numer(s.substr(0, slash), 10);
+    mpz_class denom(s.substr(slash + 1), 10);
+    mpq_class q(numer, denom);
+    return q.get_d();
   }
 }
 
@@ -36,8 +40,8 @@ Point ReadPoint(string line) {
     cerr << "No comma in the line: " << line << "\n";
     exit(1);
   }
-  long double x = ReadFraction(line.substr(0, comma));
-  long double y = ReadFraction(line.substr(comma + 1));
+  double x = ReadFraction(line.substr(0, comma));
+  double y = ReadFraction(line.substr(comma + 1));
   return Point(x, y);
 }
 
