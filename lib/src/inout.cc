@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <gmpxx.h>
 
-std::string GetDigits(FILE *file) {
+std::string ReadDigits(FILE *file) {
   std::string ret;
   fscanf(file, " ");
   while (true) {
@@ -18,7 +18,7 @@ std::string GetDigits(FILE *file) {
   return ret;
 }
 mpq_class ReadFrac(FILE *file) {
-  std::string a = GetDigits(file);
+  std::string a = ReadDigits(file);
   std::string b = "1";
   assert(a.size() > 0);
   int c = getc(file);
@@ -26,7 +26,7 @@ mpq_class ReadFrac(FILE *file) {
   if (c != '/') {
     ungetc(c, file);
   } else {
-    b = GetDigits(file);
+    b = ReadDigits(file);
     assert(b.size() > 0);
   }
   mpz_class num(a);

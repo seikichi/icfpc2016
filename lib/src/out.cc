@@ -43,6 +43,37 @@ bool Output::ReadOutput(FILE *file) {
   }
   return true;
 }
+bool Output::WriteOutput(const char *filename) const {
+  FILE *file = fopen(filename, "w");
+  if (file == nullptr) {
+    fprintf(stderr, "%s can't open!\n", filename);
+    exit(1);
+  }
+  WriteOutput(file);
+  fclose(file);
+  return true;
+}
+bool Output::WriteOutput(FILE *file) const {
+  // source positions part
+  fprintf(file, "%d\n", (int)source_points.size());
+  for (auto &p : source_points) {
+    fprintf(file, "%s,%s\n", p.real().get_str().c_str(), p.imag().get_str().c_str());
+  }
+  // facets part
+  fprintf(file, "%d\n", (int)facet_indecies.size());
+  for (auto &facets : facet_indecies) {
+    fprintf(file, "%d", (int)facets.size());
+    for (int index : facets) {
+      fprintf(file, " %d", index);
+    }
+    fprintf(file, "\n");
+  }
+  // destination positions part
+  for (auto &p : dest_points) {
+    fprintf(file, "%s,%s\n", p.real().get_str().c_str(), p.imag().get_str().c_str());
+  }
+  return true;
+}
 void Output::MakeFacetD(const Point &offset) const {
   // make facet polygons
   facet_polygons_d.clear();

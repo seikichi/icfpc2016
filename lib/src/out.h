@@ -10,6 +10,8 @@ struct Output {
   std::vector<Point> dest_points;
   bool ReadOutput(const char *filename);
   bool ReadOutput(FILE *file);
+  bool WriteOutput(const char *filename) const;
+  bool WriteOutput(FILE *file) const;
   std::vector<mpq_class> MinMaxXY() const;
 
   void MakeFacetD(const Point &offset) const;
