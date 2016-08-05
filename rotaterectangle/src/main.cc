@@ -127,7 +127,7 @@ pair<double, Output> CreateSolutionAndEvaluate(
   // source positions part
   for (auto& y : y_creases) {
     for (auto& x : x_creases) {
-      Point p = RotatePointByAngleReverse(Point(x.first, y.first), angle);
+      Point p = Point(x.first, y.first);
       output.source_points.push_back(p);
     }
   }
