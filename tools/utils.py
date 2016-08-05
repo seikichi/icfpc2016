@@ -3,6 +3,7 @@
 import sys
 import json
 import gzip
+import time
 from urllib import request
 
 api_headers = {
@@ -10,6 +11,13 @@ api_headers = {
   'Accept-Encoding': 'gzip',
   'X-API-Key': '78-2c034ce372dffce9cf3297143c1f8e70',
 }
+
+def download_latest_snapshot():
+    snapshot_list = download_snapshot_list()
+    time.sleep(1.5)
+    snapshot_list['snapshots'].sort(key=lambda s: s['snapshot_time'], reverse=True)
+    latest_snapshot_hash = snapshot_list['snapshots'][0]['snapshot_hash']
+    return json.loads(download_blob(latest_snapshot_hash).decode('utf8'))
 
 def download_snapshot_list():
     url = 'http://2016sv.icfpcontest.org/api/snapshot/list'
