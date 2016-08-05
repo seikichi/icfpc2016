@@ -31,7 +31,9 @@ inline int ccw(Point a, Point b, Point c) {
   return 0;
 }
 
-mpz_class Area(const Polygon &p);
+mpf_class Area(const Polygon &p);
 
 enum class ContainResult{ OUT, ON, IN };
 ContainResult Contains(const Polygon& P, const Point& p);
+
+Polygon ConvexHull(Polygon ps);
