@@ -85,7 +85,7 @@ int main() {
   Silhouette silhoutte = ReadSilhouette();
   Skeleton skeleton = ReadSkeleton();
 
-  const string header = R"(<svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.1 -0.1 1.1 1.1">)";
+  const string header = R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.03 -0.03 1.03 1.03">)";
   cout << header << "\n";
 
   string path;
@@ -102,7 +102,17 @@ int main() {
     }
     path += "z ";
   }
-  cout << "<path d=\"" << path << "\" />\n";
+  cout << "<path d=\"" << path << "\" fill=\"rgb(245,195,195)\" />\n";
+
+  cout << "<path d=\"M0 0 L0 1 L1 1 L1 0 z\" fill=\"none\" stroke=\"rgb(128,128,128)\" stroke-width=\"0.01\" />\n";
+
+  for (auto& segment : skeleton) {
+    cout << "<line x1=\"" << segment.first.real()
+         << "\" y1=\"" << segment.first.imag()
+         << "\" x2=\"" << segment.second.real()
+         << "\" y2=\"" << segment.second.imag()
+         << "\" style=\"stroke:rgb(246,147,147);stroke-width:0.01\" />\n";
+  }
 
   cout << "</svg>\n";
   return 0;
