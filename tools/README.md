@@ -12,7 +12,8 @@
 
 ## compare_resemblances.py
 
-- `calc_all_resemblances.py` で作成した JSON を比較する
+- `calc_all_resemblances.py` で作成した JSON を比較します
+- ベースライン的な方を第一引数にしてね!
 
 ```
 % ./tools/compare_resemblances.py rectangle.json multirectangle.json
