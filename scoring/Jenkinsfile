@@ -1,7 +1,7 @@
 node {
   stage 'Build and Test'
   checkout scm
-  dir('example') {
+  dir('scoring') {
     sh 'make test'
   }
 }
