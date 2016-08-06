@@ -2,6 +2,7 @@
 
 #include "geometry.h"
 #include <gmpxx.h>
+#include <string>
 #include <vector>
 
 struct Output {
@@ -12,6 +13,8 @@ struct Output {
   bool ReadOutput(FILE *file);
   bool WriteOutput(const char *filename) const;
   bool WriteOutput(FILE *file) const;
+  std::string WriteString() const;
+  static bool Validate(const std::string &str);
   std::vector<mpq_class> MinMaxXY() const;
 
   void MakeFacetD(const Point &offset) const;
