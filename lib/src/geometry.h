@@ -98,7 +98,7 @@ template<class T>
 std::vector<std::complex<T>> ConvexCut(const std::vector<std::complex<T>> &P, const Line &l) {
   std::vector<std::complex<T>> Q;
   for (int i = 0; i < (int)P.size(); i++) {
-    Point A = CURR(P, i), B = NEXT(P, i);
+    std::complex<T> A = CURR(P, i), B = NEXT(P, i);
     if (ccw(l[0], l[1], A) != -1) { Q.push_back(A); }
     if (ccw(l[0], l[1], A) * ccw(l[0], l[1], B) < 0) {
       Q.push_back(crosspointSS(Line(A, B), l));
