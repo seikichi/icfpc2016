@@ -7,8 +7,8 @@
 using namespace std;
 
 vector<tuple<int, int, int>> angles = {
-  /*
   make_tuple(1, 0, 1),  // 0.000000
+  /*
   make_tuple(9940, 141, 9941),  // 0.812692
   make_tuple(1443, 76, 1445),  // 3.01487
   make_tuple(8265, 728, 8297),  // 5.03375
@@ -18,7 +18,9 @@ vector<tuple<int, int, int>> angles = {
   make_tuple(63, 16, 65),  // 14.25
   make_tuple(24, 7, 25),  // 16.2602
   make_tuple(35, 12, 37),  // 18.9246
+  */
   make_tuple(12, 5, 13),  // 22.6199
+  /*
   make_tuple(77, 36, 85),  // 25.0576
   make_tuple(15, 8, 17),  // 28.0725
   make_tuple(56, 33, 65),  // 30.5102
