@@ -1,6 +1,8 @@
 #include "fold.h"
+#include <map>
 
 Output Fold(const Output &output, const Line &l) {
+  std::map<Point, int> cut_point;
   Output ret;
   ret.source_points = output.source_points;
   ret.dest_points = output.dest_points;
@@ -37,10 +39,15 @@ Output Fold(const Output &output, const Line &l) {
         const Point p = crosspointLL(Line(A, B), l);
         const Point q = GetSourcePoint(A, B, p, output.source_points[prev], output.source_points[next]);
         int index = ret.source_points.size();
+        if (cut_point.count(q)) {
+          index = cut_point[q];
+        } else {
+          ret.source_points.push_back(q);
+          ret.dest_points.push_back(p);
+          cut_point[q] = index;
+        }
         q1_indecies.push_back(index);
         q2_indecies.push_back(index);
-        ret.source_points.push_back(q);
-        ret.dest_points.push_back(p);
       }
     }
     if (q1_area_flag) {

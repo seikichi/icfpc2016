@@ -16,6 +16,10 @@ struct Line : public std::vector<Point> {
   Line(Point a, Point b) { push_back(a); push_back(b); }
 };
 
+namespace std {
+  bool operator<(const Point &lhs, const Point &rhs);
+}
+
 PointD mpq2d(const Point &p);
 PolygonD mpq2d(const Polygon &ps);
 
