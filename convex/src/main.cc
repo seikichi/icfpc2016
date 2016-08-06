@@ -68,34 +68,6 @@ RotateSihouette(const Silhouette& silhouette, const tuple<int, int, int>& angle)
   return rotated_silhouette;
 }
 
-Polygon
-RotatePolygonReverse(const Polygon& polygon, const tuple<int, int, int>& angle) {
-
-  Polygon rotated;
-  rotated.reserve(polygon.size());
-  for (auto& point : polygon) {
-    rotated.push_back(RotatePointByAngleReverse(point, angle));
-  }
-  return rotated;
-}
-
-
-Point CalculateCenterOfSilhouette(const Silhouette& silhouette) {
-  mpq_class xg(0, 1);
-  mpq_class yg(0, 1);
-  int count = 0;
-  for (auto& polygon : silhouette) {
-    for (auto& point : polygon) {
-      xg += point.real();
-      yg += point.imag();
-      count++;
-    }
-  }
-  xg /= count;
-  yg /= count;
-  return Point(xg, yg);
-}
-
 tuple<mpq_class, mpq_class, mpq_class, mpq_class>
 CalculateBoundsOfPolygon(const Polygon& polygon) {
   mpq_class min_x = polygon[0].real();
@@ -109,15 +81,6 @@ CalculateBoundsOfPolygon(const Polygon& polygon) {
     if (point.imag() > max_y) max_y = point.imag();
   }
   return make_tuple(min_x, max_x, min_y, max_y);
-}
-
-Polygon TranslatePolygon(const Polygon& polygon, Point offset) {
-  Polygon result;
-  result.reserve(polygon.size());
-  for (auto& point : polygon) {
-    result.push_back(point + offset);
-  }
-  return result;
 }
 
 tuple<double, int, Output>

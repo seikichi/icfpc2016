@@ -54,3 +54,35 @@ Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>&
   return Point(p.real() * c + p.imag() * s,
               -p.real() * s + p.imag() * c);
 }
+
+// Polygonをangleだけ回転させたPolygonを返す
+Polygon
+RotatePolygon(const Polygon& polygon, const std::tuple<int, int, int>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngle(point, angle));
+  }
+  return rotated;
+}
+
+// Polygonをangleだけ逆回転させたPolygonを返す
+Polygon
+RotatePolygonReverse(const Polygon& polygon, const std::tuple<int, int, int>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngleReverse(point, angle));
+  }
+  return rotated;
+}
+
+// Polygonをoffsetだけ平行移動させたPolygonを返す
+Polygon TranslatePolygon(const Polygon& polygon, Point offset) {
+  Polygon result;
+  result.reserve(polygon.size());
+  for (auto& point : polygon) {
+    result.push_back(point + offset);
+  }
+  return result;
+}

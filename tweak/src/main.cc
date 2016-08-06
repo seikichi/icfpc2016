@@ -43,26 +43,6 @@ vector<tuple<int, int, int>> angles = {
   make_tuple(-1, 0, 1),  // 180
 };
 
-Polygon
-RotatePolygon(const Polygon& polygon, const tuple<int, int, int>& angle) {
-
-  Polygon rotated;
-  rotated.reserve(polygon.size());
-  for (auto& point : polygon) {
-    rotated.push_back(RotatePointByAngle(point, angle));
-  }
-  return rotated;
-}
-
-Polygon TranslatePolygon(const Polygon& polygon, Point offset) {
-  Polygon result;
-  result.reserve(polygon.size());
-  for (auto& point : polygon) {
-    result.push_back(point + offset);
-  }
-  return result;
-}
-
 int main(int argc, char** argv) {
   if (argc != 4) {
     cerr << "Usage: tweak ANGLE_INDEX OFFSET_X OFFSET_Y\n";

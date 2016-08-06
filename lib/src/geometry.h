@@ -129,3 +129,14 @@ Point RotatePointByAngle(const Point& p, const std::tuple<int, int, int>& angle)
 // 点pをangleだけ逆回転する
 // angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
 Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>& angle);
+
+// Polygonをangleだけ回転させたPolygonを返す
+Polygon
+RotatePolygon(const Polygon& polygon, const std::tuple<int, int, int>& angle);
+
+// Polygonをangleだけ逆回転させたPolygonを返す
+Polygon
+RotatePolygonReverse(const Polygon& polygon, const std::tuple<int, int, int>& angle);
+
+// Polygonをoffsetだけ平行移動させたPolygonを返す
+Polygon TranslatePolygon(const Polygon& polygon, Point offset);
