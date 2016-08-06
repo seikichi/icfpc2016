@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M1.468737 -0.738399 L1.578305 -0.114063 L1.000000 0.086964 L1.000000 0.100000 L0.811788 0.152389 L0.575463 -0.603510 L0.570526 -0.681674 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="1.39221" y1="-0.435261" x2="1.44917" y2="-0.353069" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.44917" y1="-0.353069" x2="1.57831" y2="-0.114063" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.46874" y1="-0.738399" x2="0.570526" y2="-0.681674" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.44917" y1="-0.353069" x2="1.54993" y2="-0.104201" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.37275" y1="-0.710342" x2="1.54993" y2="-0.104201" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.575463" y1="-0.60351" x2="1" y2="0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.46874" y1="-0.738399" x2="1.37275" y2="-0.710342" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.46874" y1="-0.738399" x2="1.57831" y2="-0.114063" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.575463" y1="-0.60351" x2="0.811788" y2="0.152389" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.570526" y1="-0.681674" x2="0.575463" y2="-0.60351" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.764145" y1="0" x2="1" y2="0" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1" y1="0" x2="1" y2="0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1" y1="0.1" x2="0.811788" y2="0.152389" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.39221" y1="-0.435261" x2="0.764145" y2="0" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.57831" y1="-0.114063" x2="0.811788" y2="0.152389" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
