@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-import sys
-import json
 import gzip
+import json
+import subprocess
+import sys
+import tempfile
 import time
 from urllib import request
 
@@ -11,6 +13,25 @@ api_headers = {
   'Accept-Encoding': 'gzip',
   'X-API-Key': '78-2c034ce372dffce9cf3297143c1f8e70',
 }
+
+def submit_solution(problem_id, solution):
+    url = 'http://2016sv.icfpcontest.org/api/solution/submit'
+    with tempfile.NamedTemporaryFile() as temp:
+        temp.write(solution.encode('utf8'))
+        temp.flush()
+
+        command = ' '.join([
+            'curl',
+            '-s',
+            '--compressed',
+            '-L',
+            '-H Expect:',
+            '-H "X-API-Key: 78-2c034ce372dffce9cf3297143c1f8e70"',
+            '-F "problem_id={}"'.format(problem_id),
+            '-F "solution_spec=@{}"'.format(temp.name),
+            '"http://2016sv.icfpcontest.org/api/solution/submit"',
+        ])
+        return subprocess.check_output(command, shell=True)
 
 def download_latest_snapshot():
     snapshot_list = download_snapshot_list()
