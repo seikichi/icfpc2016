@@ -16,6 +16,11 @@ struct Output {
   bool WriteOutput(FILE *file) const;
   std::string WriteString() const;
   static bool Validate(const std::string &str);
+
+  bool WriteSVGSource(const char *filename) const;
+  bool WriteSVGSource(FILE *file) const;
+  bool WriteSVGDest(const char *filename) const;
+  bool WriteSVGDest(FILE *file) const;
   std::vector<mpq_class> MinMaxXY() const;
 
   void MakeFacetD(const Point &offset) const;
