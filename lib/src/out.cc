@@ -136,7 +136,7 @@ bool Output::WriteSVGDest(const char *filename) const {
     fprintf(stderr, "%s can't open!\n", filename);
     exit(1);
   }
-  bool result = WriteSVGSource(file);
+  bool result = WriteSVGDest(file);
   fclose(file);
   return result;
 }
