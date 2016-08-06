@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import yaml
 import gzip
 import json
 import subprocess
 import sys
 import tempfile
 import time
+from pathlib import Path
 from urllib import request
 from urllib.error import HTTPError
 from urllib.parse import urlencode
@@ -80,3 +82,25 @@ def load_solutions(*path_list):
                 solution['solver_path'] = s['solver_path']
         merged_solution[pid] = solution
     return merged_solution
+
+def load_all_solvers_config():
+    project_root_path = Path(__file__).parents[1]
+    solver_yml_path = project_root_path / 'solvers.yml'
+
+    with solver_yml_path.open() as f:
+        return yaml.load(f)
+
+def load_solver_config(solver_name):
+    all_config = load_all_solvers_config()
+    assert(solver_name in map(lambda c: c['name'], all_config))
+    return next(c for c in all_config if c['name'] == solver_name)
+
+def setup_solver(config):
+    setup = config.get('setup', None)
+    if setup is None:
+        return
+    subprocess.check_output(setup, shell=True)
+
+def calc_solver_hash(config):
+    command = 'git log --pretty=format:"%H" -n 1 {}'.format(' '.join(config['dependent']))
+    return subprocess.check_output(command, shell=True).decode('utf8')
