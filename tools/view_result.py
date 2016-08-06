@@ -15,13 +15,14 @@ def main():
     top_dir = path.dirname(path.dirname(path.abspath(__file__)))
     mergeview = path.join(top_dir, 'mergeview/mergeview')
 
-    with tempfile.NamedTemporaryFile() as f, \
-         tempfile.NamedTemporaryFile(suffix='.svg') as svg, \
+    with tempfile.NamedTemporaryFile(suffix='.out', delete=False) as f, \
+         tempfile.NamedTemporaryFile(suffix='.svg', delete=False) as svg, \
          open(args.problem) as problem_file:
         subprocess.check_call([args.solver], stdin=problem_file, stdout=f)
+        print("Output: {}".format(f.name))
         subprocess.check_call([mergeview, args.problem, f.name], stdout=svg)
+        print("SVG: {}".format(svg.name))
         subprocess.check_call(["google-chrome", svg.name])
-        time.sleep(3)  # wait for browser to read the SVG
 
 
 if __name__ == '__main__':
