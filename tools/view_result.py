@@ -13,6 +13,7 @@ def main():
     args = parser.parse_args()
 
     top_dir = path.dirname(path.dirname(path.abspath(__file__)))
+    scoring = path.join(top_dir, 'scoring/scoring')
     mergeview = path.join(top_dir, 'mergeview/mergeview')
 
     with tempfile.NamedTemporaryFile(suffix='.out', delete=False) as f, \
@@ -22,6 +23,8 @@ def main():
         print("Output: {}".format(f.name))
         subprocess.check_call([mergeview, args.problem, f.name], stdout=svg)
         print("SVG: {}".format(svg.name))
+        print("Score: ")
+        subprocess.check_call([scoring, args.problem, f.name])
         subprocess.check_call(["google-chrome", svg.name])
 
 
