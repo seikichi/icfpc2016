@@ -1,0 +1,15 @@
+- name: centering
+  dependent: [centering]
+  command: centering/centering
+- name: rectangle
+  setup: cd rectangle ; make
+  dependent: [lib, rectangle]
+  command: rectangle/rectangle
+- name: rotaterectangle
+  setup: cd rotaterectangle ; make
+  dependent: [lib, rotaterectangle]
+  command: rotaterectangle/rotaterectangle
+- name: convex
+  setup: cd convex ; make
+  dependent: [lib, convex]
+  command: convex/convex
