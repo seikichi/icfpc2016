@@ -93,3 +93,26 @@ std::vector<std::complex<T>> ConvexHull(std::vector<std::complex<T>> ps) {
   ch.resize(k - 1);
   return ch;
 }
+
+template<class T>
+std::vector<std::complex<T>> ConvexCut(const std::vector<std::complex<T>> &P, const Line &l) {
+  std::vector<std::complex<T>> Q;
+  for (int i = 0; i < (int)P.size(); i++) {
+    Point A = CURR(P, i), B = NEXT(P, i);
+    if (ccw(l[0], l[1], A) != -1) { Q.push_back(A); }
+    if (ccw(l[0], l[1], A) * ccw(l[0], l[1], B) < 0) {
+      Q.push_back(crosspointSS(Line(A, B), l));
+    }
+  }
+  return Q;
+}
+
+// destinationにあるd3の点をsourceに射影する
+// d3はd1-d2とs1-s2の直線上にある前提
+template<class T>
+std::complex<T> GetSourcePoint(
+    const std::complex<T> d1, const std::complex<T> d2, const std::complex<T> d3,
+    const std::complex<T> s1, const std::complex<T> s2) {
+  T t = dot(d3 - d1, d1 - d2) / norm(d1 - d2);
+  return s1 + t * (s1 - s2);
+}
