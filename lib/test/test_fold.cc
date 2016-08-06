@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "fold.h"
+#include "xor_shift.h"
 
 #include <iostream>
 using namespace std;
@@ -110,6 +111,37 @@ TEST(Fold, Fold2) {
   output2.ReadOutput("./test/files/cut2.out");
 
   EXPECT_EQ(true, output1.Validate());
+  EXPECT_EQ(output2.source_points, output1.source_points);
+  EXPECT_EQ(output2.facet_indecies, output1.facet_indecies);
+  EXPECT_EQ(output2.dest_points, output1.dest_points);
+}
+
+TEST(Fold, FoldMany) {
+  Output output1;
+  output1.Init();
+
+  Random rnd(12345);
+  for (int i = 0; i < 7; i++) {
+    int prev_cnt = output1.source_points.size();
+    Line l1(
+        Point(mpq_class(rnd.next(2, 28), 30), mpq_class(rnd.next(2, 28), 30)),
+        Point(mpq_class(rnd.next(2, 28), 30), mpq_class(rnd.next(2, 28), 30)));
+    output1 = Fold(output1, l1);
+    if (prev_cnt == (int)output1.source_points.size()) {
+      i--; continue;
+    }
+    char buffer[100];
+    snprintf(buffer, 99, "cut%d.out", i + 1);
+    output1.WriteOutput(buffer);
+    snprintf(buffer, 99, "cut%d_source.svg", i + 1);
+    output1.WriteSVGSource(buffer);
+    snprintf(buffer, 99, "cut%d_dest.svg", i + 1);
+    output1.WriteSVGDest(buffer);
+  }
+
+  Output output2;
+  output2.ReadOutput("./test/files/cut7.out");
+
   EXPECT_EQ(output2.source_points, output1.source_points);
   EXPECT_EQ(output2.facet_indecies, output1.facet_indecies);
   EXPECT_EQ(output2.dest_points, output1.dest_points);
