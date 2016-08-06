@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M1.250000 1.250000 L1.750000 1.250000 L2.000000 1.500000 L1.750000 1.500000 L1.750000 2.000000 L1.250000 1.500000 L1.000000 1.500000 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="1.75" y1="1.25" x2="2" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.25" y1="1.25" x2="1.5" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.25" y1="1.25" x2="1.25" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.5" y1="1.5" x2="1.5" y2="1.75" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.75" y1="1.25" x2="1.75" y2="2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.25" y1="1.5" x2="1.75" y2="2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.25" y1="1.25" x2="1.75" y2="1.25" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.25" y1="1.25" x2="1" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1" y1="1.5" x2="2" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.75" y1="1.25" x2="1.5" y2="1.5" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.5" y1="1.75" x2="1.75" y2="1.75" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
