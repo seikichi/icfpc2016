@@ -17,13 +17,13 @@ PolygonD mpq2d(const Polygon &ps) {
   return ret;
 }
 
-// mpq_class Area(const Polygon &p) {
-//   mpf_class ret = 0;
-//   for (int i = 0; i < (int)p.size(); i++) {
-//     ret += cross(CURR(p, i), NEXT(p, i));
-//   }
-//   return ret / 2.0;
-// }
+double ApproxArea(const Polygon &p) {
+  double ret = 0;
+  for (int i = 0; i < (int)p.size(); i++) {
+    ret += cross(CURR(p, i), NEXT(p, i)).get_d();
+  }
+  return ret / 2.0;
+}
 
 double Area(const PolygonD &p) {
   double ret = 0;

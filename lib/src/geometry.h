@@ -65,7 +65,7 @@ inline Point crosspointLL(const Line &l, const Line &m) {
   return m[0] + C * (m[1] - m[0]);
 }
 
-// mpf_class Area(const Polygon &p);
+double ApproxArea(const Polygon &p);
 double Area(const PolygonD &p);
 
 #define CURR(P, i) (P[i])
