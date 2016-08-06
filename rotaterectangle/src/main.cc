@@ -163,14 +163,14 @@ pair<double, Output> CreateSolutionAndEvaluate(
     double offset_yd = offset_y.get_d();
     mpq_class offset_x2;
     if (abs(offset_xd) < 1e14)
-        offset_x = offset_xd;
+        offset_x2 = offset_xd;
     else
-        offset_x = offset_x.get_num()/offset_x.get_den();
+        offset_x2 = offset_x.get_num()/offset_x.get_den();
     mpq_class offset_y2;
     if (abs(offset_yd) < 1e14)
-        offset_y = offset_yd;
+        offset_y2 = offset_yd;
     else
-        offset_y = offset_y.get_num()/offset_y.get_den();
+        offset_y2 = offset_y.get_num()/offset_y.get_den();
     output.dest_points.clear();
     for (auto& y : y_creases) {
       for (auto& x : x_creases) {
