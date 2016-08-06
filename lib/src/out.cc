@@ -50,9 +50,9 @@ bool Output::WriteOutput(const char *filename) const {
     fprintf(stderr, "%s can't open!\n", filename);
     exit(1);
   }
-  WriteOutput(file);
+  bool result = WriteOutput(file);
   fclose(file);
-  return true;
+  return result;
 }
 bool Output::WriteOutput(FILE *file) const {
   std::string str = WriteString();
