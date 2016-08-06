@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ux
+
 ./tools/download_problems.py
 
 (cd specview; make)
@@ -9,7 +11,8 @@ for f in problems/*.in; do
     ./specview/specview < problems/$id.in > problems/$id.svg
 done
 
-if git diff --name-only | grep -q problems ; then
-    git add problems/*.in problems/*.svg
+git add problems/*.in problems/*.svg
+
+if git diff --cached --name-only | grep -q problems ; then
     git commit -m 'Update problems (by Jenkins)'
 fi
