@@ -11,7 +11,7 @@ for f in problems/*.in; do
     ./specview/specview < problems/$id.in > problems/$id.svg
 done
 
-git add problems/*.in problems/*.svg
+git add 'problems/*.in' 'problems/*.svg'
 
 if git diff --cached --name-only | grep -q problems ; then
     git commit -m 'Update problems (by Jenkins)'
