@@ -23,12 +23,12 @@ def solve(arg):
 
     with tempfile.NamedTemporaryFile() as temp:
         try:
-            command = '{} < {}'.format(solver_path, input_path)
+            command = 'timeout 60 {} < {}'.format(solver_path, input_path)
             solution = subprocess.check_output(command, shell=True)
             temp.write(solution)
             temp.flush()
 
-            command = '{} {} {}'.format(score_path, input_path, temp.name)
+            command = 'timeout 60 {} {} {}'.format(score_path, input_path, temp.name)
             output = subprocess.check_output(command, shell=True)
             resemblance = float(output)
         except:
@@ -56,10 +56,13 @@ def main():
         results = pool.map(solve, args)
 
         for problem_id, resemblance, solution in results:
-            problems[problem_id] = {
-                'resemblance': resemblance,
-                'solution': solution.decode('utf-8'),
-            }
+            try:
+                problems[problem_id] = {
+                    'resemblance': resemblance,
+                    'solution': solution.decode('utf-8'),
+                }
+            except:
+                pass
 
     print(json.dumps({
         'problems': problems,
