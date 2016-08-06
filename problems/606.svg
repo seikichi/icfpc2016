@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M493448.588235 17.500000 L493448.823529 17.941176 L493447.941176 18.411765 L493447.721569 18.000000 L493447.588235 18.000000 L493447.588235 17.750000 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="493449" y1="17.5" x2="493449" y2="17.9412" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493448" y1="17.75" x2="493448" y2="18.4118" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493448" y1="17.75" x2="493448" y2="18" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493449" y1="17.5" x2="493449" y2="18" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493448" y1="18" x2="493449" y2="18" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493449" y1="17.5" x2="493448" y2="17.75" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="493449" y1="17.9412" x2="493448" y2="18.4118" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>

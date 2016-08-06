@@ -2,6 +2,8 @@ node {
   stage 'Build and Test'
   checkout scm
   dir('example') {
-    sh 'make test'
+    wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'gnome-terminal']) {
+      sh 'make test'
+    }
   }
 }
