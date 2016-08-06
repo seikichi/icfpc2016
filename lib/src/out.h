@@ -15,7 +15,7 @@ struct Output {
   bool WriteOutput(const char *filename) const;
   bool WriteOutput(FILE *file) const;
   std::string WriteString() const;
-  static bool Validate(const std::string &str);
+  bool Validate() const;
 
   bool WriteSVGSource(const char *filename) const;
   bool WriteSVGSource(FILE *file) const;

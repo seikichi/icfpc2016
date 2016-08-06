@@ -67,7 +67,7 @@ bool Output::WriteOutput(const char *filename) const {
 bool Output::WriteOutput(FILE *file) const {
   std::string str = WriteString();
   fprintf(file, "%s", str.c_str());
-  return Validate(str);
+  return Validate();
 }
 std::string Output::WriteString() const {
   std::stringstream sout;
@@ -91,8 +91,23 @@ std::string Output::WriteString() const {
   }
   return sout.str();
 }
-bool Output::Validate(const std::string &str) {
-  return str.size() <= 5000;
+bool Output::Validate() const {
+  bool ret = true;
+  for (int i = 0; i < (int)source_points.size(); i++) {
+    for (int j = 0; j < i; j++) {
+      if (source_points[i] == source_points[j]) {
+        fprintf(stderr, "Invalid solution spec: No coordinate should appear more than once in the source positions part.\n");
+        ret = false;
+        goto end_duplicate_source_point;
+      }
+    }
+  }
+end_duplicate_source_point:
+  if (WriteString().size() > 5000) {
+    fprintf(stderr, "Invalid solution spec: Output size is larger than 5000B.\n");
+    ret = false;
+  }
+  return ret;
 }
 
 

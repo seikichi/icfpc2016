@@ -24,7 +24,5 @@ TEST(Validate, Check) {
   Output output;
   output.ReadOutput("./test/files/sample.out");
   std::string str = output.WriteString();
-  EXPECT_EQ(true, output.Validate(str));
-  str += std::string(5000, ' ');
-  EXPECT_EQ(false, output.Validate(str));
+  EXPECT_EQ(true, output.Validate());
 }
