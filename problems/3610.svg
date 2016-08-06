@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M-0.765000 0.605000 L-0.723333 0.605000 L-0.550000 0.725000 L-0.107466 1.348151 L-0.075000 1.775000 L-0.285833 1.214375 L-0.565000 1.005000 L-0.502410 0.921547 L-0.585000 0.845000 L-0.575000 0.810714 L-0.650000 0.800000 L-0.698219 0.671781 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="-0.55" y1="0.725" x2="-0.585" y2="0.845" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.496738" y1="0.8" x2="-0.514885" y2="0.851996" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.479434" y1="0.824367" x2="-0.497327" y2="0.915494" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.107466" y1="1.34815" x2="-0.075" y2="1.775" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.168144" y1="1.26271" x2="-0.075" y2="1.775" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.455161" y1="0.858547" x2="-0.565" y2="1.005" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49012" y1="0.809319" x2="-0.517586" y2="0.842227" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.197544" y1="1.22131" x2="-0.075" y2="1.775" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.55" y1="0.725" x2="-0.497327" y2="0.915494" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.55" y1="0.725" x2="-0.65" y2="0.8" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.379675" y1="0.964842" x2="-0.075" y2="1.775" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.233284" y1="1.17098" x2="-0.201486" y2="1.24381" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.723333" y1="0.605" x2="-0.65" y2="0.8" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.317237" y1="1.05276" x2="-0.252202" y2="1.18753" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.55" y1="0.725" x2="-0.107466" y2="1.34815" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49012" y1="0.809319" x2="-0.585" y2="0.845" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.765" y1="0.605" x2="-0.723333" y2="0.605" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.455161" y1="0.858547" x2="-0.508395" y2="0.875466" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.497327" y1="0.915494" x2="-0.107466" y2="1.34815" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.765" y1="0.605" x2="-0.317237" y2="1.05276" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.488548" y1="0.870781" x2="-0.508395" y2="0.875466" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.585" y1="0.845" x2="-0.233284" y2="1.17098" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.723333" y1="0.605" x2="-0.55" y2="0.725" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.514885" y1="0.851996" x2="-0.379675" y2="0.964842" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.65" y1="0.8" x2="-0.496738" y2="0.8" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.514885" y1="0.851996" x2="-0.488548" y2="0.870781" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.65" y1="0.8" x2="-0.479434" y2="0.824367" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.514885" y1="0.851996" x2="-0.485163" y2="0.853543" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.517586" y1="0.842227" x2="-0.485163" y2="0.853543" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.565" y1="1.005" x2="-0.107466" y2="1.34815" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.252202" y1="1.18753" x2="-0.197544" y2="1.22131" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.201486" y1="1.24381" x2="-0.168144" y2="1.26271" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
