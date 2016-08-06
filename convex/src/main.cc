@@ -49,6 +49,7 @@ vector<tuple<int, int, int>> angles = {
   make_tuple(516, 7387, 7405),  // 86.0042
   make_tuple(141, 9940, 9941),  // 89.1873
   */
+  make_tuple(-1, 0, 1),  // 180
 };
 
 Silhouette
@@ -119,15 +120,14 @@ Polygon TranslatePolygon(const Polygon& polygon, Point offset) {
   return result;
 }
 
-pair<double, Output>
+tuple<double, int, Output>
 CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, int>& angle) {
 
   Silhouette rotated_silhouette = RotateSihouette(silhouette, angle);
-  Point center = CalculateCenterOfSilhouette(rotated_silhouette);
 
   // find the first polygon that have positive area
   auto it = find_if(rotated_silhouette.begin(), rotated_silhouette.end(),
-      [](const Polygon& polygon) { return ApproxArea(polygon) > 0; });
+      [](const Polygon& polygon) { return Area(polygon) > 0; });
   if (it == rotated_silhouette.end()) {
     cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
     exit(1);
@@ -136,8 +136,6 @@ CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, in
 
   mpq_class min_x, max_x, min_y, max_y;
   tie(min_x, max_x, min_y, max_y) = CalculateBoundsOfPolygon(original_convex_hull);
-
-  // TODO: 幅か高さが1を超えている場合の処理
 
   Input input;
   input.silhouettes = silhouette;
@@ -163,7 +161,8 @@ CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, in
   output.dest_points = RotatePolygonReverse(output.dest_points, angle);
 
   double score = ScoringMonte(input, output, 1000);
-  return make_pair(score, move(output));
+  int n_bytes = output.WriteString().size();
+  return make_tuple(score, n_bytes, move(output));
 }
 
 int main() {
@@ -171,14 +170,26 @@ int main() {
   Skeleton skeleton = ReadSkeleton();
 
   double max_score = -1;
-  Output output;
+  int min_n_bytes = -1;
+  Output best_output;
+  best_output.Init();
+
   for (auto& angle : angles) {
-    auto p = CreateSolutionAndEvaluate(silhouette, angle );
-    if (p.first > max_score) {
-      max_score = p.first;
-      output = move(p.second);
+    double score;
+    int n_bytes;
+    Output output;
+    tie(score, n_bytes, output) = CreateSolutionAndEvaluate(silhouette, angle );
+    if (n_bytes > 5000)
+      continue;
+    if ((score > max_score) || (score == max_score && n_bytes < min_n_bytes)) {
+      max_score = score;
+      min_n_bytes = n_bytes;
+      best_output = move(output);
     }
   }
 
-  output.WriteOutput(stdout);
+  if (max_score == -1) {
+    cerr << "No valid solutions found. Output dummy solution.\n";
+  }
+  best_output.WriteOutput(stdout);
 }

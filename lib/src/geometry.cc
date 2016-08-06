@@ -17,10 +17,10 @@ PolygonD mpq2d(const Polygon &ps) {
   return ret;
 }
 
-double ApproxArea(const Polygon &p) {
-  double ret = 0;
+mpq_class Area(const Polygon &p) {
+  mpq_class ret = 0;
   for (int i = 0; i < (int)p.size(); i++) {
-    ret += cross(CURR(p, i), NEXT(p, i)).get_d();
+    ret += cross(CURR(p, i), NEXT(p, i));
   }
   return ret / 2.0;
 }
