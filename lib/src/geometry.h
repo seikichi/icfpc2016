@@ -53,7 +53,7 @@ inline Point reflection(const Line &l, const Point &p) {
   return p + mpq_class(2,1) * (projection(l, p) - p);
 }
 
-inline Point crosspointSS(const Line &l, const Line &m) {
+inline Point crosspointLL(const Line &l, const Line &m) {
   mpq_class A = cross(l[1] - l[0], m[1] - m[0]);
   mpq_class B = cross(l[1] - l[0], l[1] - m[0]);
   mpq_class C = B / A;
@@ -101,7 +101,7 @@ std::vector<std::complex<T>> ConvexCut(const std::vector<std::complex<T>> &P, co
     std::complex<T> A = CURR(P, i), B = NEXT(P, i);
     if (ccw(l[0], l[1], A) != -1) { Q.push_back(A); }
     if (ccw(l[0], l[1], A) * ccw(l[0], l[1], B) < 0) {
-      Q.push_back(crosspointSS(Line(A, B), l));
+      Q.push_back(crosspointLL(Line(A, B), l));
     }
   }
   return Q;
