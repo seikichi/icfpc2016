@@ -154,13 +154,23 @@ pair<double, Output> CreateSolutionAndEvaluate(
     }
   }
 
-  /// size check
+  // size check
   string outstr = output.WriteString();
   if (outstr.size() > 5000) {
     // output exceeds the size limit.
     // fallback to less accurate offset.
-    mpq_class offset_x2((float)offset_x.get_d());
-    mpq_class offset_y2((float)offset_y.get_d());
+    double offset_xd = offset_x.get_d();
+    double offset_yd = offset_y.get_d();
+    mpq_class offset_x2;
+    if (abs(offset_xd) < 1e14)
+        offset_x = offset_xd;
+    else
+        offset_x = offset_x.get_num()/offset_x.get_den();
+    mpq_class offset_y2;
+    if (abs(offset_yd) < 1e14)
+        offset_y = offset_yd;
+    else
+        offset_y = offset_y.get_num()/offset_y.get_den();
     output.dest_points.clear();
     for (auto& y : y_creases) {
       for (auto& x : x_creases) {
