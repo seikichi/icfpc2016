@@ -9,6 +9,7 @@ struct Output {
   std::vector<Point> source_points;
   std::vector<std::vector<int>> facet_indecies;
   std::vector<Point> dest_points;
+  void Init();
   bool ReadOutput(const char *filename);
   bool ReadOutput(FILE *file);
   bool WriteOutput(const char *filename) const;

@@ -4,6 +4,16 @@
 #include <assert.h>
 #include <sstream>
 
+void Output::Init() {
+  source_points = {
+    Point(mpq_class(0, 1), mpq_class(0, 1)),
+    Point(mpq_class(1, 1), mpq_class(0, 1)),
+    Point(mpq_class(1, 1), mpq_class(1, 1)),
+    Point(mpq_class(0, 1), mpq_class(1, 1)),
+  };
+  dest_points = source_points;
+  facet_indecies.push_back({ 0, 1, 2, 3 });
+}
 bool Output::ReadOutput(const char *filename) {
   FILE *file = fopen(filename, "r");
   if (file == nullptr) {
@@ -69,7 +79,7 @@ std::string Output::WriteString() const {
   // facets part
   sout << facet_indecies.size() << std::endl;
   for (auto &facets : facet_indecies) {
-    sout << facets.size() << std::endl;
+    sout << facets.size();
     for (int index : facets) {
       sout << " " << index;
     }
