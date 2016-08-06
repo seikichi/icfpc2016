@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M1.000000 0.174878 L1.122041 0.300133 L1.000000 0.419042 L1.000000 1.000000 L0.000000 1.000000 L0.000000 0.581500 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="1" y1="0.174878" x2="1.12204" y2="0.300133" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0" y1="0.5815" x2="0" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1" y1="0.174878" x2="1" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0" y1="0.5815" x2="0.405805" y2="0.997992" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1" y1="0.174878" x2="0" y2="0.5815" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.12204" y1="0.300133" x2="0.405805" y2="0.997992" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0" y1="1" x2="1" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
