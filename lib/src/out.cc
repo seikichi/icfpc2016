@@ -81,7 +81,7 @@ std::string Output::WriteString() const {
   }
   return sout.str();
 }
-bool Output::Validate(std::string str) {
+bool Output::Validate(const std::string &str) {
   return str.size() <= 5000;
 }
 

@@ -2,6 +2,7 @@
 
 #include "geometry.h"
 #include <gmpxx.h>
+#include <string>
 #include <vector>
 
 struct Input {
@@ -11,6 +12,8 @@ struct Input {
   bool ReadInput(FILE *file);
   bool WriteInput(const char *filename) const;
   bool WriteInput(FILE *file) const;
+  std::string WriteString() const;
+  static bool Validate(const std::string &str);
   std::vector<mpq_class> MinMaxXY() const;
 
   void MakeSilhouettesD(const Point &offset) const;
