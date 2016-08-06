@@ -7,6 +7,8 @@ import sys
 import tempfile
 import time
 from urllib import request
+from urllib.error import HTTPError
+from urllib.parse import urlencode
 
 api_headers = {
   'Expect': '',
@@ -16,22 +18,10 @@ api_headers = {
 
 def submit_solution(problem_id, solution):
     url = 'http://2016sv.icfpcontest.org/api/solution/submit'
-    with tempfile.NamedTemporaryFile() as temp:
-        temp.write(solution.encode('utf8'))
-        temp.flush()
-
-        command = ' '.join([
-            'curl',
-            '-s',
-            '--compressed',
-            '-L',
-            '-H Expect:',
-            '-H "X-API-Key: 78-2c034ce372dffce9cf3297143c1f8e70"',
-            '-F "problem_id={}"'.format(problem_id),
-            '-F "solution_spec=@{}"'.format(temp.name),
-            '"http://2016sv.icfpcontest.org/api/solution/submit"',
-        ])
-        return subprocess.check_output(command, shell=True)
+    values = {'problem_id': problem_id, 'solution_spec': solution}
+    data = urlencode(values).encode('ascii')
+    req = request.Request(url, data, api_headers)
+    return json.loads(_request_with_retry(req).decode('utf8'))
 
 def download_latest_snapshot():
     snapshot_list = download_snapshot_list()
@@ -43,15 +33,29 @@ def download_latest_snapshot():
 def download_snapshot_list():
     url = 'http://2016sv.icfpcontest.org/api/snapshot/list'
     req = request.Request(url, None, api_headers)
-
-    with request.urlopen(req) as response:
-        return json.loads(gzip.decompress(response.read()).decode('utf8'))
+    return json.loads(_request_with_retry(req).decode('utf8'))
 
 def download_blob(hash):
     blob_url = 'http://2016sv.icfpcontest.org/api/blob/{}'.format(hash)
     req = request.Request(blob_url, None, api_headers)
-    with request.urlopen(req) as response:
-        return gzip.decompress(response.read())
+    return _request_with_retry(req)
+
+def _request_with_retry(req):
+    retry = 5
+
+    for i in range(retry):
+        try:
+            with request.urlopen(req) as response:
+                return gzip.decompress(response.read())
+        except HTTPError as e:
+            if e.code == 429:
+                print('Got too many request error, wait 5 seconds...',
+                      file=sys.stderr)
+                time.sleep(5)
+                continue
+            raise e
+
+    raise RuntimeError('Failed to use ICFPC API ... ({} times retried)'.format(retry))
 
 def load_solutions(*path_list):
     solutions = []

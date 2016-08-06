@@ -18,7 +18,12 @@ def main():
         time.sleep(1.5)
         print('submit problem {}, resemblance {}'.
               format(problem_id, problem_result['resemblance']), file=sys.stderr)
-        print(utils.submit_solution(problem_id, problem_result['solution']).decode('utf-8'), file=sys.stderr)
+        result = utils.submit_solution(problem_id, problem_result['solution'])
+        print(json.dumps(result), file=sys.stderr)
+
+        if result['ok'] and abs(problem_result['resemblance'] - result['resemblance']) > 0.1:
+            print('resemblance may be wrong: our {}, but got {}'.
+                  format(problem_result['resemblance'], result['resemblance']), file=sys.stderr)
 
 if __name__ == '__main__':
     main()
