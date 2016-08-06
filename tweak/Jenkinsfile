@@ -1,0 +1,7 @@
+node {
+  stage 'Build and Test'
+  checkout scm
+  dir('convex') {
+    sh 'make test'
+  }
+}

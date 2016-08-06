@@ -17,10 +17,10 @@ PolygonD mpq2d(const Polygon &ps) {
   return ret;
 }
 
-double ApproxArea(const Polygon &p) {
-  double ret = 0;
+mpq_class Area(const Polygon &p) {
+  mpq_class ret = 0;
   for (int i = 0; i < (int)p.size(); i++) {
-    ret += cross(CURR(p, i), NEXT(p, i)).get_d();
+    ret += cross(CURR(p, i), NEXT(p, i));
   }
   return ret / 2.0;
 }
@@ -53,4 +53,36 @@ Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>&
   mpq_class s(std::get<1>(angle), std::get<2>(angle));
   return Point(p.real() * c + p.imag() * s,
               -p.real() * s + p.imag() * c);
+}
+
+// Polygonをangleだけ回転させたPolygonを返す
+Polygon
+RotatePolygon(const Polygon& polygon, const std::tuple<int, int, int>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngle(point, angle));
+  }
+  return rotated;
+}
+
+// Polygonをangleだけ逆回転させたPolygonを返す
+Polygon
+RotatePolygonReverse(const Polygon& polygon, const std::tuple<int, int, int>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngleReverse(point, angle));
+  }
+  return rotated;
+}
+
+// Polygonをoffsetだけ平行移動させたPolygonを返す
+Polygon TranslatePolygon(const Polygon& polygon, Point offset) {
+  Polygon result;
+  result.reserve(polygon.size());
+  for (auto& point : polygon) {
+    result.push_back(point + offset);
+  }
+  return result;
 }
