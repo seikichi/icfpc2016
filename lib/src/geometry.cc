@@ -36,3 +36,21 @@ double Area(const PolygonD &p) {
 // ContainResult Contains(Polygon &P, const PointF& p) {
 //   return Contains(mpq2mpf(P), p);
 // }
+
+// 点pをangleだけ回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngle(const Point& p, const std::tuple<int, int, int>& angle) {
+  mpq_class c(std::get<0>(angle), std::get<2>(angle));
+  mpq_class s(std::get<1>(angle), std::get<2>(angle));
+  return Point(p.real() * c - p.imag() * s,
+               p.real() * s + p.imag() * c);
+}
+
+// 点pをangleだけ逆回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>& angle) {
+  mpq_class c(std::get<0>(angle), std::get<2>(angle));
+  mpq_class s(std::get<1>(angle), std::get<2>(angle));
+  return Point(p.real() * c + p.imag() * s,
+              -p.real() * s + p.imag() * c);
+}
