@@ -12,6 +12,8 @@ struct Output {
   bool ReadOutput(FILE *file);
   bool WriteOutput(const char *filename) const;
   bool WriteOutput(FILE *file) const;
+  std::string WriteString() const;
+  static bool Validate(const std::string);
   std::vector<mpq_class> MinMaxXY() const;
 
   void MakeFacetD(const Point &offset) const;

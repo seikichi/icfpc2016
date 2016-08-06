@@ -19,3 +19,12 @@ TEST(WriteOutput, ShouldSameOutput) {
   EXPECT_EQ(output1.dest_points, output2.dest_points);
   remove("./test/files/sample.out.same");
 }
+
+TEST(Validate, Check) {
+  Output output;
+  output.ReadOutput("./test/files/sample.out");
+  std::string str = output.WriteString();
+  EXPECT_EQ(output.Validate(str), true);
+  str += std::string(5000, ' ');
+  EXPECT_EQ(output.Validate(str), false);
+}

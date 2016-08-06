@@ -2,6 +2,7 @@
 
 #include "inout.h"
 #include <assert.h>
+#include <sstream>
 
 bool Output::ReadOutput(const char *filename) {
   FILE *file = fopen(filename, "r");
@@ -54,26 +55,36 @@ bool Output::WriteOutput(const char *filename) const {
   return true;
 }
 bool Output::WriteOutput(FILE *file) const {
+  std::string str = WriteString();
+  fprintf(file, "%s", str.c_str());
+  return Validate(str);
+}
+std::string Output::WriteString() const {
+  std::stringstream sout;
   // source positions part
-  fprintf(file, "%d\n", (int)source_points.size());
+  sout << source_points.size() << std::endl;
   for (auto &p : source_points) {
-    fprintf(file, "%s,%s\n", p.real().get_str().c_str(), p.imag().get_str().c_str());
+    sout << p.real().get_str() << "," << p.imag().get_str() << std::endl;
   }
   // facets part
-  fprintf(file, "%d\n", (int)facet_indecies.size());
+  sout << facet_indecies.size() << std::endl;
   for (auto &facets : facet_indecies) {
-    fprintf(file, "%d", (int)facets.size());
+    sout << facets.size() << std::endl;
     for (int index : facets) {
-      fprintf(file, " %d", index);
+      sout << " " << index;
     }
-    fprintf(file, "\n");
+    sout << std::endl;
   }
   // destination positions part
   for (auto &p : dest_points) {
-    fprintf(file, "%s,%s\n", p.real().get_str().c_str(), p.imag().get_str().c_str());
+    sout << p.real().get_str() << "," << p.imag().get_str() << std::endl;
   }
-  return true;
+  return sout.str();
 }
+bool Output::Validate(std::string str) {
+  return str.size() <= 5000;
+}
+
 void Output::MakeFacetD(const Point &offset) const {
   // make facet polygons
   facet_polygons_d.clear();
