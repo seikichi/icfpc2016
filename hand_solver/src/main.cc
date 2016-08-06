@@ -40,7 +40,7 @@ int main() {
     } else if (command == "move") {
       string x1, y1;
       if (!(sin >> x1 >> y1)) {
-        fprintf(stderr, "Error: fold x1 y1 (x1 likes 123/456 without space)\n");
+        fprintf(stderr, "Error: move x1 y1 (x1 likes 123/456 without space)\n");
         goto next;
       }
       Point vect = Point(mpq_class(x1), mpq_class(y1));
