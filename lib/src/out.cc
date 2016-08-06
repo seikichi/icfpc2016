@@ -3,6 +3,7 @@
 #include "inout.h"
 #include <assert.h>
 #include <sstream>
+#include <iostream>
 
 void Output::Init() {
   source_points = {
@@ -96,13 +97,12 @@ bool Output::Validate() const {
   for (int i = 0; i < (int)source_points.size(); i++) {
     for (int j = 0; j < i; j++) {
       if (source_points[i] == source_points[j]) {
-        fprintf(stderr, "Invalid solution spec: No coordinate should appear more than once in the source positions part.\n");
+        fprintf(stderr, "Invalid solution spec: duplicate source point %d %d.\n", i, j);
+        std::cerr << source_points[i] << std::endl;
         ret = false;
-        goto end_duplicate_source_point;
       }
     }
   }
-end_duplicate_source_point:
   if (WriteString().size() > 5000) {
     fprintf(stderr, "Invalid solution spec: Output size is larger than 5000B.\n");
     ret = false;

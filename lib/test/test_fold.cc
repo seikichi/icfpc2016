@@ -52,21 +52,34 @@ TEST(Fold, AxisParallel) {
   EXPECT_EQ(0, next.facet_indecies[1][3]);
 }
 
-TEST(Fold, Fold1) {
+TEST(Fold, Foldsome) {
   Output output1;
   output1.Init();
 
-  Line l(
-      Point(mpq_class(0, 1), mpq_class(1, 3)),
-      Point(mpq_class(1, 1), mpq_class(2, 3)));
-  output1 = Fold(output1, l);
+  Line l1(
+      Point(mpq_class(0, 8), mpq_class(0, 1)),
+      Point(mpq_class(1, 8), mpq_class(1, 1)));
+  output1 = Fold(output1, l1);
+  // output1.WriteOutput("hoge.out");
+
+  Line l2(
+      Point(mpq_class(1, 1), mpq_class(0, 1)),
+      Point(mpq_class(0, 1), mpq_class(1, 1)));
+  output1 = Fold(output1, l2);
+  // output1.WriteOutput("hoge.out");
+
+  Line l3(
+      Point(mpq_class(0, 2), mpq_class(1, 2)),
+      Point(mpq_class(1, 2), mpq_class(1, 2)));
+  output1 = Fold(output1, l3);
+  // output1.WriteOutput("hoge.out");
+  // output1.WriteSVGDest("hoge.svg");
+  // system("firefox hoge.svg");
 
   Output output2;
   output2.ReadOutput("./test/files/cut1.out");
 
-  EXPECT_EQ(output2.source_points, output1.source_points);
-  EXPECT_EQ(output2.facet_indecies, output1.facet_indecies);
-  EXPECT_EQ(output2.dest_points, output1.dest_points);
+  EXPECT_EQ(true, output1.Validate());
 }
 
 TEST(Fold, SameLine) {
@@ -98,9 +111,6 @@ TEST(Fold, Fold2) {
       Point(mpq_class(0, 1), mpq_class(1, 3)),
       Point(mpq_class(1, 1), mpq_class(2, 3)));
   output1 = Fold(output1, l1);
-  // output1.Validate();
-  // output1.WriteSVGSource("cut1_source.svg");
-  // output1.WriteSVGDest("cut1_dest.svg");
 
   Line l2(
       Point(mpq_class(1, 3), mpq_class(0, 1)),
@@ -130,13 +140,13 @@ TEST(Fold, FoldMany) {
     if (prev_cnt == (int)output1.source_points.size()) {
       i--; continue;
     }
-    char buffer[100];
-    snprintf(buffer, 99, "cut%d.out", i + 1);
-    output1.WriteOutput(buffer);
-    snprintf(buffer, 99, "cut%d_source.svg", i + 1);
-    output1.WriteSVGSource(buffer);
-    snprintf(buffer, 99, "cut%d_dest.svg", i + 1);
-    output1.WriteSVGDest(buffer);
+    // char buffer[100];
+    // snprintf(buffer, 99, "cut%d.out", i + 1);
+    // output1.WriteOutput(buffer);
+    // snprintf(buffer, 99, "cut%d_source.svg", i + 1);
+    // output1.WriteSVGSource(buffer);
+    // snprintf(buffer, 99, "cut%d_dest.svg", i + 1);
+    // output1.WriteSVGDest(buffer);
   }
 
   Output output2;

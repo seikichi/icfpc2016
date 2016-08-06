@@ -9,6 +9,7 @@ Output Fold(const Output &output, const Line &l) {
   ret.facet_indecies = std::vector<std::vector<int>>();
   std::vector<int> ccws(output.dest_points.size());
   for (int i = 0; i < (int)output.dest_points.size(); i++){
+    cut_point[output.source_points[i]] = i;
     ccws[i] = ccw(l[0], l[1], output.dest_points[i]);
     if (ccws[i]  == -1) {
       ret.dest_points[i] = reflection(l, output.dest_points[i]);
