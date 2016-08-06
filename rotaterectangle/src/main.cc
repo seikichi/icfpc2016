@@ -154,6 +154,33 @@ pair<double, Output> CreateSolutionAndEvaluate(
     }
   }
 
+  // size check
+  string outstr = output.WriteString();
+  if (outstr.size() > 5000) {
+    // output exceeds the size limit.
+    // fallback to less accurate offset.
+    double offset_xd = offset_x.get_d();
+    double offset_yd = offset_y.get_d();
+    mpq_class offset_x2;
+    if (abs(offset_xd) < 1e14)
+        offset_x2 = offset_xd;
+    else
+        offset_x2 = offset_x.get_num()/offset_x.get_den();
+    mpq_class offset_y2;
+    if (abs(offset_yd) < 1e14)
+        offset_y2 = offset_yd;
+    else
+        offset_y2 = offset_y.get_num()/offset_y.get_den();
+    output.dest_points.clear();
+    for (auto& y : y_creases) {
+      for (auto& x : x_creases) {
+        Point p = Point(x.second + offset_x2, y.second + offset_y2);
+        Point rp = RotatePointByAngleReverse(p, angle);
+        output.dest_points.push_back(move(rp));
+      }
+    }
+  }
+
   double score = ScoringMonte(input, output, 1000);
   return make_pair(score, move(output));
 }

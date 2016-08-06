@@ -53,7 +53,7 @@ inline Point reflection(const Line &l, const Point &p) {
   return p + mpq_class(2,1) * (projection(l, p) - p);
 }
 
-inline Point crosspointSS(const Line &l, const Line &m) {
+inline Point crosspointLL(const Line &l, const Line &m) {
   mpq_class A = cross(l[1] - l[0], m[1] - m[0]);
   mpq_class B = cross(l[1] - l[0], l[1] - m[0]);
   mpq_class C = B / A;
@@ -92,4 +92,27 @@ std::vector<std::complex<T>> ConvexHull(std::vector<std::complex<T>> ps) {
     while (k >= t && ccw(ch[k - 2], ch[k - 1], ps[i]) <= 0) --k;
   ch.resize(k - 1);
   return ch;
+}
+
+template<class T>
+std::vector<std::complex<T>> ConvexCut(const std::vector<std::complex<T>> &P, const Line &l) {
+  std::vector<std::complex<T>> Q;
+  for (int i = 0; i < (int)P.size(); i++) {
+    std::complex<T> A = CURR(P, i), B = NEXT(P, i);
+    if (ccw(l[0], l[1], A) != -1) { Q.push_back(A); }
+    if (ccw(l[0], l[1], A) * ccw(l[0], l[1], B) < 0) {
+      Q.push_back(crosspointLL(Line(A, B), l));
+    }
+  }
+  return Q;
+}
+
+// destinationにあるd3の点をsourceに射影する
+// d3はd1-d2とs1-s2の直線上にある前提
+template<class T>
+std::complex<T> GetSourcePoint(
+    const std::complex<T> d1, const std::complex<T> d2, const std::complex<T> d3,
+    const std::complex<T> s1, const std::complex<T> s2) {
+  T t = dot(d3 - d1, d1 - d2) / norm(d1 - d2);
+  return s1 + t * (s1 - s2);
 }

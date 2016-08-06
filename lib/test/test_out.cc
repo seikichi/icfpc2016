@@ -14,9 +14,9 @@ TEST(WriteOutput, ShouldSameOutput) {
   output1.ReadOutput("./test/files/sample.out");
   output1.WriteOutput("./test/files/sample.out.same");
   output2.ReadOutput("./test/files/sample.out.same");
-  EXPECT_EQ(output1.source_points, output2.source_points);
-  EXPECT_EQ(output1.facet_indecies, output2.facet_indecies);
-  EXPECT_EQ(output1.dest_points, output2.dest_points);
+  EXPECT_EQ(output2.source_points, output1.source_points);
+  EXPECT_EQ(output2.facet_indecies, output1.facet_indecies);
+  EXPECT_EQ(output2.dest_points, output1.dest_points);
   remove("./test/files/sample.out.same");
 }
 
@@ -24,7 +24,7 @@ TEST(Validate, Check) {
   Output output;
   output.ReadOutput("./test/files/sample.out");
   std::string str = output.WriteString();
-  EXPECT_EQ(output.Validate(str), true);
+  EXPECT_EQ(true, output.Validate(str));
   str += std::string(5000, ' ');
-  EXPECT_EQ(output.Validate(str), false);
+  EXPECT_EQ(false, output.Validate(str));
 }
