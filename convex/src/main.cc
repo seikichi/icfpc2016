@@ -111,7 +111,9 @@ CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, in
     const Point& curr = convex_hull[i];
     const Point& next = convex_hull[(i+1)%convex_hull.size()];
     size_t n_source_points = output.source_points.size();
-    output = Fold(output, Line(curr, next));
+    Output next_output = Fold(output, Line(curr, next));
+    if ((int)next_output.WriteString().size() > 5000) { break; }
+    output = next_output;
     if (output.source_points.size() > n_source_points) {
       last_updated = i;
     } else {
