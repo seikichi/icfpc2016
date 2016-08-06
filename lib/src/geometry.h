@@ -2,6 +2,7 @@
 
 #include <gmpxx.h>
 #include <complex>
+#include <tuple>
 
 typedef std::complex<mpq_class> Point;
 typedef std::vector<Point> Polygon;
@@ -116,3 +117,11 @@ std::complex<T> GetSourcePoint(
   T t = dot(d3 - d1, d1 - d2) / norm(d1 - d2);
   return s1 + t * (s1 - s2);
 }
+
+// 点pをangleだけ回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngle(const Point& p, const std::tuple<int, int, int>& angle);
+
+// 点pをangleだけ逆回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>& angle);

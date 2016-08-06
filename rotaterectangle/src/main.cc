@@ -1,6 +1,7 @@
 #include "input.h"
 #include "score.h"
 #include "crease.h"
+#include "geometry.h"
 #include <iostream>
 #include <tuple>
 using namespace std;
@@ -45,20 +46,6 @@ vector<tuple<int, int, int>> angles = {
 };
 
 vector<mpq_class> scales = {mpq_class(1, 1), mpq_class(3, 4), mpq_class(1, 2), mpq_class(1, 4)};
-
-Point RotatePointByAngle(Point p, tuple<int, int, int> angle) {
-  mpq_class c(get<0>(angle), get<2>(angle));
-  mpq_class s(get<1>(angle), get<2>(angle));
-  return Point(p.real() * c - p.imag() * s,
-               p.real() * s + p.imag() * c);
-}
-
-Point RotatePointByAngleReverse(Point p, tuple<int, int, int> angle) {
-  mpq_class c(get<0>(angle), get<2>(angle));
-  mpq_class s(get<1>(angle), get<2>(angle));
-  return Point(p.real() * c + p.imag() * s,
-              -p.real() * s + p.imag() * c);
-}
 
 string FractionToString(mpq_class f) {
   f.canonicalize();
