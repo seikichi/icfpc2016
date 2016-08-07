@@ -44,6 +44,11 @@ int ccw(const std::complex<T> &a, std::complex<T> b, std::complex<T> c) {
   return 0;
 }
 
+inline bool SameLine(const Line &l, const Line &s) {
+  return cross(l[1] - l[0], s[1] - s[0]) == 0 &&
+         cross(l[1] - l[0], s[0] - l[0]) == 0;
+}
+
 inline bool intersectLS(const Line &l, const Line &s) {
   return cross(l[1] - l[0], s[0] - l[0]) *
          cross(l[1] - l[0], s[1] - l[0]) <= 0;
