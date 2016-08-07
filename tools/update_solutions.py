@@ -98,11 +98,11 @@ def main():
         results = pool.map(solve, args)
 
         for problem_id, resemblance, solution in results:
-            if solution is None:
-                continue
+            if solution is not None:
+                solution = solution.decode('utf-8')
             problems[problem_id] = {
                 'resemblance': resemblance,
-                'solution': solution.decode('utf-8'),
+                'solution': solution,
                 'solver_hash': solver_hash,
                 'solver_name': solver_name,
             }

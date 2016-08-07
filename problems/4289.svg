@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M4679.000000 2174.000000 L4679.276775 2174.606498 L4678.821901 2174.814079 L4678.545126 2174.207581 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="4679" y1="2174" x2="4679.28" y2="2174.61" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="4678.55" y1="2174.21" x2="4678.82" y2="2174.81" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="4679" y1="2174" x2="4678.55" y2="2174.21" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="4679.14" y1="2174.3" x2="4678.68" y2="2174.51" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="4679.28" y1="2174.61" x2="4678.82" y2="2174.81" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
