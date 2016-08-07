@@ -26,4 +26,6 @@ struct Output {
   void MakeFacetD(const Point &offset) const;
   bool ContainFacet(const PointD &p) const;
   mutable std::vector<PolygonD> facet_polygons_d; // 向きを正規化して入れる
+  mutable std::vector<std::vector<double>> facet_rects;
+  mutable PolygonD facet_convex;
 };

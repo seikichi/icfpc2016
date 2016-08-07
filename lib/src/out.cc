@@ -41,11 +41,13 @@ bool Output::ReadOutput(FILE *file) {
   facet_indecies.resize(facet_num);
   for (int i = 0; i < facet_num; i++) {
     int n;
-    fscanf(file, " %d", &n);
+    v = fscanf(file, " %d", &n);
+    assert(v == 1);
     facet_indecies[i].resize(n);
     for (int j = 0; j < n; j++) {
       int index;
-      fscanf(file, "%d", &index);
+      v = fscanf(file, "%d", &index);
+      assert(v == 1);
       facet_indecies[i][j] = index;
     }
   }
@@ -218,20 +220,39 @@ bool Output::WriteSVGDest(FILE *file) const {
 void Output::MakeFacetD(const Point &offset) const {
   // make facet polygons
   facet_polygons_d.clear();
+  facet_rects.clear();
   for (auto indices : facet_indecies) {
     PolygonD facet;
+    std::vector<double> rect = { 1e+10, 1e+10, -1e+10, -1e+10 };
     for (int index : indices) {
-      facet.push_back(mpq2d(dest_points[index] - offset));
+      PointD p = mpq2d(dest_points[index] - offset);
+      facet.push_back(p);
+      rect[0] = std::min(rect[0], p.real());
+      rect[1] = std::min(rect[1], p.imag());
+      rect[2] = std::max(rect[2], p.real());
+      rect[3] = std::max(rect[3], p.imag());
     }
     if (Area(facet) < 0) {
       reverse(facet.begin(), facet.end());
     }
     facet_polygons_d.push_back(facet);
+    facet_rects.push_back(rect);
   }
+  // make facet convex
+  facet_convex.clear();
+  for (const auto &p : dest_points) {
+    facet_convex.push_back(mpq2d(p - offset));
+  }
+  facet_convex = ConvexHull(facet_convex);
 }
 bool Output::ContainFacet(const PointD &p) const {
-  for (const auto &facet : facet_polygons_d) {
-    if (Contains(facet, p) == ContainResult::IN) { return true; }
+  if (Contains(facet_convex, p) != ContainResult::IN) { return false; }
+  for (int i = 0; i < (int)facet_polygons_d.size(); i++) {
+    const auto &rect = facet_rects[i];
+    const auto &facet = facet_polygons_d[i];
+    if (rect[0] < p.real() && p.real() < rect[2] && rect[1] < p.imag() && p.imag() < rect[3]) {
+      if (Contains(facet, p) == ContainResult::IN) { return true; }
+    }
   }
   return false;
 }
