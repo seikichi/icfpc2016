@@ -49,12 +49,13 @@ def _request_with_retry(req):
         try:
             with request.urlopen(req) as response:
                 return gzip.decompress(response.read())
-        except:
-            t, m, s = sys.exc_info()
-            print('Unexpected error: problem_id={}, {}, retry ...'.format(t, m),
-                  file=sys.stderr, flush=True)
-            time.sleep(5)
-            continue
+        except HTTPError as e:
+            if e.code == 429:
+                print('Got too many request error, wait 5 seconds...',
+                      file=sys.stderr)
+                time.sleep(5)
+                continue
+            raise e
 
     raise RuntimeError('Failed to use ICFPC API ... ({} times retried)'.format(retry))
 
