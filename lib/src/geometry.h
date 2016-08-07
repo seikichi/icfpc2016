@@ -64,11 +64,15 @@ inline bool intersectLS(const Line &l, const Line &s) {
 
 inline Point projection(const Line &l, const Point &p) {
   mpq_class t = dot(p - l[0], l[0] - l[1]) / norm(l[0] - l[1]);
-  return l[0] + t * (l[0] - l[1]);
+  Point q = l[0] + t * (l[0] - l[1]);
+  canonicalize(q);
+  return q;
 }
 
 inline Point reflection(const Line &l, const Point &p) {
-  return p + mpq_class(2,1) * (projection(l, p) - p);
+  Point q = p + mpq_class(2,1) * (projection(l, p) - p);
+  canonicalize(q);
+  return q;
 }
 
 // sをlで反射する
@@ -80,7 +84,9 @@ inline Point crosspointLL(const Line &l, const Line &m) {
   mpq_class A = cross(l[1] - l[0], m[1] - m[0]);
   mpq_class B = cross(l[1] - l[0], l[1] - m[0]);
   mpq_class C = B / A;
-  return m[0] + C * (m[1] - m[0]);
+  Point p = m[0] + C * (m[1] - m[0]);
+  canonicalize(p);
+  return p;
 }
 
 mpq_class Area(const Polygon &p);
