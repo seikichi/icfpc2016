@@ -148,13 +148,37 @@ Point RotatePointByAngle(const Point& p, const std::tuple<int, int, int>& angle)
 // angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
 Point RotatePointByAngleReverse(const Point& p, const std::tuple<int, int, int>& angle);
 
+// 点pをangleだけ回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngle(const Point& p, const std::tuple<mpq_class, mpq_class, mpq_class>& angle);
+
+// 点pをangleだけ逆回転する
+// angleは回転する角度を表す直角三角形の各辺の長さ (例えば (5, 12, 13))
+Point RotatePointByAngleReverse(const Point& p, const std::tuple<mpq_class, mpq_class, mpq_class>& angle);
+
 // Polygonをangleだけ回転させたPolygonを返す
+template <typename N>
 Polygon
-RotatePolygon(const Polygon& polygon, const std::tuple<int, int, int>& angle);
+RotatePolygon(const Polygon& polygon, const std::tuple<N, N, N>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngle(point, angle));
+  }
+  return rotated;
+}
 
 // Polygonをangleだけ逆回転させたPolygonを返す
+template <typename N>
 Polygon
-RotatePolygonReverse(const Polygon& polygon, const std::tuple<int, int, int>& angle);
+RotatePolygonReverse(const Polygon& polygon, const std::tuple<N, N, N>& angle) {
+  Polygon rotated;
+  rotated.reserve(polygon.size());
+  for (auto& point : polygon) {
+    rotated.push_back(RotatePointByAngleReverse(point, angle));
+  }
+  return rotated;
+}
 
 // Polygonをoffsetだけ平行移動させたPolygonを返す
 Polygon TranslatePolygon(const Polygon& polygon, Point offset);

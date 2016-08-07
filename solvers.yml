@@ -1,23 +1,23 @@
 - name: centering
-  dependent: [centering]
+  dependent: [centering, tools/update_solutions.py]
   command: centering/centering
 - name: rectangle
-  setup: cd rectangle ; make
-  dependent: [rectangle, scoring/src, lib/src]
+  setup: cd rectangle ; make clean ; make
+  dependent: [rectangle, scoring/src, lib/src, tools/update_solutions.py]
   command: rectangle/rectangle
 - name: multirectangle
-  setup: cd multirectangle ; make
-  dependent: [multirectangle, scoring/src, lib/src]
+  setup: cd multirectangle ; make clean ; make
+  dependent: [multirectangle, scoring/src, lib/src, tools/update_solutions.py]
   command: multirectangle/multirectangle
 - name: rotaterectangle
-  setup: cd rotaterectangle ; make
-  dependent: [rotaterectangle, scoring/src, lib/src]
+  setup: cd rotaterectangle ; make clean ; make
+  dependent: [rotaterectangle, scoring/src, lib/src, tools/update_solutions.py]
   command: rotaterectangle/rotaterectangle
 - name: convex
-  setup: cd convex ; make
-  dependent: [convex, scoring/src, lib/src]
+  setup: cd convex ; make clean ; make
+  dependent: [convex, scoring/src, lib/src, tools/update_solutions.py]
   command: convex/convex
 - name: brute
-  setup: cd brute ; make
-  dependent: [brute, scoring/src, lib/src]
+  setup: cd brute ; make clean ; make
+  dependent: [brute, scoring/src, lib/src, tools/update_solutions.py]
   command: brute/brute

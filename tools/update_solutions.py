@@ -113,7 +113,7 @@ def main():
     if current_solution is not None:
         current_problems = current_solution['problems']
         for problem_id, result in problems.items():
-            current_problems[problem_id] = result
+            current_problems[str(problem_id)] = result
     else:
         current_problems = problems
 
