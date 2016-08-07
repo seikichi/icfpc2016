@@ -139,6 +139,9 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
       double score;
       Output output;
       tie(score, output) = Dfs(input, new_creases, new_candidates, depth+1, max_depth, convex);
+      if (score == 1.0) {       // early return
+        return make_pair(score, move(output));
+      }
       if (score > max_score) {
         max_score = score;
         best_output = move(output);
