@@ -11,8 +11,12 @@ max_score = -1.0
 best_output = None
 
 for initial in sys.argv[1:]:
+    depth = 0
+    if ':' in initial:
+        initial, depth_str = initial.split(':')
+        depth = int(depth_str)
     print("Run handbrute {}".format(initial), flush=True, file=sys.stderr)
-    p = subprocess.Popen([path.join(top_dir, "handbrute", "handbrute"), initial],
+    p = subprocess.Popen([path.join(top_dir, "handbrute", "handbrute"), initial, str(depth)],
                          stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     hb_stdout, _ = p.communicate(problem.encode('utf-8'))
     if p.returncode != 0:
