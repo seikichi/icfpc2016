@@ -20,6 +20,14 @@ namespace std {
   bool operator<(const Point &lhs, const Point &rhs);
 }
 
+template<class T>
+void canonicalize(std::complex<T> &p) {
+  T x = p.real();
+  T y = p.imag();
+  x.canonicalize(); y.canonicalize();
+  p = Point(x, y);
+}
+
 PointD mpq2d(const Point &p);
 PolygonD mpq2d(const Polygon &ps);
 

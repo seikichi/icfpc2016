@@ -32,6 +32,7 @@ int main() {
       }
       Line l = Line(Point(mpq_class(x1), mpq_class(y1)),
                     Point(mpq_class(x2), mpq_class(y2)));
+      canonicalize(l[0]); canonicalize(l[1]);
       Output next = Fold(outputs.back(), l);
       outputs.push_back(next);
       outputs.back().WriteSVGSource("tmp_source.svg");
@@ -44,6 +45,7 @@ int main() {
         goto next;
       }
       Point vect = Point(mpq_class(x1), mpq_class(y1));
+      canonicalize(vect);
       Output next = outputs.back();
       for (auto &p : next.dest_points) { p += vect; }
       outputs.push_back(next);

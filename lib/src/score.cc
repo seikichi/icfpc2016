@@ -1,7 +1,9 @@
 #include "score.h"
 
 #include "xor_shift.h"
+#include <math.h>
 #include <gmpxx.h>
+#include <iostream>
 
 mpf_class mpq2mpf(const mpq_class &q) {
   mpf_class v(q.get_num(), 256);
@@ -62,3 +64,33 @@ double ScoringMonte(const Input &input, const Output &output, int cnt) {
   // std::cout << area_and << " " << area_or << " " << std::endl;
   return (double)area_and / area_or;
 }
+
+// bool PerfectHit(const char *input_filename, const char *solution_filename, int cnt) {
+//   Input input;
+//   Output output;
+//   input.ReadInput(input_filename);
+//   output.ReadOutput(solution_filename);
+//   return PerfectHit(input, output, cnt);
+// }
+//
+// bool PerfectHit(const Input &input, const Output &output, int cnt) {
+//   std::vector<Point> input_points;
+//   for (const auto &silhouette : input.silhouettes) {
+//     for (const auto &p : silhouette) {
+//       input_points.push_back(p);
+//     }
+//   }
+//   sort(input_points.begin(), input_points.end());
+//   std::vector<Point> output_points = output.dest_points;
+//   sort(output_points.begin(), output_points.end());
+//   int out_pos = 0;
+//   for (int in_pos = 0; in_pos <(int)input_points.size(); in_pos++) {
+//     while (out_pos < (int)output_points.size() && output_points[out_pos] < input_points[in_pos]) { out_pos++; }
+//     if (out_pos == (int)output_points.size() || output_points[out_pos] != input_points[in_pos]) { return false; }
+//   }
+//   if (input.silhouettes.size() == 1) {
+//     double score = ScoringMonte(input, output, cnt);
+//     if (score != 1.0 && !std::isnan(score)) { return false; }
+//   }
+//   return true;
+// }

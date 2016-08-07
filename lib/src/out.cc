@@ -76,8 +76,11 @@ std::string Output::WriteString() const {
   std::string ret;
   // source positions part
   ret += std::to_string(source_points.size()) + "\n";
-  for (auto &p : source_points) {
-    ret += p.real().get_str() + "," + p.imag().get_str() + "\n";
+  for (const auto &p : source_points) {
+    mpq_class x = p.real();
+    mpq_class y = p.imag();
+    x.canonicalize(); y.canonicalize();
+    ret += x.get_str() + "," + y.get_str() + "\n";
     if (ret.size() > 5000) { return ret; }
   }
   // facets part
@@ -91,8 +94,11 @@ std::string Output::WriteString() const {
     ret += "\n";
   }
   // destination positions part
-  for (auto &p : dest_points) {
-    ret += p.real().get_str() + "," + p.imag().get_str() + "\n";
+  for (const auto &p : dest_points) {
+    mpq_class x = p.real();
+    mpq_class y = p.imag();
+    x.canonicalize(); y.canonicalize();
+    ret += x.get_str() + "," + y.get_str() + "\n";
     if (ret.size() > 5000) { return ret; }
   }
   return ret;

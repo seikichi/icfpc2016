@@ -33,6 +33,7 @@ mpq_class ReadFrac(FILE *file) {
   mpz_class num(a);
   mpz_class den(b);
   mpq_class q(num, den);
+  q.canonicalize();
   return q;
 }
 Point ReadPoint(FILE *file) {
