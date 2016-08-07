@@ -17,3 +17,7 @@
   setup: cd convex ; make
   dependent: [lib/src, convex]
   command: convex/convex
+- name: brute
+  setup: cd brute ; make
+  dependent: [lib/src, brute]
+  command: brute/brute
