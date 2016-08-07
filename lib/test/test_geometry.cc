@@ -4,6 +4,22 @@
 #include <iostream>
 using namespace std;
 
+TEST(SameLine, Check) {
+  Line l1(Point(mpq_class(0, 1), mpq_class(1, 2)), Point(mpq_class(1, 1), mpq_class(1, 2)));
+  Line l1_same(Point(mpq_class(3, 1), mpq_class(1, 2)), Point(mpq_class(4, 1), mpq_class(1, 2)));
+  Line l1_same2(Point(mpq_class(4, 1), mpq_class(1, 2)), Point(mpq_class(3, 1), mpq_class(1, 2)));
+  Line l1_parallel(Point(mpq_class(0, 1), mpq_class(3, 2)), Point(mpq_class(1, 1), mpq_class(3, 2)));
+  Line l2(Point(mpq_class(1, 2), mpq_class(0, 1)), Point(mpq_class(1, 2), mpq_class(1, 1)));
+  Line l3(Point(mpq_class(1, 2), mpq_class(1, 1)), Point(mpq_class(1, 2), mpq_class(0, 1)));
+
+  EXPECT_EQ(true, SameLine(l1, l1));
+  EXPECT_EQ(true, SameLine(l1, l1_same));
+  EXPECT_EQ(true, SameLine(l1, l1_same2));
+  EXPECT_EQ(false, SameLine(l1, l1_parallel));
+  EXPECT_EQ(false, SameLine(l1, l2));
+  EXPECT_EQ(false, SameLine(l1, l3));
+}
+
 TEST(Reflection, Line) {
   Line l(Point(mpq_class(0, 1), mpq_class(1, 2)), Point(mpq_class(1, 1), mpq_class(1, 2)));
   Line s(Point(mpq_class(1, 2), mpq_class(0, 1)), Point(mpq_class(1, 2), mpq_class(1, 3)));

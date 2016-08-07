@@ -143,9 +143,23 @@ Output Solve(const Input& input) {
     convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
   }
 
+  vector<Line> candidates;
+  for (auto& line : input.skeltons) {
+    bool use = true;
+    for (auto& l : candidates) {
+      if (SameLine(line, l)) {
+        use = false;
+        break;
+      }
+    }
+    if (use) {
+      candidates.push_back(line);
+    }
+  }
+
   double score;
   Output output;
-  tie(score, output) = Dfs(input, vector<Line>(), input.skeltons, 0, 2, convex);
+  tie(score, output) = Dfs(input, vector<Line>(), candidates, 0, 2, convex);
 
   return output;
 }

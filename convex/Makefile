@@ -8,12 +8,12 @@ WARNING_OPTIONS = -Wall -Wextra -Weffc++ -Woverloaded-virtual -Werror
 OPTIMIZATION_OPTIONS = -O3 -fno-omit-frame-pointer -march=native -mtune=native
 CODE_GENERATION_OPTIONS = -fPIC -pthread
 PREPROCESSOR_OPTIONS = -MMD -MP -I../lib/src
-DEBUGGING_OPTIONS = -gdwarf-3 -fsanitize=address
+DEBUGGING_OPTIONS = -gdwarf-3
 CXXFLAGS = $(OVERALL_OPTIONS) $(LANGUAGE_OPTIONS) $(WARNING_OPTIONS) $(OPTIMIZATION_OPTIONS) \
            $(CODE_GENERATION_OPTIONS) $(PREPROCESSOR_OPTIONS) $(DEBUGGING_OPTIONS)
 
-LDFLAGS = -fsanitize=address -lgmpxx -lgmp
-LIBS = -lm
+LDFLAGS =
+LIBS = -lm -lgmpxx -lgmp
 
 SOURCES = $(wildcard src/*.cc)
 OBJECTS = $(patsubst src/%.cc, obj/main/%.o, $(SOURCES))
