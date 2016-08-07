@@ -20,19 +20,15 @@ void Canonicalize(Silhouette& silhouette, Skeleton& skeleton, Polygon& square) {
   yg /= count;
   for (auto& polygon : silhouette) {
     for (auto& point : polygon) {
-      point.real() -= xg;
-      point.imag() -= yg;
+      point = Point(point.real() - xg, point.imag() - yg);
     }
   }
   for (auto& segment : skeleton) {
-    segment.first.real() -= xg;
-    segment.first.imag() -= yg;
-    segment.second.real() -= xg;
-    segment.second.imag() -= yg;
+    segment.first = Point(segment.first.real() - xg, segment.first.imag() - yg);
+    segment.second = Point(segment.second.real() - xg, segment.second.imag() - yg);
   }
   for (auto& point : square) {
-    point.real() -= xg;
-    point.imag() -= yg;
+    point = Point(point.real() - xg, point.imag() - yg);
   }
 }
 
