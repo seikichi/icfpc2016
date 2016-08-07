@@ -66,8 +66,8 @@ def list_target_problem_id_list(solutions, solver_hash):
 
 
 def main():
-    if len(sys.argv) != 3:
-        print('Usage: {} solver_name solution.json'.format(sys.argv[0]), file=sys.stderr)
+    if len(sys.argv) != 3 and len(sys.argv) != 4:
+        print('Usage: {} solver_name solution.json [perfect_list]'.format(sys.argv[0]), file=sys.stderr)
         sys.exit(1)
 
     solver_name = sys.argv[1]
@@ -84,6 +84,11 @@ def main():
 
     solver_hash = utils.calc_solver_hash(solver_config)
     target_problem_id_list = list_target_problem_id_list(current_solution, solver_hash)
+
+    if len(sys.argv) == 4:
+        with open(sys.argv[3]) as f:
+            perfect_list = set(map(str, json.load(f)))
+            target_problem_id_list = [pid for pid in target_problem_id_list if pid not in perfect_list]
 
     solver_path = Path(solver_config['command'])
     project_path = Path(os.path.abspath(__file__)).parents[1]
