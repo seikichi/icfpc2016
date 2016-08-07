@@ -3,21 +3,21 @@
   command: centering/centering
 - name: rectangle
   setup: cd rectangle ; make
-  dependent: [rectangle]
+  dependent: [rectangle, scoring/src, lib/src]
   command: rectangle/rectangle
 - name: multirectangle
   setup: cd multirectangle ; make
-  dependent: [multirectangle]
+  dependent: [multirectangle, scoring/src, lib/src]
   command: multirectangle/multirectangle
 - name: rotaterectangle
   setup: cd rotaterectangle ; make
-  dependent: [rotaterectangle]
+  dependent: [rotaterectangle, scoring/src, lib/src]
   command: rotaterectangle/rotaterectangle
 - name: convex
   setup: cd convex ; make
-  dependent: [convex]
+  dependent: [convex, scoring/src, lib/src]
   command: convex/convex
 - name: brute
   setup: cd brute ; make
-  dependent: [brute]
+  dependent: [brute, scoring/src, lib/src]
   command: brute/brute
