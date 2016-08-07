@@ -187,9 +187,7 @@ FindRightAngles(const vector<Line>& skeltons) {
 pair<double, Output> Solve(const Input& input, const Output& initial, int max_depth) {
   if (input.skeltons.size() >= 20) {
     cerr << "Too many lines in skeletone. Give up!!" << endl;
-    Output output;
-    output.Init();
-    return make_pair(0, output);
+    return make_pair(0, initial);
   }
 
   const vector<Line>& skeltons = input.skeltons;
