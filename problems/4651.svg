@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M1.501835 1.026376 L1.582062 1.086546 L1.594084 1.090651 L1.592749 1.094562 L1.700000 1.175000 L1.452734 1.504687 L1.025759 1.358920 L1.025903 1.353405 z " fill="rgb(245,195,195)" />
+<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="1.50184" y1="1.02638" x2="1.5537" y2="1.20895" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.50184" y1="1.02638" x2="1.7" y2="1.175" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.0259" y1="1.35341" x2="1.02576" y2="1.35892" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.21312" y1="1.22476" x2="1.20586" y2="1.41719" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.34154" y1="1.13652" x2="1.3293" y2="1.46094" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.46996" y1="1.04828" x2="1.45273" y2="1.50469" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.46996" y1="1.04828" x2="1.59408" y2="1.09065" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.59408" y1="1.09065" x2="1.45273" y2="1.50469" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.34154" y1="1.13652" x2="1.5537" y2="1.20895" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.21312" y1="1.22476" x2="1.51331" y2="1.32724" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.0259" y1="1.35341" x2="1.45273" y2="1.50469" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.02576" y1="1.35892" x2="1.45273" y2="1.50469" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.49592" y1="1.03044" x2="1.20586" y2="1.41719" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.6" y1="1.1" x2="1.3293" y2="1.46094" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.7" y1="1.175" x2="1.45273" y2="1.50469" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.50246" y1="1.02858" x2="1.49592" y2="1.03044" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.50184" y1="1.02638" x2="1.0259" y2="1.35341" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="1.5537" y1="1.20895" x2="1.02576" y2="1.35892" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
