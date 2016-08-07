@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
+<g transform="scale(1, -1)">
+<path d="M-0.083333 -0.250000 L0.166667 0.000000 L-0.083333 0.250000 z " fill="rgb(245,195,195)" />
+<path d="M-0.333333 -0.500000 L0.666667 -0.500000 L0.666667 0.500000 L-0.333333 0.500000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="-0.0833333" y1="-0.25" x2="0.166667" y2="0" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.0833333" y1="-0.25" x2="-0.0833333" y2="0.25" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.166667" y1="0" x2="-0.0833333" y2="0.25" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+</g>
+</svg>
