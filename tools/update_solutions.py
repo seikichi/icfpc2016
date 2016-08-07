@@ -55,9 +55,9 @@ def list_target_problem_id_list(solutions, solver_hash):
             target_problem_id_list.append(problem_id)
             continue
 
-        # 過去に計算していて 1.0 になった or ソルバが変わってないなら除外
+        # 過去に計算している + ソルバが変わってないなら除外
         result = solutions['problems'][problem_id]
-        if abs(result['resemblance'] - 1.0) < 1e-10 or solver_hash == result['solver_hash']:
+        if solver_hash == result['solver_hash']:
             continue
 
         target_problem_id_list.append(problem_id)
