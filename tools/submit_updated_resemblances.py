@@ -24,15 +24,15 @@ def main():
         old_problem_result = old_result['problems'].get(problem_id, {})
 
         if problem_result['solution'] == old_problem_result.get('solution', None):
-            print('skip to submit problem {}. solutions are same'.format(problem_id), file=sys.stderr)
+            # print('skip to submit problem {}. solutions are same'.format(problem_id), file=sys.stderr)
             continue
 
         if problem_result['resemblance'] <= old_problem_result.get('resemblance', -1.0):
-            print('skip to submit problem {}. resemblance becomes worse ({} -> {})'.
-                  format(problem_id,
-                         old_problem_result.get('resemblance', '[not exist]'),
-                         problem_result['resemblance']),
-                  file=sys.stderr)
+            # print('skip to submit problem {}. resemblance becomes worse ({} -> {})'.
+            #       format(problem_id,
+            #              old_problem_result.get('resemblance', '[not exist]'),
+            #              problem_result['resemblance']),
+            #       file=sys.stderr)
             merged_problems[problem_id] = old_problem_result
             continue
 
