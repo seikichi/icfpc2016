@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "out.h"
+#include <iostream>
 
 TEST(StrFraction, WithSlash) {
   EXPECT_EQ(mpq_class(2,3).get_str(), "2/3");
@@ -32,4 +33,24 @@ TEST(Validate, Check) {
   output.ReadOutput("./test/files/sample.out");
   std::string str = output.WriteString();
   EXPECT_EQ(true, output.Validate());
+}
+
+TEST(ReadOuput, Canonicalize) {
+  Output output;
+  output.ReadOutput("./test/files/cut7.out");
+  Point p = output.source_points[4];
+  canonicalize(p);
+  EXPECT_EQ(p, output.source_points[4]);
+}
+
+TEST(WriteOutput, Hoge) {
+  mpq_class v(2,4);
+  v.canonicalize();
+  EXPECT_EQ("1/2", v.get_str());
+
+  Output output;
+  output.Init();
+  output.dest_points[3] = Point(mpq_class(0, 10000), mpq_class(333, 333));
+  std::string str = output.WriteString();
+  EXPECT_EQ(nullptr, strstr(str.c_str(), "333"));
 }
