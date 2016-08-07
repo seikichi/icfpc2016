@@ -1,7 +1,14 @@
 #include "fold.h"
+#include "xor_shift.h"
 #include <map>
+#include <time.h>
+#include <iostream>
 
 Output Fold(const Output &output, const Line &l) {
+  static int cnt = 0;
+  // Random rnd(time(nullptr) + cnt);
+  cnt -= 100;
+
   std::map<Point, int> cut_point;
   Output ret;
   ret.source_points = output.source_points;
@@ -11,7 +18,7 @@ Output Fold(const Output &output, const Line &l) {
   for (int i = 0; i < (int)output.dest_points.size(); i++){
     cut_point[output.source_points[i]] = i;
     ccws[i] = ccw(l[0], l[1], output.dest_points[i]);
-    if (ccws[i]  == -1) {
+    if (ccws[i]  == -1) {// && rnd.next(100) > 50) {
       ret.dest_points[i] = reflection(l, output.dest_points[i]);
     }
   }
