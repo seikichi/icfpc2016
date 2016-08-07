@@ -6,7 +6,7 @@
 #include <tuple>
 using namespace std;
 
-vector<tuple<int, int, int>> angles = {
+vector<tuple<mpq_class, mpq_class, mpq_class>> angles = {
   make_tuple(1, 0, 1),  // 0.000000
   /*
   make_tuple(9940, 141, 9941),  // 0.812692
@@ -53,7 +53,7 @@ vector<tuple<int, int, int>> angles = {
 };
 
 Silhouette
-RotateSihouette(const Silhouette& silhouette, const tuple<int, int, int>& angle) {
+RotateSihouetteReverse(const Silhouette& silhouette, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
 
   Silhouette rotated_silhouette;
   rotated_silhouette.reserve(silhouette.size());
@@ -61,7 +61,7 @@ RotateSihouette(const Silhouette& silhouette, const tuple<int, int, int>& angle)
     Polygon rotated_polygon;
     rotated_polygon.reserve(polygon.size());
     for (auto& point : polygon) {
-      rotated_polygon.push_back(RotatePointByAngle(point, angle));
+      rotated_polygon.push_back(RotatePointByAngleReverse(point, angle));
     }
     rotated_silhouette.push_back(move(rotated_polygon));
   }
@@ -84,9 +84,9 @@ CalculateBoundsOfPolygon(const Polygon& polygon) {
 }
 
 tuple<double, int, Output>
-CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, int>& angle) {
+CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
 
-  Silhouette rotated_silhouette = RotateSihouette(silhouette, angle);
+  Silhouette rotated_silhouette = RotateSihouetteReverse(silhouette, angle);
 
   // find the first polygon that have positive area
   auto it = find_if(rotated_silhouette.begin(), rotated_silhouette.end(),
@@ -123,21 +123,59 @@ CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, in
   }
 
   output.dest_points = TranslatePolygon(output.dest_points, Point(min_x, min_y));
-  output.dest_points = RotatePolygonReverse(output.dest_points, angle);
+  output.dest_points = RotatePolygon(output.dest_points, angle);
 
   double score = ScoringMonte(input, output, 1000);
   int n_bytes = output.WriteString().size();
   return make_tuple(score, n_bytes, move(output));
 }
 
+vector<tuple<mpq_class, mpq_class, mpq_class>>
+FindRightAngles(const vector<Line>& skeltons) {
+  vector<tuple<mpq_class, mpq_class, mpq_class>> result;
+  for (int i = 0; i < (int)skeltons.size(); ++i) {
+    for (int j = i+1; j < (int)skeltons.size(); ++j) {
+      const Line& line1 = skeltons[i];
+      const Line& line2 = skeltons[j];
+      for (int ii = 0; ii < 2; ++ii) {
+        for (int jj = 0; jj < 2; ++jj) {
+          if (line1[ii] == line2[jj]) {
+            if (dot(line1[1-ii] - line1[ii], line2[1-jj] - line2[jj]) == 0) {
+              mpq_class x = real(line1[1-ii]) - real(line1[ii]);
+              mpq_class y = imag(line1[1-ii]) - imag(line1[ii]);
+              mpq_class z2 = x*x + y*y;
+              mpz_class n2 = z2.get_num() * z2.get_den();
+              mpz_class n = sqrt(n2);
+              if (n*n == n2) {
+                Point p = line1[ii];
+                tuple<mpq_class, mpq_class, mpq_class> angle(
+                    x, y, mpq_class(n, z2.get_den()));
+                result.push_back(angle);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
+
 int main() {
-  Silhouette silhouette = ReadSilhouette();
-  Skeleton skeleton = ReadSkeleton();
+  Input input;
+  input.ReadInput(stdin);
+
+  Silhouette& silhouette = input.silhouettes;
+  vector<Line>& skeleton = input.skeltons;
 
   double max_score = -1;
   int min_n_bytes = -1;
   Output best_output;
   best_output.Init();
+
+  for (auto& angle : FindRightAngles(skeleton)) {
+    angles.push_back(angle);
+  }
 
   for (auto& angle : angles) {
     double score;
