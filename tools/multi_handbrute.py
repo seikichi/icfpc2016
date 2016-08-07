@@ -29,8 +29,8 @@ for initial in sys.argv[1:]:
         input_f.flush()
 
         p = subprocess.Popen([path.join(top_dir, "scoring", "scoring"), input_f.name, solution_f.name],
-                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        s_stdout, _ = p.communicate(hb_stdout)
+                             stdout=subprocess.PIPE)
+        s_stdout, _ = p.communicate()
         if p.returncode !=  0:
             print("Error: scoring ({}) returns {}".format(initial, p.returncode),
                   flush=True, file=sys.stderr)

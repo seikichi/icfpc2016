@@ -151,8 +151,9 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   return make_pair(max_score, move(best_output));
 }
 
-tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>
+vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>>
 FindRightAngles(const vector<Line>& skeltons) {
+  vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>> result;
   for (int i = 0; i < (int)skeltons.size(); ++i) {
     for (int j = 0; j < (int)skeltons.size(); ++j) {
       if (i == j) continue;
@@ -171,7 +172,7 @@ FindRightAngles(const vector<Line>& skeltons) {
                 Point p = line1[ii];
                 tuple<mpq_class, mpq_class, mpq_class> angle(
                     x, y, mpq_class(n, z2.get_den()));
-                return make_tuple(p, ccw(line1[ii], line1[1-ii], line2[1-jj]), angle);
+                result.emplace_back(p, ccw(line1[ii], line1[1-ii], line2[1-jj]), angle);
               }
             }
           }
@@ -179,7 +180,7 @@ FindRightAngles(const vector<Line>& skeltons) {
       }
     }
   }
-  return make_tuple(Point(0, 0), 1, make_tuple(1, 0, 1));
+  return result;
 }
 
 pair<double, Output> Solve(const Input& input, const Output& initial, int max_depth) {
@@ -192,65 +193,83 @@ pair<double, Output> Solve(const Input& input, const Output& initial, int max_de
 
   const vector<Line>& skeltons = input.skeltons;
 
-  Point corner;
-  int ccw_v;
-  tuple<mpq_class, mpq_class, mpq_class> angle;
-  tie(corner, ccw_v, angle) = FindRightAngles(skeltons);
+  double max_score = -1;
+  Output best_output;
 
-  Silhouette silhouette = RotateSihouetteReverse(
-      TranslateSihouette(input.silhouettes, -corner), angle);
-  if (ccw_v == -1) {
-    silhouette = TranslateSihouette(silhouette, Point(0, 1));
-  }
+  vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>> right_angles =
+    FindRightAngles(skeltons);
 
-  vector<Line> skeleton = RotateSkeletonReverse(
-      TranslateSkeleton(input.skeltons, -corner), angle);
-  if (ccw_v == -1) {
-    skeleton = TranslateSkeleton(skeleton, Point(0, 1));
-  }
+  int limit = (max_depth <= 1 ? right_angles.size() : 1);
+  for (int k = 0; k < limit; ++k) {
+    auto& right_angle = right_angles[k];
+    Point corner;
+    int ccw_v;
+    tuple<mpq_class, mpq_class, mpq_class> angle;
+    tie(corner, ccw_v, angle) = right_angle;
 
-  Input transformed_input;
-  transformed_input.silhouettes = silhouette;
-  transformed_input.skeltons = skeleton;
+    Silhouette silhouette = RotateSihouetteReverse(
+        TranslateSihouette(input.silhouettes, -corner), angle);
+    if (ccw_v == -1) {
+      silhouette = TranslateSihouette(silhouette, Point(0, 1));
+    }
 
-  // find the first polygon that have positive area
-  auto it = find_if(silhouette.begin(), silhouette.end(),
-      [](const Polygon& polygon) { return Area(polygon) > 0; });
-  if (it == silhouette.end()) {
-    cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
-    exit(1);
-  }
-  Polygon convex_hull = ConvexHull(*it);
+    vector<Line> skeleton = RotateSkeletonReverse(
+        TranslateSkeleton(input.skeltons, -corner), angle);
+    if (ccw_v == -1) {
+      skeleton = TranslateSkeleton(skeleton, Point(0, 1));
+    }
 
-  vector<Line> convex;
-  for (int i = 0; i < (int)convex_hull.size(); ++i) {
-    convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
-  }
+    Input transformed_input;
+    transformed_input.silhouettes = silhouette;
+    transformed_input.skeltons = skeleton;
 
-  vector<Line> candidates;
-  for (auto& line : skeleton) {
-    bool use = true;
-    for (auto& l : candidates) {
-      if (SameLine(line, l)) {
-        use = false;
-        break;
+    // find the first polygon that have positive area
+    auto it = find_if(silhouette.begin(), silhouette.end(),
+        [](const Polygon& polygon) { return Area(polygon) > 0; });
+    if (it == silhouette.end()) {
+      cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
+      exit(1);
+    }
+    Polygon convex_hull = ConvexHull(*it);
+
+    vector<Line> convex;
+    for (int i = 0; i < (int)convex_hull.size(); ++i) {
+      convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
+    }
+
+    vector<Line> candidates;
+    for (auto& line : skeleton) {
+      bool use = true;
+      for (auto& l : candidates) {
+        if (SameLine(line, l)) {
+          use = false;
+          break;
+        }
+      }
+      if (use) {
+        candidates.push_back(line);
       }
     }
-    if (use) {
-      candidates.push_back(line);
+
+    double score;
+    Output output;
+    tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, max_depth, convex, initial);
+
+    if (ccw_v == -1) {
+      output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
+    }
+    output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
+
+    if (score > max_score) {
+      max_score = score;
+      best_output = move(output);
+      if (score == 1.0) {
+        return make_pair(score, output);
+      }
     }
   }
 
-  double score;
-  Output output;
-  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, max_depth, convex, initial);
-
-  if (ccw_v == -1) {
-    output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
-  }
-  output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
-
-  return make_pair(score, output);
+  return make_pair(max_score, best_output);
 }
 
 int main(int argc, char** argv) {
