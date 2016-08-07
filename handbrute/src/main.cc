@@ -182,12 +182,12 @@ FindRightAngles(const vector<Line>& skeltons) {
   return make_tuple(Point(0, 0), 1, make_tuple(1, 0, 1));
 }
 
-Output Solve(const Input& input, const Output& initial) {
+pair<double, Output> Solve(const Input& input, const Output& initial, int max_depth) {
   if (input.skeltons.size() >= 20) {
     cerr << "Too many lines in skeletone. Give up!!" << endl;
     Output output;
     output.Init();
-    return output;
+    return make_pair(0, output);
   }
 
   const vector<Line>& skeltons = input.skeltons;
@@ -243,27 +243,50 @@ Output Solve(const Input& input, const Output& initial) {
 
   double score;
   Output output;
-  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 3, convex, initial);
+  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, max_depth, convex, initial);
 
   if (ccw_v == -1) {
     output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
   }
   output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
 
-  return output;
+  return make_pair(score, output);
 }
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    cerr << "Usage: handbrute INITIAL_SOLUTION < PROBLEM\n";
+  if (argc != 2 && argc != 3) {
+    cerr << "Usage: handbrute INITIAL_SOLUTION [MAX_DEPTH] < PROBLEM\n";
     exit(1);
   }
 
   Output initial;
   initial.ReadOutput(argv[1]);
 
+  int max_depth = 2;
+  if (argc >= 3) {
+    max_depth = stoi(argv[2]);
+  }
+
   Input input;
   input.ReadInput(stdin);
-  Output output = Solve(input, initial);
-  output.WriteOutput(stdout);
+
+  double max_score = -1;
+  Output best_output;
+
+  for (int i = 0; i < 4; ++i) {
+    double score;
+    Output output;
+    tie(score, output) = Solve(input, initial, max_depth);
+    if (score == 1.0) {
+      best_output = move(output);
+      break;
+    }
+    if (score > max_score) {
+      max_score = score;
+      best_output = move(output);
+    }
+    initial.dest_points = RotatePolygon(initial.dest_points, make_tuple(0, 1, 1));
+  }
+
+  best_output.WriteOutput(stdout);
 }
