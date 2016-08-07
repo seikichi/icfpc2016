@@ -148,7 +148,7 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   return make_pair(max_score, move(best_output));
 }
 
-pair<Point, tuple<mpq_class, mpq_class, mpq_class>>
+tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>
 FindRightAngles(const vector<Line>& skeltons) {
   for (int i = 0; i < (int)skeltons.size(); ++i) {
     for (int j = 0; j < (int)skeltons.size(); ++j) {
@@ -168,7 +168,7 @@ FindRightAngles(const vector<Line>& skeltons) {
                 Point p = line1[ii];
                 tuple<mpq_class, mpq_class, mpq_class> angle(
                     x, y, mpq_class(n, z2.get_den()));
-                return make_pair(p, angle);
+                return make_tuple(p, ccw(line1[ii], line1[1-ii], line2[1-jj]), angle);
               }
             }
           }
@@ -176,7 +176,7 @@ FindRightAngles(const vector<Line>& skeltons) {
       }
     }
   }
-  return make_pair(Point(0, 0), make_tuple(1, 0, 1));
+  return make_tuple(Point(0, 0), 1, make_tuple(1, 0, 1));
 }
 
 Output Solve(const Input& input) {
@@ -190,13 +190,21 @@ Output Solve(const Input& input) {
   const vector<Line>& skeltons = input.skeltons;
 
   Point corner;
+  int ccw_v;
   tuple<mpq_class, mpq_class, mpq_class> angle;
-  tie(corner, angle) = FindRightAngles(skeltons);
+  tie(corner, ccw_v, angle) = FindRightAngles(skeltons);
 
   Silhouette silhouette = RotateSihouetteReverse(
       TranslateSihouette(input.silhouettes, -corner), angle);
+  if (ccw_v == -1) {
+    silhouette = TranslateSihouette(silhouette, Point(0, 1));
+  }
+
   vector<Line> skeleton = RotateSkeletonReverse(
       TranslateSkeleton(input.skeltons, -corner), angle);
+  if (ccw_v == -1) {
+    skeleton = TranslateSkeleton(skeleton, Point(0, 1));
+  }
 
   Input transformed_input;
   transformed_input.silhouettes = silhouette;
@@ -234,6 +242,9 @@ Output Solve(const Input& input) {
   Output output;
   tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
 
+  if (ccw_v == -1) {
+    output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
+  }
   output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
 
   return output;
