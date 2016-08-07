@@ -37,8 +37,9 @@ def main():
             continue
 
         time.sleep(1.5)
-        print('submit problem {}, resemblance {} (before {})'.
+        print('submit problem {} (solver is {}), resemblance {} (before {})'.
               format(problem_id,
+                     problem_result.get('solver_name', 'unknown'),
                      problem_result['resemblance'],
                      old_problem_result.get('resemblance', '[not exist]')),
               file=sys.stderr)
