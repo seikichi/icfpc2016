@@ -116,7 +116,7 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   for (auto it = creases.rbegin(); it != creases.rend(); ++it) {
     curr_output = Fold(curr_output, *it);
   }
-  double curr_score = ScoringMonte(input, curr_output, 1000);
+  double curr_score = ScoringMonte(input, curr_output, 1000, false);
   if (depth == max_depth) {
     return make_pair(curr_score, move(curr_output));
   }

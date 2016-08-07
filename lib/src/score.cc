@@ -17,15 +17,15 @@ mpf_class rnd_next(gmp_randclass *rnd, const mpf_class &l, const mpf_class &r) {
   return rnd_next(rnd, r - l) + l;
 }
 
-double ScoringMonte(const char *input_filename, const char *solution_filename, int cnt) {
+double ScoringMonte(const char *input_filename, const char *solution_filename, int cnt, bool full) {
   Input input;
   Output output;
   input.ReadInput(input_filename);
   output.ReadOutput(solution_filename);
-  return ScoringMonte(input, output, cnt);
+  return ScoringMonte(input, output, cnt, full);
 }
 
-double ScoringMonte(const Input &input, const Output &output, int cnt) {
+double ScoringMonte(const Input &input, const Output &output, int cnt, bool full) {
   if (!output.Validate()) { return 0.0; }
   std::vector<double> min_max_xy;
   {
@@ -60,6 +60,7 @@ double ScoringMonte(const Input &input, const Output &output, int cnt) {
     if (contain_input || contain_output) {
       area_or++;
     }
+    if (!full && area_and != area_or) { break; }
   }
   // std::cout << area_and << " " << area_or << " " << std::endl;
   return (double)area_and / area_or;
