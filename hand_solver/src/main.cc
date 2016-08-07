@@ -71,10 +71,30 @@ int main() {
       outputs.back().WriteOutput(filename.c_str());
       outputs.back().WriteSVGSource((filename + "_source.svg").c_str());
       outputs.back().WriteSVGDest((filename + "_dest.svg").c_str());
+    } else if (command == "load") {
+      string filename;
+      if (!(sin >> filename)) {
+        fprintf(stderr, "Error: load filename\n");
+        goto next;
+      }
+      Output next;
+      if (next.ReadOutput(filename.c_str())) {
+        outputs.clear();
+        outputs.push_back(next);
+        outputs.back().WriteSVGSource("tmp_source.svg");
+        outputs.back().WriteSVGDest("tmp_dest.svg");
+        system("firefox tmp_dest.svg &");
+      } else {
+        fprintf(stderr, "Error: load failed\n");
+        goto next;
+      }
+      // outputs.back().WriteOutput(filename.c_str());
+      // outputs.back().WriteSVGSource((filename + "_source.svg").c_str());
+      // outputs.back().WriteSVGDest((filename + "_dest.svg").c_str());
     } else if (command == "exit" || command == "quit") {
       break;
     } else {
-      fprintf(stderr, "Error: command list = { fold move undo save exit quit  }\n");
+      fprintf(stderr, "Error: command list = { fold move undo save load exit quit  }\n");
     }
 next:;
   }
