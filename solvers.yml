@@ -5,6 +5,10 @@
   setup: cd rectangle ; make
   dependent: [lib, rectangle]
   command: rectangle/rectangle
+- name: multirectangle
+  setup: cd multirectangle ; make
+  dependent: [lib, multirectangle]
+  command: multirectangle/multirectangle
 - name: rotaterectangle
   setup: cd rotaterectangle ; make
   dependent: [lib, rotaterectangle]
