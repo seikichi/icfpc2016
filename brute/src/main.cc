@@ -6,49 +6,8 @@
 #include <tuple>
 using namespace std;
 
-/*
-vector<tuple<int, int, int>> angles = {
-  make_tuple(1, 0, 1),  // 0.000000
-  make_tuple(9940, 141, 9941),  // 0.812692
-  make_tuple(1443, 76, 1445),  // 3.01487
-  make_tuple(8265, 728, 8297),  // 5.03375
-  make_tuple(84, 13, 85),  // 8.79741
-  make_tuple(60, 11, 61),  // 10.3889
-  make_tuple(40, 9, 41),  // 12.6804
-  make_tuple(63, 16, 65),  // 14.25
-  make_tuple(24, 7, 25),  // 16.2602
-  make_tuple(35, 12, 37),  // 18.9246
-  make_tuple(12, 5, 13),  // 22.6199
-  make_tuple(77, 36, 85),  // 25.0576
-  make_tuple(15, 8, 17),  // 28.0725
-  make_tuple(56, 33, 65),  // 30.5102
-  make_tuple(91, 60, 109),  // 33.3985
-  make_tuple(4, 3, 5),  // 36.8699
-  make_tuple(55, 48, 73),  // 41.1121
-  make_tuple(21, 20, 29),  // 43.6028
-  make_tuple(20, 21, 29),  // 46.3972
-  make_tuple(65, 72, 97),  // 47.925
-  make_tuple(48, 55, 73),  // 48.8879
-  make_tuple(3, 4, 5),  // 53.1301
-  make_tuple(60, 91, 109),  // 56.6015
-  make_tuple(28, 45, 53),  // 58.1092
-  make_tuple(8, 15, 17),  // 61.9275
-  make_tuple(39, 80, 89),  // 64.0108
-  make_tuple(5, 12, 13),  // 67.3801
-  make_tuple(12, 35, 37),  // 71.0754
-  make_tuple(7, 24, 25),  // 73.7398
-  make_tuple(16, 63, 65),  // 75.75
-  make_tuple(9, 40, 41),  // 77.3196
-  make_tuple(20, 99, 101),  // 78.5788
-  make_tuple(13, 84, 85),  // 81.2026
-  make_tuple(820, 6699, 6749),  // 83.0214
-  make_tuple(516, 7387, 7405),  // 86.0042
-  make_tuple(141, 9940, 9941),  // 89.1873
-  make_tuple(-1, 0, 1),  // 180
-};
-
 Silhouette
-RotateSihouette(const Silhouette& silhouette, const tuple<int, int, int>& angle) {
+RotateSihouette(const Silhouette& silhouette, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
 
   Silhouette rotated_silhouette;
   rotated_silhouette.reserve(silhouette.size());
@@ -63,6 +22,74 @@ RotateSihouette(const Silhouette& silhouette, const tuple<int, int, int>& angle)
   return rotated_silhouette;
 }
 
+Silhouette
+RotateSihouetteReverse(const Silhouette& silhouette, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
+
+  Silhouette rotated_silhouette;
+  rotated_silhouette.reserve(silhouette.size());
+  for (auto& polygon : silhouette) {
+    Polygon rotated_polygon;
+    rotated_polygon.reserve(polygon.size());
+    for (auto& point : polygon) {
+      rotated_polygon.push_back(RotatePointByAngleReverse(point, angle));
+    }
+    rotated_silhouette.push_back(move(rotated_polygon));
+  }
+  return rotated_silhouette;
+}
+
+
+vector<Line>
+RotateSkeleton(const vector<Line>& skeleton, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
+
+  vector<Line> result;
+  result.reserve(skeleton.size());
+  for (auto& line : skeleton) {
+    result.emplace_back(RotatePointByAngle(line[0], angle),
+                        RotatePointByAngle(line[1], angle));
+  }
+  return result;
+}
+
+vector<Line>
+RotateSkeletonReverse(const vector<Line>& skeleton, const tuple<mpq_class, mpq_class, mpq_class>& angle) {
+
+  vector<Line> result;
+  result.reserve(skeleton.size());
+  for (auto& line : skeleton) {
+    result.emplace_back(RotatePointByAngleReverse(line[0], angle),
+                        RotatePointByAngleReverse(line[1], angle));
+  }
+  return result;
+}
+
+Silhouette
+TranslateSihouette(const Silhouette& silhouette, const Point& offset) {
+
+  Silhouette translated_silhouette;
+  translated_silhouette.reserve(silhouette.size());
+  for (auto& polygon : silhouette) {
+    Polygon translated_polygon;
+    translated_polygon.reserve(polygon.size());
+    for (auto& point : polygon) {
+      translated_polygon.push_back(point + offset);
+    }
+    translated_silhouette.push_back(move(translated_polygon));
+  }
+  return translated_silhouette;
+}
+
+vector<Line>
+TranslateSkeleton(const vector<Line>& skeleton, const Point& offset) {
+  vector<Line> result;
+  result.reserve(skeleton.size());
+  for (auto& line : skeleton) {
+    result.emplace_back(line[0] + offset, line[1] + offset);
+  }
+  return result;
+}
+
+/*
 tuple<mpq_class, mpq_class, mpq_class, mpq_class>
 CalculateBoundsOfPolygon(const Polygon& polygon) {
   mpq_class min_x = polygon[0].real();
@@ -121,6 +148,37 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   return make_pair(max_score, move(best_output));
 }
 
+pair<Point, tuple<mpq_class, mpq_class, mpq_class>>
+FindRightAngles(const vector<Line>& skeltons) {
+  for (int i = 0; i < (int)skeltons.size(); ++i) {
+    for (int j = 0; j < (int)skeltons.size(); ++j) {
+      if (i == j) continue;
+      const Line& line1 = skeltons[i];
+      const Line& line2 = skeltons[j];
+      for (int ii = 0; ii < 2; ++ii) {
+        for (int jj = 0; jj < 2; ++jj) {
+          if (line1[ii] == line2[jj]) {
+            if (dot(line1[1-ii] - line1[ii], line2[1-jj] - line2[jj]) == 0) {
+              mpq_class x = real(line1[1-ii]) - real(line1[ii]);
+              mpq_class y = imag(line1[1-ii]) - imag(line1[ii]);
+              mpq_class z2 = x*x + y*y;
+              mpz_class n2 = z2.get_num() * z2.get_den();
+              mpz_class n = sqrt(n2);
+              if (n*n == n2) {
+                Point p = line1[ii];
+                tuple<mpq_class, mpq_class, mpq_class> angle(
+                    x, y, mpq_class(n, z2.get_den()));
+                return make_pair(p, angle);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return make_pair(Point(0, 0), make_tuple(1, 0, 1));
+}
+
 Output Solve(const Input& input) {
   if (input.skeltons.size() >= 20) {
     cerr << "Too many lines in skeletone. Give up!!" << endl;
@@ -129,10 +187,25 @@ Output Solve(const Input& input) {
     return output;
   }
 
+  const vector<Line>& skeltons = input.skeltons;
+
+  Point corner;
+  tuple<mpq_class, mpq_class, mpq_class> angle;
+  tie(corner, angle) = FindRightAngles(skeltons);
+
+  Silhouette silhouette = RotateSihouetteReverse(
+      TranslateSihouette(input.silhouettes, -corner), angle);
+  vector<Line> skeleton = RotateSkeletonReverse(
+      TranslateSkeleton(input.skeltons, -corner), angle);
+
+  Input transformed_input;
+  transformed_input.silhouettes = silhouette;
+  transformed_input.skeltons = skeleton;
+
   // find the first polygon that have positive area
-  auto it = find_if(input.silhouettes.begin(), input.silhouettes.end(),
+  auto it = find_if(silhouette.begin(), silhouette.end(),
       [](const Polygon& polygon) { return Area(polygon) > 0; });
-  if (it == input.silhouettes.end()) {
+  if (it == silhouette.end()) {
     cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
     exit(1);
   }
@@ -144,7 +217,7 @@ Output Solve(const Input& input) {
   }
 
   vector<Line> candidates;
-  for (auto& line : input.skeltons) {
+  for (auto& line : skeleton) {
     bool use = true;
     for (auto& l : candidates) {
       if (SameLine(line, l)) {
@@ -159,7 +232,9 @@ Output Solve(const Input& input) {
 
   double score;
   Output output;
-  tie(score, output) = Dfs(input, vector<Line>(), candidates, 0, 2, convex);
+  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
+
+  output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
 
   return output;
 }
