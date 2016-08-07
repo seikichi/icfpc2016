@@ -52,9 +52,9 @@ int main(int argc, char** argv) {
   }
   int angle_index = stoi(argv[1]);
   auto& angle = angles.at(angle_index);
-  int offset_x = stoll(argv[2]);
-  int offset_y = stoll(argv[3]);
-  Point offset(mpq_class(offset_x, 1), mpq_class(offset_y, 1));
+  mpq_class offset_x = mpq_class(argv[2]);
+  mpq_class offset_y = mpq_class(argv[3]);
+  Point offset(offset_x, offset_y);  
 
   Output output;
   output.ReadOutput(stdin);
