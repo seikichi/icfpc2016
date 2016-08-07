@@ -121,6 +121,13 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
 }
 
 Output Solve(const Input& input) {
+  if (input.skeltons.size() >= 20) {
+    cerr << "Too many lines in skeletone. Give up!!" << endl;
+    Output output;
+    output.Init();
+    return output;
+  }
+
   double score;
   Output output;
   tie(score, output) = Dfs(input, vector<Line>(), input.skeltons, 0, 2);

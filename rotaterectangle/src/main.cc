@@ -168,7 +168,10 @@ pair<double, Output> CreateSolutionAndEvaluate(
     }
   }
 
-  double score = ScoringMonte(input, output, 1000);
+  double score = 0.0;
+  if ((int)output.WriteString().size() <= 5000) {
+    score = ScoringMonte(input, output, 1000);
+  }
   return make_pair(score, move(output));
 }
 
@@ -176,14 +179,14 @@ int main() {
   Silhouette silhouette = ReadSilhouette();
   Skeleton skeleton = ReadSkeleton();
 
-  double max_score = -1;
+  double max_score = 1e-10;
   Output output;
   output.Init();
   for (auto& angle : angles) {
     for (auto& scale_x : scales) {
       for (auto& scale_y : scales) {
         auto p = CreateSolutionAndEvaluate(silhouette, skeleton, angle, scale_x, scale_y);
-        if (p.first > max_score && (int)p.second.WriteString().size() < 5000) {
+        if (p.first > max_score) {
           max_score = p.first;
           output = move(p.second);
           if (max_score == 1.0) { goto end; }
