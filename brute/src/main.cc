@@ -4,7 +4,6 @@
 #include "fold.h"
 #include <iostream>
 #include <tuple>
-#include "xor_shift.h"
 using namespace std;
 
 Silhouette
@@ -140,8 +139,6 @@ CalculateBoundsOfPolygon(const Polygon& polygon) {
 }
 */
 
-Random xor_shift;
-
 // TODO: 富豪的すぎるのでなんとかしたい
 pair<double, Output>
 Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
@@ -170,7 +167,6 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
       vector<Line> new_candidates(candidates);
       for (auto& l : candidates) {
         if (l == line) continue;
-        if (xor_shift.next(10*(depth+1)*(depth+1)) == 0)
         new_candidates.push_back(reflection(line, l));
       }
       double score;
@@ -259,7 +255,7 @@ Output Solve(const Input& input) {
 
     double score;
     Output output;
-    tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 4, convex);
+    tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
 
     if (ccw_v == -1) {
       output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
