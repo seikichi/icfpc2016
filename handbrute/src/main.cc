@@ -180,6 +180,7 @@ FindRightAngles(const vector<Line>& skeltons) {
       }
     }
   }
+  result.emplace_back(Point(0, 0), 0, make_tuple(1, 0, 1));
   return result;
 }
 
