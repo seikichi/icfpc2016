@@ -12,7 +12,7 @@ def main():
         solutions = json.load(f)
 
     problems = solutions['problems']
-    perfect_problem_ids = [pid for (pid, r) in problems.items() if abs(r['resemblance'] - 1.0) < 1e-9]
+    perfect_problem_ids = [int(pid) for (pid, r) in problems.items() if abs(r['resemblance'] - 1.0) < 1e-9]
     print(json.dumps(perfect_problem_ids))
 
 if __name__ == '__main__':
