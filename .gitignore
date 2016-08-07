@@ -13,3 +13,5 @@ tmp
 
 # for python
 __pycache__
+
+gmon.out
