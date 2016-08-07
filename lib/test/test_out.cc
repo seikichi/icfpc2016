@@ -9,6 +9,13 @@ TEST(StrFraction, WithoutSlash) {
   EXPECT_EQ(mpq_class(2,1).get_str(), "2");
 }
 
+TEST(Validation, SmallFacet) {
+  Output output;
+  output.Init();
+  output.facet_indecies.push_back({0, 1});
+  EXPECT_EQ(false, output.Validate());
+}
+
 TEST(WriteOutput, ShouldSameOutput) {
   Output output1, output2;
   output1.ReadOutput("./test/files/sample.out");

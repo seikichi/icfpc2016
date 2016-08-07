@@ -108,6 +108,12 @@ bool Output::Validate() const {
       }
     }
   }
+  for (int i = 0; i < (int)facet_indecies.size(); i++) {
+    if ((int)facet_indecies[i].size() < 3) {
+      fprintf(stderr, "Invalid solution spec: facet size is less than 3 (index: %d)\n", i);
+      ret = false;
+    }
+  }
   if (WriteString().size() > 5000) {
     fprintf(stderr, "Invalid solution spec: Output size is larger than 5000B.\n");
     ret = false;
