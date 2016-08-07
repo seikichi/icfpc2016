@@ -16,6 +16,9 @@ int main(int argc, char* argv[]) {
   const char* input_filename = argv[1];
   const char* output_filename = argv[2];
   double ans = ScoringMonte(input_filename, output_filename, MONTE_COUNT);
+  Output output;
+  output.ReadOutput(output_filename);
+  output.Validate(true);
   fprintf(stdout, "%.6f\n", ans);
   return 0;
 }

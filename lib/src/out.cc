@@ -103,25 +103,31 @@ std::string Output::WriteString() const {
   }
   return ret;
 }
-bool Output::Validate() const {
+bool Output::Validate(bool verbose) const {
   bool ret = true;
   for (int i = 0; i < (int)source_points.size(); i++) {
     for (int j = 0; j < i; j++) {
       if (source_points[i] == source_points[j]) {
-        fprintf(stderr, "Invalid solution spec: duplicate source point %d %d.\n", i, j);
-        std::cerr << source_points[i] << std::endl;
+        if (verbose) {
+          fprintf(stderr, "Invalid solution spec: duplicate source point %d %d.\n", i, j);
+          std::cerr << source_points[i] << std::endl;
+        }
         ret = false;
       }
     }
   }
   for (int i = 0; i < (int)facet_indecies.size(); i++) {
     if ((int)facet_indecies[i].size() < 3) {
-      fprintf(stderr, "Invalid solution spec: facet size is less than 3 (index: %d)\n", i);
+      if (verbose) {
+        fprintf(stderr, "Invalid solution spec: facet size is less than 3 (index: %d)\n", i);
+      }
       ret = false;
     }
   }
   if (WriteString().size() > 5000) {
-    fprintf(stderr, "Invalid solution spec: Output size is larger than 5000B.\n");
+    if (verbose) {
+      fprintf(stderr, "Invalid solution spec: Output size is larger than 5000B.\n");
+    }
     ret = false;
   }
   return ret;
