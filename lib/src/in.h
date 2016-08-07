@@ -19,5 +19,6 @@ struct Input {
   void MakeSilhouettesD(const Point &offset) const;
   bool ContainSilhouette(const PointD &p) const;
   mutable std::vector<PolygonD> silhouettes_d; // 向きを正規化して入れる
+  mutable std::vector<std::vector<double>> silhouettes_rects;
   mutable std::vector<char> flip_flags;
 };

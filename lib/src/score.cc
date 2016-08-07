@@ -1,5 +1,6 @@
 #include "score.h"
 
+#include "xor_shift.h"
 #include <gmpxx.h>
 
 mpf_class mpq2mpf(const mpq_class &q) {
@@ -23,7 +24,7 @@ double ScoringMonte(const char *input_filename, const char *solution_filename, i
 }
 
 double ScoringMonte(const Input &input, const Output &output, int cnt) {
-  std::vector<mpf_class> min_max_xy;
+  std::vector<double> min_max_xy;
   {
     std::vector<mpq_class> min_max_xy1 = input.MinMaxXY();
     std::vector<mpq_class> min_max_xy2 = output.MinMaxXY();
@@ -35,18 +36,18 @@ double ScoringMonte(const Input &input, const Output &output, int cnt) {
     input.MakeSilhouettesD(Point(min_max_xy1[0], min_max_xy1[1]));
     output.MakeFacetD(Point(min_max_xy1[0], min_max_xy1[1]));
 
-    min_max_xy.push_back(mpq2mpf(min_max_xy1[0] - min_max_xy1[0]));
-    min_max_xy.push_back(mpq2mpf(min_max_xy1[1] - min_max_xy1[1]));
-    min_max_xy.push_back(mpq2mpf(min_max_xy1[2] - min_max_xy1[0]));
-    min_max_xy.push_back(mpq2mpf(min_max_xy1[3] - min_max_xy1[1]));
+    min_max_xy.push_back(mpq2mpf(min_max_xy1[0] - min_max_xy1[0]).get_d());
+    min_max_xy.push_back(mpq2mpf(min_max_xy1[1] - min_max_xy1[1]).get_d());
+    min_max_xy.push_back(mpq2mpf(min_max_xy1[2] - min_max_xy1[0]).get_d());
+    min_max_xy.push_back(mpq2mpf(min_max_xy1[3] - min_max_xy1[1]).get_d());
   }
 
-  gmp_randclass rnd(gmp_randinit_default);
+  Random rnd(12356789);
   int area_and = 0;
   int area_or = 0;
   for (int i = 0; i < cnt; i++) {
-    double x = rnd_next(&rnd, min_max_xy[0], min_max_xy[2]).get_d();
-    double y = rnd_next(&rnd, min_max_xy[1], min_max_xy[3]).get_d();
+    double x = rnd.next(min_max_xy[0], min_max_xy[2]);
+    double y = rnd.next(min_max_xy[1], min_max_xy[3]);
     PointD p(x, y);
     bool contain_input = input.ContainSilhouette(p);
     bool contain_output = output.ContainFacet(p);

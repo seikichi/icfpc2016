@@ -82,12 +82,19 @@ void Input::MakeSilhouettesD(const Point &offset) const {
   int n = silhouettes.size();
   silhouettes_d.resize(n);
   flip_flags.resize(n);
+  silhouettes_rects.resize(n);
   for (int i = 0; i < n; i++) {
     int m = silhouettes[i].size();
     silhouettes_d[i].resize(m);
+    std::vector<double> rect = { 1e+10, 1e+10, -1e+10, -1e+10 };
     for (int j = 0; j < m; j++) {
       silhouettes_d[i][j] = mpq2d(silhouettes[i][j] - offset);
+      rect[0] = std::min(rect[0], silhouettes_d[i][j].real());
+      rect[1] = std::min(rect[1], silhouettes_d[i][j].imag());
+      rect[2] = std::max(rect[2], silhouettes_d[i][j].real());
+      rect[3] = std::max(rect[3], silhouettes_d[i][j].imag());
     }
+    silhouettes_rects[i] = rect;
     flip_flags[i] = Area(silhouettes_d[i]) < 0;
     if (flip_flags[i]) {
       reverse(silhouettes_d[i].begin(), silhouettes_d[i].end());
@@ -97,10 +104,13 @@ void Input::MakeSilhouettesD(const Point &offset) const {
 bool Input::ContainSilhouette(const PointD &p) const {
   bool ret = false;
   for (int i = 0; i < (int)silhouettes_d.size(); i++) {
+    const auto &rect = silhouettes_rects[i];
     const auto &silhouette_d = silhouettes_d[i];
-    bool contain = Contains(silhouette_d, p) == ContainResult::IN;
-    if (flip_flags[i] && contain) { return false; }
-    if (contain) { ret = true; }
+    if (rect[0] < p.real() && p.real() < rect[2] && rect[1] < p.imag() && p.imag() < rect[3]) {
+      bool contain = Contains(silhouette_d, p) == ContainResult::IN;
+      if (flip_flags[i] && contain) { return false; }
+      if (contain) { ret = true; }
+    }
   }
   return ret;
 }
