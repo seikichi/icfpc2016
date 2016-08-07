@@ -107,7 +107,7 @@ CreateSolutionAndEvaluate(const Silhouette& silhouette, const tuple<int, int, in
   output.Init();
 
   Polygon convex_hull = TranslatePolygon(original_convex_hull, Point(-min_x, -min_y));
-  for (int i = 0, last_updated = -1; ; i = (i+1) % convex_hull.size()) {
+  for (int i = 0, last_updated = -1, count = 0; count < 1000; i = (i+1) % convex_hull.size(), ++count) {
     const Point& curr = convex_hull[i];
     const Point& next = convex_hull[(i+1)%convex_hull.size()];
     size_t n_source_points = output.source_points.size();
