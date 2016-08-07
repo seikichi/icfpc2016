@@ -50,7 +50,10 @@ def main():
                 print('resemblance may be wrong: our {}, but got {}'.
                       format(problem_result['resemblance'], result['resemblance']), file=sys.stderr)
         except:
-            print('Unexpected error: {}'.format(sys.exc_info()[0]), file=sys.stderr)
+            t, m, s = sys.exc_info()
+            print('Unexpected error: problem_id={}, {}, {}'.format(problem_id, t, m),
+                  file=sys.stderr, flush=True)
+            del merged_problems[problem_id]
 
     merged = new_result.copy()
     merged['problems'] = merged_problems

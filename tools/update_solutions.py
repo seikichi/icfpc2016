@@ -17,7 +17,8 @@ def solve(arg):
     problem_id = int(re.sub('\.in$', '', input_path.name))
 
     print('Processing problem_id = {} ({}, {} / {})'.
-          format(problem_id, solver_path, index + 1, n_total), file=sys.stderr)
+          format(problem_id, solver_path, index + 1, n_total),
+          file=sys.stderr, flush=True)
 
     resemblance = float('nan')
     solution = None
@@ -33,7 +34,9 @@ def solve(arg):
             output = subprocess.check_output(command, shell=True)
             resemblance = float(output)
         except:
-            print('Unexpected error:', sys.exc_info()[0], file=sys.stderr)
+            t, m, s = sys.exc_info()
+            print('Unexpected error: problem_id={}, {}, {}'.format(problem_id, t, m),
+                  file=sys.stderr, flush=True)
 
     return problem_id, resemblance, solution
 
