@@ -19,7 +19,15 @@ def main():
     merged = new_result.copy()
     merged_problems = {}
 
+    our_problem_ids = set()
+    with open('ourproblem/test_id.txt') as f:
+        for line in f:
+            problem_id = line.strip().split()[-1]
+            our_problem_ids.add(problem_id)
+
     for problem_id, problem_result in new_result['problems'].items():
+        if problem_id in our_problem_ids:
+            continue
         merged_problems[problem_id] = problem_result
         old_problem_result = old_result['problems'].get(problem_id, {})
 

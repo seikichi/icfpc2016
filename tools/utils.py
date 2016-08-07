@@ -50,6 +50,8 @@ def _request_with_retry(req):
             with request.urlopen(req) as response:
                 return gzip.decompress(response.read())
         except HTTPError as e:
+            if e.code == 403:
+                raise e
             if e.code == 429:
                 print('Got too many request error, wait 5 seconds...',
                       file=sys.stderr)
