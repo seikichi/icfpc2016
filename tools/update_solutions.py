@@ -113,9 +113,7 @@ def main():
     if current_solution is not None:
         current_problems = current_solution['problems']
         for problem_id, result in problems.items():
-            if (problem_id not in current_problems or
-                result['resemblance'] >= current_problems[problem_id]['resemblance']):
-                current_problems[problem_id] = result
+            current_problems[problem_id] = result
     else:
         current_problems = problems
 
