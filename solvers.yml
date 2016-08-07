@@ -23,5 +23,5 @@
   command: brute/brute
 - name: multi_handbrute
   setup: cd handbrute ; make clean ; make
-  dependent: [handbrute, scoring/src, lib/src, tools/update_solutions.py, tools/multi_handbrute.py]
-  command: tools/multi_handbrute.py hand_solution/eight.out:2 hand_solution/sixteen.out:2 hand_solution/four.out:2 hand_solution/*.out
+  dependent: [handbrute, scoring/src, lib/src, tools/update_solutions.py, tools/multi_handbrute.py, solvers.yml]
+  command: tools/multi_handbrute.py hand_solution/eight.out:1 hand_solution/sixteen.out:1 hand_solution/four.out:1 hand_solution/*.out
