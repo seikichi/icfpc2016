@@ -137,7 +137,7 @@ Output Solve(const Input& input) {
 
   double score;
   Output output;
-  tie(score, output) = Dfs(input, vector<Line>(), candidates, 0, 3);
+  tie(score, output) = Dfs(input, vector<Line>(), candidates, 0, 2);
 
   return output;
 }
