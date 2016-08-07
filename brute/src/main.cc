@@ -243,7 +243,7 @@ Output Solve(const Input& input) {
 
   double score;
   Output output;
-  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
+  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 3, convex);
 
   if (ccw_v == -1) {
     output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));

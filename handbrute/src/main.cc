@@ -292,25 +292,22 @@ int main(int argc, char** argv) {
   double max_score = -1;
   Output best_output;
 
-  for (int j = 0; j < 2; ++j) {
-    for (int i = 0; i < 4; ++i) {
-      double score;
-      Output output;
-      tie(score, output) = Solve(input, initial, max_depth);
-      if (score == 1.0) {
-        best_output = move(output);
-        break;
-      }
-      if (score > max_score) {
-        max_score = score;
-        best_output = move(output);
-      }
-      initial.dest_points = RotatePolygon(initial.dest_points, make_tuple(0, 1, 1));
+  for (int i = 0; i < 4; ++i) {
+    double score;
+    Output output;
+    tie(score, output) = Solve(input, initial, max_depth);
+    if (score == 1.0) {
+      best_output = move(output);
+      break;
     }
-    // flip
-    for (auto& point : initial.dest_points) {
-      point.real() = 1 - point.real();
+    if (score > max_score) {
+      max_score = score;
+      best_output = move(output);
     }
+    Point half(mpq_class(1, 2), mpq_class(1, 2));
+    initial.dest_points = TranslatePolygon(
+        RotatePolygon(TranslatePolygon(initial.dest_points, -half), make_tuple(0, 1, 1)),
+        half);
   }
 
   best_output.WriteOutput(stdout);
