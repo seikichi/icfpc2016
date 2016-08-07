@@ -89,6 +89,39 @@ TranslateSkeleton(const vector<Line>& skeleton, const Point& offset) {
   return result;
 }
 
+vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>>
+FindRightAngles(const vector<Line>& skeltons) {
+  vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>> result;
+  for (int i = 0; i < (int)skeltons.size(); ++i) {
+    for (int j = i+1; j < (int)skeltons.size(); ++j) {
+      const Line& line1 = skeltons[i];
+      const Line& line2 = skeltons[j];
+      for (int ii = 0; ii < 2; ++ii) {
+        for (int jj = 0; jj < 2; ++jj) {
+          if (line1[ii] == line2[jj]) {
+            if (dot(line1[1-ii] - line1[ii], line2[1-jj] - line2[jj]) == 0) {
+              mpq_class x = real(line1[1-ii]) - real(line1[ii]);
+              mpq_class y = imag(line1[1-ii]) - imag(line1[ii]);
+              mpq_class z2 = x*x + y*y;
+              mpz_class n2 = z2.get_num() * z2.get_den();
+              mpz_class n = sqrt(n2);
+              if (n*n == n2) {
+                Point p = line1[ii];
+                tuple<mpq_class, mpq_class, mpq_class> angle(
+                    x, y, mpq_class(n, z2.get_den()));
+                result.emplace_back(p, ccw(line1[ii], line1[1-ii], line2[1-jj]), angle);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  result.emplace_back(Point(0, 0), 0, make_tuple(1, 0, 1));
+  return result;
+}
+
+
 /*
 tuple<mpq_class, mpq_class, mpq_class, mpq_class>
 CalculateBoundsOfPolygon(const Polygon& polygon) {
@@ -151,37 +184,6 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   return make_pair(max_score, move(best_output));
 }
 
-tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>
-FindRightAngles(const vector<Line>& skeltons) {
-  for (int i = 0; i < (int)skeltons.size(); ++i) {
-    for (int j = 0; j < (int)skeltons.size(); ++j) {
-      if (i == j) continue;
-      const Line& line1 = skeltons[i];
-      const Line& line2 = skeltons[j];
-      for (int ii = 0; ii < 2; ++ii) {
-        for (int jj = 0; jj < 2; ++jj) {
-          if (line1[ii] == line2[jj]) {
-            if (dot(line1[1-ii] - line1[ii], line2[1-jj] - line2[jj]) == 0) {
-              mpq_class x = real(line1[1-ii]) - real(line1[ii]);
-              mpq_class y = imag(line1[1-ii]) - imag(line1[ii]);
-              mpq_class z2 = x*x + y*y;
-              mpz_class n2 = z2.get_num() * z2.get_den();
-              mpz_class n = sqrt(n2);
-              if (n*n == n2) {
-                Point p = line1[ii];
-                tuple<mpq_class, mpq_class, mpq_class> angle(
-                    x, y, mpq_class(n, z2.get_den()));
-                return make_tuple(p, ccw(line1[ii], line1[1-ii], line2[1-jj]), angle);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  return make_tuple(Point(0, 0), 1, make_tuple(1, 0, 1));
-}
-
 Output Solve(const Input& input) {
   if (input.skeltons.size() >= 20) {
     cerr << "Too many lines in skeletone. Give up!!" << endl;
@@ -192,65 +194,84 @@ Output Solve(const Input& input) {
 
   const vector<Line>& skeltons = input.skeltons;
 
-  Point corner;
-  int ccw_v;
-  tuple<mpq_class, mpq_class, mpq_class> angle;
-  tie(corner, ccw_v, angle) = FindRightAngles(skeltons);
+  vector<tuple<Point, int, tuple<mpq_class, mpq_class, mpq_class>>> right_angles =
+    FindRightAngles(skeltons);
 
-  Silhouette silhouette = RotateSihouetteReverse(
-      TranslateSihouette(input.silhouettes, -corner), angle);
-  if (ccw_v == -1) {
-    silhouette = TranslateSihouette(silhouette, Point(0, 1));
-  }
+  double max_score = -1;
+  Output best_output;
 
-  vector<Line> skeleton = RotateSkeletonReverse(
-      TranslateSkeleton(input.skeltons, -corner), angle);
-  if (ccw_v == -1) {
-    skeleton = TranslateSkeleton(skeleton, Point(0, 1));
-  }
+  int limit = 10;
+  for (auto& right_angle : right_angles) {
+    if (--limit == 0)
+      break;
+    Point corner;
+    int ccw_v;
+    tuple<mpq_class, mpq_class, mpq_class> angle;
+    tie(corner, ccw_v, angle) = right_angle;
 
-  Input transformed_input;
-  transformed_input.silhouettes = silhouette;
-  transformed_input.skeltons = skeleton;
+    Silhouette silhouette = RotateSihouetteReverse(
+        TranslateSihouette(input.silhouettes, -corner), angle);
+    if (ccw_v == -1) {
+      silhouette = TranslateSihouette(silhouette, Point(0, 1));
+    }
 
-  // find the first polygon that have positive area
-  auto it = find_if(silhouette.begin(), silhouette.end(),
-      [](const Polygon& polygon) { return Area(polygon) > 0; });
-  if (it == silhouette.end()) {
-    cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
-    exit(1);
-  }
-  Polygon convex_hull = ConvexHull(*it);
+    vector<Line> skeleton = RotateSkeletonReverse(
+        TranslateSkeleton(input.skeltons, -corner), angle);
+    if (ccw_v == -1) {
+      skeleton = TranslateSkeleton(skeleton, Point(0, 1));
+    }
 
-  vector<Line> convex;
-  for (int i = 0; i < (int)convex_hull.size(); ++i) {
-    convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
-  }
+    Input transformed_input;
+    transformed_input.silhouettes = silhouette;
+    transformed_input.skeltons = skeleton;
 
-  vector<Line> candidates;
-  for (auto& line : skeleton) {
-    bool use = true;
-    for (auto& l : candidates) {
-      if (SameLine(line, l)) {
-        use = false;
-        break;
+    // find the first polygon that have positive area
+    auto it = find_if(silhouette.begin(), silhouette.end(),
+        [](const Polygon& polygon) { return Area(polygon) > 0; });
+    if (it == silhouette.end()) {
+      cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
+      exit(1);
+    }
+    Polygon convex_hull = ConvexHull(*it);
+
+    vector<Line> convex;
+    for (int i = 0; i < (int)convex_hull.size(); ++i) {
+      convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
+    }
+
+    vector<Line> candidates;
+    for (auto& line : skeleton) {
+      bool use = true;
+      for (auto& l : candidates) {
+        if (SameLine(line, l)) {
+          use = false;
+          break;
+        }
+      }
+      if (use) {
+        candidates.push_back(line);
       }
     }
-    if (use) {
-      candidates.push_back(line);
+
+    double score;
+    Output output;
+    tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
+
+    if (ccw_v == -1) {
+      output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
+    }
+    output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
+
+    if (score > max_score) {
+      max_score = score;
+      best_output = move(output);
+      if (score == 1.0) {
+        return best_output;
+      }
     }
   }
 
-  double score;
-  Output output;
-  tie(score, output) = Dfs(transformed_input, vector<Line>(), candidates, 0, 2, convex);
-
-  if (ccw_v == -1) {
-    output.dest_points = TranslatePolygon(output.dest_points, Point(0, -1));
-  }
-  output.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), corner);
-
-  return output;
+  return best_output;
 }
 
 int main() {
