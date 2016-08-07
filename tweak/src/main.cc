@@ -3,6 +3,7 @@
 #include "geometry.h"
 #include <iostream>
 #include <tuple>
+#include <string>
 using namespace std;
 
 vector<tuple<int, int, int>> angles = {
@@ -44,16 +45,18 @@ vector<tuple<int, int, int>> angles = {
 };
 
 int main(int argc, char** argv) {
-  if (argc != 4) {
-    cerr << "Usage: tweak ANGLE_INDEX OFFSET_X OFFSET_Y\n";
+  if (argc != 5) {
+    cerr << "Usage: tweak ANGLE_INDEX DIRECTION OFFSET_X OFFSET_Y\n";
     cerr << "Read solution from STDDIN and write tweaked solution to STDOUT.\n";
+    cerr << "DIRECTION is 'FORWARD' or 'REVERSE'.\n";
     cerr << "OFFSET_X and OFFSET_Y are 32-bit integers.\n";
     exit(1);
   }
   int angle_index = stoi(argv[1]);
   auto& angle = angles.at(angle_index);
-  mpq_class offset_x = mpq_class(argv[2]);
-  mpq_class offset_y = mpq_class(argv[3]);
+  string direction = argv[2];
+  mpq_class offset_x = mpq_class(argv[3]);
+  mpq_class offset_y = mpq_class(argv[4]);
   Point offset(offset_x, offset_y);  
 
   Output output;
@@ -62,6 +65,11 @@ int main(int argc, char** argv) {
   Output tweaked;
   tweaked.source_points = output.source_points;
   tweaked.facet_indecies = output.facet_indecies;
-  tweaked.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), offset);
+
+  if (direction == "REVERSE") {
+    tweaked.dest_points = TranslatePolygon(RotatePolygonReverse(output.dest_points, angle), offset);
+  } else {
+    tweaked.dest_points = TranslatePolygon(RotatePolygon(output.dest_points, angle), offset);
+  }
   tweaked.WriteOutput(stdout);
 }
