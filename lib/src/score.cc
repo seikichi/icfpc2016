@@ -24,6 +24,7 @@ double ScoringMonte(const char *input_filename, const char *solution_filename, i
 }
 
 double ScoringMonte(const Input &input, const Output &output, int cnt) {
+  if (output.WriteString().size() > 5000) { return 0.0; }
   std::vector<double> min_max_xy;
   {
     std::vector<mpq_class> min_max_xy1 = input.MinMaxXY();

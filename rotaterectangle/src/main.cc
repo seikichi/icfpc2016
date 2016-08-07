@@ -178,17 +178,20 @@ int main() {
 
   double max_score = -1;
   Output output;
+  output.Init();
   for (auto& angle : angles) {
     for (auto& scale_x : scales) {
       for (auto& scale_y : scales) {
         auto p = CreateSolutionAndEvaluate(silhouette, skeleton, angle, scale_x, scale_y);
-        if (p.first > max_score) {
+        if (p.first > max_score && (int)p.second.WriteString().size() < 5000) {
           max_score = p.first;
           output = move(p.second);
+          if (max_score == 1.0) { goto end; }
         }
       }
     }
   }
+end:;
 
   output.WriteOutput(stdout);
 }
