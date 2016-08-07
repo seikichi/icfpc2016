@@ -4,6 +4,13 @@
 #include <iostream>
 using namespace std;
 
+TEST(Reflection, Line) {
+  Line l(Point(mpq_class(0, 1), mpq_class(1, 2)), Point(mpq_class(1, 1), mpq_class(1, 2)));
+  Line s(Point(mpq_class(1, 2), mpq_class(0, 1)), Point(mpq_class(1, 2), mpq_class(1, 3)));
+  Line ref = reflection(l, s);
+  EXPECT_EQ(Line(Point(mpq_class(1, 2), mpq_class(1, 1)), Point(mpq_class(1, 2), mpq_class(2, 3))), ref);
+}
+
 TEST(ConvexCut, Easy) {
   //  ------
   //  |    | <= rest 

@@ -58,6 +58,11 @@ inline Point reflection(const Line &l, const Point &p) {
   return p + mpq_class(2,1) * (projection(l, p) - p);
 }
 
+// sをlで反射する
+inline Line reflection(const Line &l, const Line &s) {
+  return Line(reflection(l, s[0]), reflection(l, s[1]));
+}
+
 inline Point crosspointLL(const Line &l, const Line &m) {
   mpq_class A = cross(l[1] - l[0], m[1] - m[0]);
   mpq_class B = cross(l[1] - l[0], l[1] - m[0]);
