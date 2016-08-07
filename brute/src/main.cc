@@ -216,7 +216,7 @@ Output Solve(const Input& input) {
     convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
   }
 
-  vector<Line> candidates(convex);
+  vector<Line> candidates;
   for (auto& line : skeleton) {
     bool use = true;
     for (auto& l : candidates) {
