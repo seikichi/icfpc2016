@@ -39,8 +39,8 @@ int ccw(const std::complex<T> &a, std::complex<T> b, std::complex<T> c) {
   c -= a;
   if (cross(b, c) > 0) { return 1; }
   if (cross(b, c) < 0) { return -1; }
-  if (dot(b, c) < 0) { return 2; }
-  if (norm(b) < norm(c)) { return -2; }
+  //if (dot(b, c) < 0) { return 2; }
+  //if (norm(b) < norm(c)) { return -2; }
   return 0;
 }
 

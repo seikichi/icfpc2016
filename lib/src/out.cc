@@ -73,26 +73,29 @@ bool Output::WriteOutput(FILE *file) const {
   return Validate();
 }
 std::string Output::WriteString() const {
-  std::stringstream sout;
+  std::string ret;
   // source positions part
-  sout << source_points.size() << std::endl;
+  ret += std::to_string(source_points.size()) + "\n";
   for (auto &p : source_points) {
-    sout << p.real().get_str() << "," << p.imag().get_str() << std::endl;
+    ret += p.real().get_str() + "," + p.imag().get_str() + "\n";
+    if (ret.size() > 5000) { return ret; }
   }
   // facets part
-  sout << facet_indecies.size() << std::endl;
+  ret += std::to_string(facet_indecies.size()) + "\n";
   for (auto &facets : facet_indecies) {
-    sout << facets.size();
+    ret += std::to_string(facets.size());
     for (int index : facets) {
-      sout << " " << index;
+      ret += " " + std::to_string(index);
+      if (ret.size() > 5000) { return ret; }
     }
-    sout << std::endl;
+    ret += "\n";
   }
   // destination positions part
   for (auto &p : dest_points) {
-    sout << p.real().get_str() << "," << p.imag().get_str() << std::endl;
+    ret += p.real().get_str() + "," + p.imag().get_str() + "\n";
+    if (ret.size() > 5000) { return ret; }
   }
-  return sout.str();
+  return ret;
 }
 bool Output::Validate() const {
   bool ret = true;
