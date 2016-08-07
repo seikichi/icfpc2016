@@ -11,7 +11,7 @@ max_score = -1.0
 best_output = None
 
 for initial in sys.argv[1:]:
-    depth = 2
+    depth = 0
     if ':' in initial:
         initial, depth_str = initial.split(':')
         depth = int(depth_str)
