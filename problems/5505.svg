@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
 <g transform="scale(1, -1)">
-<path d="M-1.375000 1.375000 L-0.875000 1.375000 L-0.875000 1.875000 L-1.375000 2.375000 z " fill="rgb(245,195,195)" />
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
-<line x1="-1.375" y1="1.375" x2="-1.375" y2="2.375" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-0.875" y1="1.375" x2="-0.875" y2="1.875" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-0.875" y1="1.375" x2="-1.375" y2="1.875" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-0.875" y1="1.875" x2="-1.375" y2="2.375" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-1.375" y1="1.375" x2="-0.875" y2="1.875" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-1.375" y1="1.375" x2="-0.875" y2="1.375" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="-1.375" y1="1.875" x2="-0.875" y2="1.875" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<path d="M-0.250000 -0.375000 L0.250000 -0.375000 L0.250000 0.125000 L-0.250000 0.625000 z " fill="rgb(245,195,195)" />
+<path d="M1.125000 -1.750000 L2.125000 -1.750000 L2.125000 -0.750000 L1.125000 -0.750000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="-0.25" y1="-0.375" x2="-0.25" y2="0.625" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.25" y1="-0.375" x2="0.25" y2="0.125" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.25" y1="-0.375" x2="-0.25" y2="0.125" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.25" y1="0.125" x2="-0.25" y2="0.625" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.25" y1="-0.375" x2="0.25" y2="0.125" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.25" y1="-0.375" x2="0.25" y2="-0.375" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.25" y1="0.125" x2="0.25" y2="0.125" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 </g>
 </svg>
