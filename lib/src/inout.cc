@@ -5,7 +5,8 @@
 
 std::string ReadDigits(FILE *file) {
   std::string ret;
-  fscanf(file, " ");
+  int v = fscanf(file, " ");
+  assert(v == 0);
   while (true) {
     int c = getc(file);
     assert(c >= 0);
