@@ -59,7 +59,8 @@ def _request_with_retry(req):
                 continue
             print('HTTP Error: {}'.format(e.read().decode('utf-8')),
                   file=sys.stderr)
-            raise e
+            if i >= retry:
+                raise e
 
     raise RuntimeError('Failed to use ICFPC API ... ({} times retried)'.format(retry))
 
