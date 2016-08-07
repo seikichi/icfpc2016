@@ -20,7 +20,7 @@ def solve(arg):
           format(problem_id, solver_path, index + 1, n_total),
           file=sys.stderr, flush=True)
 
-    resemblance = float('nan')
+    resemblance = 0.0
     solution = None
 
     with tempfile.NamedTemporaryFile() as temp:
