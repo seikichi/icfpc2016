@@ -121,23 +121,9 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
 }
 
 Output Solve(const Input& input) {
-  // find the first polygon that have positive area
-  auto it = find_if(input.silhouettes.begin(), input.silhouettes.end(),
-      [](const Polygon& polygon) { return Area(polygon) > 0; });
-  if (it == input.silhouettes.end()) {
-    cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
-    exit(1);
-  }
-  Polygon convex_hull = ConvexHull(*it);
-
-  vector<Line> candidates;
-  for (int i = 0; i < (int)convex_hull.size(); ++i) {
-    candidates.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
-  }
-
   double score;
   Output output;
-  tie(score, output) = Dfs(input, vector<Line>(), candidates, 0, 2);
+  tie(score, output) = Dfs(input, vector<Line>(), input.skeltons, 0, 2);
 
   return output;
 }
