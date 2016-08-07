@@ -82,7 +82,7 @@ CalculateBoundsOfPolygon(const Polygon& polygon) {
 // TODO: 富豪的すぎるのでなんとかしたい
 pair<double, Output>
 Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
-    int depth, int max_depth) {
+    int depth, int max_depth, const vector<Line>& convex) {
   // calculate current score
   Output curr_output;
   curr_output.Init();
@@ -96,7 +96,8 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
   // choose a line from candidates and call Dfs
   double max_score = curr_score;
   Output best_output = move(curr_output);
-  for (auto& line : candidates) {
+  const vector<Line>& cands = (depth == 0) ? convex : candidates;
+  for (auto line : cands) {
     for (int dir = 0; dir < 2; ++dir) {
       if (dir == 1) {
         line = Line(line[1], line[0]);
@@ -110,7 +111,7 @@ Dfs(const Input& input, vector<Line> creases, vector<Line> candidates,
       }
       double score;
       Output output;
-      tie(score, output) = Dfs(input, new_creases, new_candidates, depth+1, max_depth);
+      tie(score, output) = Dfs(input, new_creases, new_candidates, depth+1, max_depth, convex);
       if (score > max_score) {
         max_score = score;
         best_output = move(output);
@@ -128,9 +129,23 @@ Output Solve(const Input& input) {
     return output;
   }
 
+  // find the first polygon that have positive area
+  auto it = find_if(input.silhouettes.begin(), input.silhouettes.end(),
+      [](const Polygon& polygon) { return Area(polygon) > 0; });
+  if (it == input.silhouettes.end()) {
+    cerr << "Could not find the polygon with positive area. Maybe BUG!\n";
+    exit(1);
+  }
+  Polygon convex_hull = ConvexHull(*it);
+
+  vector<Line> convex;
+  for (int i = 0; i < (int)convex_hull.size(); ++i) {
+    convex.emplace_back(convex_hull[i], convex_hull[(i+1)%convex_hull.size()]);
+  }
+
   double score;
   Output output;
-  tie(score, output) = Dfs(input, vector<Line>(), input.skeltons, 0, 2);
+  tie(score, output) = Dfs(input, vector<Line>(), input.skeltons, 0, 2, convex);
 
   return output;
 }
