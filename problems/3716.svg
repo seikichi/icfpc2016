@@ -1,46 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
 <g transform="scale(1, -1)">
-<path d="M9.386667 7.210000 L9.566667 7.450000 L9.556667 7.520000 L9.626667 7.530000 L9.386667 7.710000 L9.316667 7.700000 L9.306667 7.770000 L9.126667 7.530000 L9.136667 7.460000 L9.066667 7.450000 L9.306667 7.270000 L9.376667 7.280000 z " fill="rgb(245,195,195)" />
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
-<line x1="9.38667" y1="7.21" x2="9.56667" y2="7.45" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.30667" y1="7.27" x2="9.42667" y2="7.43" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.22667" y1="7.33" x2="9.46667" y2="7.65" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.26667" y1="7.55" x2="9.38667" y2="7.71" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.12667" y1="7.53" x2="9.30667" y2="7.77" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.50667" y1="7.37" x2="9.54667" y2="7.59" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.44667" y1="7.29" x2="9.48667" y2="7.51" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.42667" y1="7.43" x2="9.46667" y2="7.65" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.36667" y1="7.35" x2="9.40667" y2="7.57" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.28667" y1="7.41" x2="9.32667" y2="7.63" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.22667" y1="7.33" x2="9.26667" y2="7.55" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.20667" y1="7.47" x2="9.24667" y2="7.69" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.14667" y1="7.39" x2="9.18667" y2="7.61" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.14667" y1="7.39" x2="9.12667" y2="7.53" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.22667" y1="7.33" x2="9.18667" y2="7.61" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.28667" y1="7.41" x2="9.24667" y2="7.69" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.38667" y1="7.21" x2="9.30667" y2="7.77" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.44667" y1="7.29" x2="9.40667" y2="7.57" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.50667" y1="7.37" x2="9.46667" y2="7.65" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.56667" y1="7.45" x2="9.54667" y2="7.59" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.30667" y1="7.27" x2="9.44667" y2="7.29" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.22667" y1="7.33" x2="9.50667" y2="7.37" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.14667" y1="7.39" x2="9.42667" y2="7.43" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.06667" y1="7.45" x2="9.62667" y2="7.53" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.26667" y1="7.55" x2="9.54667" y2="7.59" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.18667" y1="7.61" x2="9.46667" y2="7.65" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.24667" y1="7.69" x2="9.38667" y2="7.71" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.44667" y1="7.29" x2="9.22667" y2="7.33" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.36667" y1="7.35" x2="9.14667" y2="7.39" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.50667" y1="7.37" x2="9.28667" y2="7.41" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.42667" y1="7.43" x2="9.20667" y2="7.47" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.48667" y1="7.51" x2="9.26667" y2="7.55" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.40667" y1="7.57" x2="9.18667" y2="7.61" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.54667" y1="7.59" x2="9.32667" y2="7.63" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.46667" y1="7.65" x2="9.24667" y2="7.69" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.30667" y1="7.27" x2="9.06667" y2="7.45" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.28667" y1="7.41" x2="9.12667" y2="7.53" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.50667" y1="7.37" x2="9.18667" y2="7.61" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.56667" y1="7.45" x2="9.40667" y2="7.57" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="9.62667" y1="7.53" x2="9.38667" y2="7.71" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<path d="M0.040000 -0.280000 L0.220000 -0.040000 L0.210000 0.030000 L0.280000 0.040000 L0.040000 0.220000 L-0.030000 0.210000 L-0.040000 0.280000 L-0.220000 0.040000 L-0.210000 -0.030000 L-0.280000 -0.040000 L-0.040000 -0.220000 L0.030000 -0.210000 z " fill="rgb(245,195,195)" />
+<path d="M-9.346667 -7.490000 L-8.346667 -7.490000 L-8.346667 -6.490000 L-9.346667 -6.490000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="0.04" y1="-0.28" x2="0.22" y2="-0.04" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.04" y1="-0.22" x2="0.08" y2="-0.06" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.12" y1="-0.16" x2="0.12" y2="0.16" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.08" y1="0.06" x2="0.04" y2="0.22" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.22" y1="0.04" x2="-0.04" y2="0.28" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.16" y1="-0.12" x2="0.2" y2="0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.1" y1="-0.2" x2="0.14" y2="0.02" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.08" y1="-0.06" x2="0.12" y2="0.16" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.02" y1="-0.14" x2="0.06" y2="0.08" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.06" y1="-0.08" x2="-0.02" y2="0.14" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.12" y1="-0.16" x2="-0.08" y2="0.06" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.14" y1="-0.02" x2="-0.1" y2="0.2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.2" y1="-0.1" x2="-0.16" y2="0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.2" y1="-0.1" x2="-0.22" y2="0.04" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.12" y1="-0.16" x2="-0.16" y2="0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.06" y1="-0.08" x2="-0.1" y2="0.2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.04" y1="-0.28" x2="-0.04" y2="0.28" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.1" y1="-0.2" x2="0.06" y2="0.08" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.16" y1="-0.12" x2="0.12" y2="0.16" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.22" y1="-0.04" x2="0.2" y2="0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.04" y1="-0.22" x2="0.1" y2="-0.2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.12" y1="-0.16" x2="0.16" y2="-0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.2" y1="-0.1" x2="0.08" y2="-0.06" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.28" y1="-0.04" x2="0.28" y2="0.04" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.08" y1="0.06" x2="0.2" y2="0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.16" y1="0.12" x2="0.12" y2="0.16" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.1" y1="0.2" x2="0.04" y2="0.22" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.1" y1="-0.2" x2="-0.12" y2="-0.16" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.02" y1="-0.14" x2="-0.2" y2="-0.1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.16" y1="-0.12" x2="-0.06" y2="-0.08" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.08" y1="-0.06" x2="-0.14" y2="-0.02" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.14" y1="0.02" x2="-0.08" y2="0.06" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.06" y1="0.08" x2="-0.16" y2="0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.2" y1="0.1" x2="-0.02" y2="0.14" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.12" y1="0.16" x2="-0.1" y2="0.2" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.04" y1="-0.22" x2="-0.28" y2="-0.04" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.06" y1="-0.08" x2="-0.22" y2="0.04" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.16" y1="-0.12" x2="-0.16" y2="0.12" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.22" y1="-0.04" x2="0.06" y2="0.08" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.28" y1="0.04" x2="0.04" y2="0.22" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 </g>
 </svg>

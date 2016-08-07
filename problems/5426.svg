@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
 <g transform="scale(1, -1)">
-<path d="M5.467800 7.233292 L6.447800 7.233292 L6.447800 8.213292 L5.467800 8.213292 z " fill="rgb(245,195,195)" />
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
-<line x1="5.4678" y1="7.23329" x2="5.4678" y2="8.21329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="5.4778" y1="7.23329" x2="5.4778" y2="8.21329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="6.4378" y1="7.23329" x2="6.4378" y2="8.21329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="6.4478" y1="7.23329" x2="6.4478" y2="8.21329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="5.4678" y1="7.23329" x2="6.4478" y2="7.23329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="5.4678" y1="7.24329" x2="6.4478" y2="7.24329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="5.4678" y1="8.20329" x2="6.4478" y2="8.20329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="5.4678" y1="8.21329" x2="6.4478" y2="8.21329" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<path d="M-0.490000 -0.490000 L0.490000 -0.490000 L0.490000 0.490000 L-0.490000 0.490000 z " fill="rgb(245,195,195)" />
+<path d="M-5.957800 -7.723292 L-4.957800 -7.723292 L-4.957800 -6.723292 L-5.957800 -6.723292  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="-0.49" y1="-0.49" x2="-0.49" y2="0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.48" y1="-0.49" x2="-0.48" y2="0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.48" y1="-0.49" x2="0.48" y2="0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.49" y1="-0.49" x2="0.49" y2="0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49" y1="-0.49" x2="0.49" y2="-0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49" y1="-0.48" x2="0.49" y2="-0.48" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49" y1="0.48" x2="0.49" y2="0.48" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.49" y1="0.49" x2="0.49" y2="0.49" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 </g>
 </svg>

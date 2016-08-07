@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.5 -1.5 3 3">
 <g transform="scale(1, -1)">
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.486725 1.000000 L0.000000 0.163701 z " fill="rgb(245,195,195)" />
-<path d="M0.000000 0.000000 L1.000000 0.000000 L1.000000 1.000000 L0.000000 1.000000  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
-<line x1="0" y1="0" x2="1" y2="0" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0" x2="0" y2="0.163701" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="1" y1="0" x2="1" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0.163701" x2="0.486725" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0" y1="0.163701" x2="0.727148" y2="0.576801" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0.727148" y1="0.576801" x2="0.486725" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
-<line x1="0.486725" y1="1" x2="1" y2="1" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<path d="M-0.497345 -0.432740 L0.502655 -0.432740 L0.502655 0.567260 L-0.010620 0.567260 L-0.497345 -0.269040 z " fill="rgb(245,195,195)" />
+<path d="M-0.497345 -0.432740 L0.502655 -0.432740 L0.502655 0.567260 L-0.497345 0.567260  z" fill="none" stroke="rgb(128,128,128)" stroke-width="0.01" />
+<line x1="-0.497345" y1="-0.43274" x2="0.502655" y2="-0.43274" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.497345" y1="-0.43274" x2="-0.497345" y2="-0.26904" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.502655" y1="-0.43274" x2="0.502655" y2="0.56726" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.497345" y1="-0.26904" x2="-0.0106204" y2="0.56726" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.497345" y1="-0.26904" x2="0.229803" y2="0.144061" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="0.229803" y1="0.144061" x2="-0.0106204" y2="0.56726" style="stroke:rgb(246,147,147);stroke-width:0.01" />
+<line x1="-0.0106204" y1="0.56726" x2="0.502655" y2="0.56726" style="stroke:rgb(246,147,147);stroke-width:0.01" />
 </g>
 </svg>
