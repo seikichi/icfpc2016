@@ -264,7 +264,7 @@ pair<double, Output> Solve(const Input& input, const Output& initial, int max_de
       max_score = score;
       best_output = move(output);
       if (score == 1.0) {
-        return make_pair(score, output);
+        return make_pair(max_score, best_output);
       }
     }
   }
